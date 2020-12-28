@@ -167,22 +167,33 @@ table, .regCandidates {
     border-left: 2px solid black;
     border-right: 2px solid black;
 }
-.indivCandidate:not(:last-child) {
-    border-top: 2px solid black;
-}
-.indivCandidate:not(:first-child) {
+.indivCandidate {
     border-bottom: 2px solid black;
 }
+.indivCandidate:first-child {
+    border-top: 2px solid black;
+}
+/* .indivCandidate:not(:first-child) {
+    border-top: 2px solid black;
+} */
 .indent {
     margin-left: 5px;
 }
 .bold {
     font-weight: bold;
 }
-.writebox {
+.container .writebox {
     position: relative;
     opacity: 100;
     cursor: pointer;
-    height: intial;
+    height: initial;
     width: initial;
+}
+.writebox {
+    margin-left: 5px;
+    border: none;
+    border-bottom: 1px solid gray;
+}
+p {
+    font-size: 20px;
 }

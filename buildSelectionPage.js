@@ -66,12 +66,13 @@ const choiceHtml = `<td><span>{ORDINAL} <span class="{CLASS_NAME}">Choice</span>
 
 const candidateRowHtml = `<tr>{CANDIDATE} {OVALS}</tr>`
 
-const candidateHtml = `<td class="candidate-name">{CANDIDATE_NAME}<p>{CANDIDATE_SUBTITLE}</p></td>`
+const candidateHtml = `<td class="candidate-name"><p class="bold">{CANDIDATE_NAME}</p>
+        <p class="indent">{CANDIDATE_SUBTITLE}</p></td>`
 
 const writeinHtml = `
           <td class="writein-name">
-              <label for="{INPUT_ID}">Write-in: </label>
-              <input type="text" id="{INPUT_ID}" aria-label="write-in" disabled>
+              <label for="{INPUT_ID}"><p class="bold">Write-in: </p></label>
+              <input type="text" id="{INPUT_ID}" aria-label="write-in" class="writebox" readonly>
           </td>`
 
 const ovalHtml = `
