@@ -146,7 +146,7 @@ function rankChoiceHandler(event) {
         if (savedWriteinName != '') {
             otherCandidateName = 'Write-in Candidate: ' + savedWriteinName
         }
-        const confirmed = confirm(`You are trying to make a selection for ${ordinal} choice but \n\n${otherCandidateName}\n\n is already selected. Would you like change your ${ordinal} choice to: \n\n${selectedCandidateName}?`)
+        const confirmed = confirm(`You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like change your ${ordinal} choice to: \n${selectedCandidateName}?`)
         if(confirmed) {
             for (let id of candidateSelections) {
                 document.getElementById(id).checked = false

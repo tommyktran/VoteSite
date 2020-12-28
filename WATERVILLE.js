@@ -362,7 +362,7 @@ const ballot = {
       contestType: "Q",
       questionText: "Shall the City of Waterville approve the Charter revision recommended by the Charter Commission? Vote Yes or No",
       voteFor: 1,
-      votingInstructions: "",
+      votingInstructions: "Vote Yes or No",
       candidates: [
         {
           candidateName: "Yes",

@@ -176,7 +176,7 @@ table, .regCandidates {
     border-top: 2px solid black;
 } */
 .indent {
-    margin-left: 5px;
+    margin-left: 10px;
 }
 .bold {
     font-weight: bold;
@@ -195,4 +195,17 @@ table, .regCandidates {
 }
 p {
     font-size: 20px;
+}
+
+.contestName {
+    font-size: 26px;
+}
+
+.contestSubtitle {
+    font-size: 24px;
+}
+
+.votingInstructions {
+    font-size: 22px;
+    font-weight: normal;
 }

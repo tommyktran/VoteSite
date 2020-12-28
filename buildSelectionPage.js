@@ -1,8 +1,8 @@
 const rcRaceHtml = `
   <hr />
-  <h3 id="contest_{CONTEST_INDEX}">{CONTEST_NAME}</h3>
-  <h4>{CONTEST_SUBTITLE}</h4>
-  <h4>{VOTING_INSTRUCTIONS}</h4>
+  <h3 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h3>
+  <h4 class="contestSubtitle">{CONTEST_SUBTITLE}</h4>
+  <h4 class="votingInstructions">{VOTING_INSTRUCTIONS}</h4>
   <table aria-label="{CONTEST_NAME}" class="{CLASS_NAME}">
       {HEADER_ROW}
       {CANDIDATE_ROWS}
@@ -12,9 +12,9 @@ const rcRaceHtml = `
 const qRaceHtml = `
   <hr />
   <div class="questionDiv">
-  <h3 id="contest_{CONTEST_INDEX}">{CONTEST_NAME}</h3>
-  <h4>{CONTEST_SUBTITLE}</h4>
-  <h4>{VOTING_INSTRUCTIONS}</h4>
+  <h3 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h3>
+  <h4 class="contestSubtitle">{CONTEST_SUBTITLE}</h4>
+  <h4 class="votingInstructions">{VOTING_INSTRUCTIONS}</h4>
   <p class="question">{QUESTION_TEXT}</p>
   <div class="questionOptionsDiv">
     {QUESTION_OPTIONS}
@@ -24,9 +24,9 @@ const qRaceHtml = `
 
 const rRaceHtml = `
   <hr />
-  <h3 id="contest_{CONTEST_INDEX}">{CONTEST_NAME}</h3>
-  <h4>{CONTEST_SUBTITLE}</h4>
-  <h4>{VOTING_INSTRUCTIONS}</h4>
+  <h3 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h3>
+  <h4 class="contestSubtitle">{CONTEST_SUBTITLE}</h4>
+  <h4 class="votingInstructions">{VOTING_INSTRUCTIONS}</h4>
   <div class="regCandidates">
     {CANDIDATES}
   </div>
