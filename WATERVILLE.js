@@ -366,10 +366,17 @@ const ballot = {
       candidates: [
         {
           candidateName: "Yes",
+          candidateCode: "",
           selected: 0
         },
         {
           candidateName: "No",
+          candidateCode: "",
+          selected: 0
+        },
+        {
+          candidateName: "Maybe",
+          candidateCode: "",
           selected: 0
         }
       ]

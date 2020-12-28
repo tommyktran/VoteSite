@@ -180,7 +180,6 @@ function getCandidateName(ovalId) {
     } else {
         name = candidate.candidateName + ', ' + candidate.candidateSubtitle
     }
-    
     if (name.includes('&quot;')) {
         name = name.replace(/&quot;/g, '"')
     }

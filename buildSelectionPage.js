@@ -1,6 +1,7 @@
 const rcRaceHtml = `
   <hr />
   <h3 id="contest_{CONTEST_INDEX}">{CONTEST_NAME}</h3>
+  <h4>{CONTEST_SUBTITLE}</h4>
   <h4>{VOTING_INSTRUCTIONS}</h4>
   <table aria-label="{CONTEST_NAME}" class="{CLASS_NAME}">
       {HEADER_ROW}
@@ -12,6 +13,7 @@ const qRaceHtml = `
   <hr />
   <div class="questionDiv">
   <h3 id="contest_{CONTEST_INDEX}">{CONTEST_NAME}</h3>
+  <h4>{CONTEST_SUBTITLE}</h4>
   <h4>{VOTING_INSTRUCTIONS}</h4>
   <p class="question">{QUESTION_TEXT}</p>
   <div class="questionOptionsDiv">
@@ -23,6 +25,7 @@ const qRaceHtml = `
 const rRaceHtml = `
   <hr />
   <h3 id="contest_{CONTEST_INDEX}">{CONTEST_NAME}</h3>
+  <h4>{CONTEST_SUBTITLE}</h4>
   <h4>{VOTING_INSTRUCTIONS}</h4>
   <div class="regCandidates">
     {CANDIDATES}
@@ -53,9 +56,9 @@ const candidateRegWriteIn = `
   `
 const questionOption = `
   <div class="questionOption">
-    <label>
+    <label class="container candidateLabel">
       <input id="{OVAL_ID}" type="checkbox" aria-label="{OPTION_ARIA_LABEL}">
-      <span></span>{OPTION_NAME}
+      <span class="checkmark ballotCheckbox"></span><p class="bold">{OPTION_NAME}</p>
     </label>
   </div>
 `
@@ -97,6 +100,7 @@ function buildRegRace(race, raceIndex) {
   let txt = rRaceHtml
     .replace('{CONTEST_INDEX}', raceIndex)
     .replace(/{CONTEST_NAME}/g, race.contestName)
+    .replace(/{CONTEST_SUBTITLE}/g, race.contestSubtitle)
     .replace('{VOTING_INSTRUCTIONS}', race.votingInstructions)
     .replace('{VOTE_LIMIT}', race.voteFor)
     .replace(/{CANDIDATES}/g, buildRegCandidates(race, raceIndex))
@@ -149,6 +153,7 @@ function buildQuestionRace(race, raceIndex) {
   let txt = qRaceHtml
     .replace('{CONTEST_INDEX}', raceIndex)
     .replace(/{CONTEST_NAME}/g, race.contestName)
+    .replace(/{CONTEST_SUBTITLE}/g, race.contestSubtitle)
     .replace('{VOTING_INSTRUCTIONS}', race.votingInstructions)
     .replace('{QUESTION_TEXT}', race.questionText.replace(/\\n/g, '<br>'))
     .replace(/{CONTEST_INDEX}/g, raceIndex)
@@ -162,6 +167,7 @@ function buildRankChoiceRace(race, raceIndex) {
   let txt = rcRaceHtml
     .replace('{CONTEST_INDEX}', raceIndex)
     .replace(/{CONTEST_NAME}/g, race.contestName)
+    .replace(/{CONTEST_SUBTITLE}/g, race.contestSubtitle)
     .replace(/{CLASS_NAME}/g, cls)
     .replace('{VOTING_INSTRUCTIONS}', race.votingInstructions)
     .replace('{HEADER_ROW}', buildHeaderRow(choices, cls))

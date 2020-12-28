@@ -1,11 +1,12 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
 }
 table,
 td {
-    border: 1px solid black;
+    border: 2px solid black;
     border-collapse: collapse;
     margin-bottom: 40px;
     font-size: 20px;
@@ -14,10 +15,6 @@ td {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-}
-
-table {
-    width: 800px;
 }
 
 .header-row {
@@ -49,7 +46,7 @@ h1, h2, h3, h4 {
 table, .regCandidates {
     margin-top: 10px;
 }
-.regCandidates, .questionDiv {
+.regCandidates, .questionDiv, table {
     width: 800px;
     margin: 0 auto;
     margin-bottom: 20px;
@@ -100,19 +97,21 @@ table, .regCandidates {
     background-color: black;
 }
 
+
 .container input:focus~.checkmark {
     box-shadow: 0 0 2px 1px dodgerblue;
 }
 
 /* styling for text-area housing the question to be voted on*/
 .question {
-    border: 1px solid black;
+    border: 2px solid black;
     background-color: #e6e9ed;
     padding: 10px;
     font-size: 18px;
-    margin: 4% auto;
-    width: 80%;
+    margin-top: 10px;
+    width: 100%;
     line-height: 1cm;
+    border-bottom: none;
 }
 
 /* wrapper styling for yes-no in question-type poll*/
@@ -147,7 +146,7 @@ table, .regCandidates {
     display: flex;
     flex-direction: row;
 }
-.indivCandidate .checkmark {
+.indivCandidate .checkmark, .questionOption .checkmark {
     position: absolute;
     right: 0;
 }
@@ -162,15 +161,15 @@ table, .regCandidates {
     margin-bottom: 5px;
     padding-bottom: 5px;
 } */
-.indivCandidate {
+.indivCandidate, .questionOption {
     padding: 5px;
     border-left: 2px solid black;
     border-right: 2px solid black;
 }
-.indivCandidate {
+.indivCandidate, .questionOption {
     border-bottom: 2px solid black;
 }
-.indivCandidate:first-child {
+.indivCandidate:first-child, .questionOptionsDiv {
     border-top: 2px solid black;
 }
 /* .indivCandidate:not(:first-child) {

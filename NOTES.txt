@@ -1,8 +1,12 @@
 consider adding an alert box to voteMax
 consider refactoring a method used by questionhandler and regularhandler to clearallvotesexcept
 consider alertbox for when the writeins are cleared and deselected b/c of a voteFor 1 and rank choices
+if using images, use an image -> html css art converter 
 
 To-Do:
 -check NVDA and JAWS for readonly textbox w/ writeins
 -js only modifies double quotes (") and line breaks <br> for candidate names
--need to handle writeboxes for rank choices
+
+-check oval in rank choice when cell is clicked
+
+-
