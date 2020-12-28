@@ -1,0 +1,8 @@
+consider adding an alert box to voteMax
+consider refactoring a method used by questionhandler and regularhandler to clearallvotesexcept
+consider alertbox for when the writeins are cleared and deselected b/c of a voteFor 1 and rank choices
+
+To-Do:
+-check NVDA and JAWS for readonly textbox w/ writeins
+-js only modifies double quotes (") and line breaks <br> for candidate names
+-need to handle writeboxes for rank choices
