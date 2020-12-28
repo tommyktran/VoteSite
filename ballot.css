@@ -209,3 +209,14 @@ p {
     font-size: 22px;
     font-weight: normal;
 }
+
+.bigbox {
+    padding: 20px 30px;
+  }
+
+ol {
+    padding-left: 40px;
+}
+.reviewPage div {
+    border: 3px solid black;
+}
