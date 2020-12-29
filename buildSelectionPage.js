@@ -38,8 +38,8 @@ const candidateRegLine = `
       <input type="checkbox" id="{OVAL_ID}" aria-label="{CANDIDATE_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
       <div class="candidateNameDiv">
-      <p class="bold">{CANDIDATE_NAME}</p>
-      <p class="indent">{CANDIDATE_SUBTITLE}</p>
+      <p class="candidateName">{CANDIDATE_NAME}</p>
+      <p class="candidateSubtitle">{CANDIDATE_SUBTITLE}</p>
       </div>
     </label>
   </div>
@@ -49,7 +49,7 @@ const candidateRegWriteIn = `
   <div class="indivCandidate">
     <label class="container candidateLabel">
       <input type="checkbox" id="{OVAL_ID}" aria-label="{WRITEIN_ARIA_LABEL}">
-      <span class="checkmark ballotCheckbox"></span><p class="bold">Write-in:</p>
+      <span class="checkmark ballotCheckbox"></span><p class="candidateName">Write-in:</p>
       <input id="{OVAL_ID}_w" type="text" class="writebox" readonly>
       </label>
   </div>
@@ -58,7 +58,7 @@ const questionOption = `
   <div class="questionOption">
     <label class="container candidateLabel">
       <input id="{OVAL_ID}" type="checkbox" aria-label="{OPTION_ARIA_LABEL}">
-      <span class="checkmark ballotCheckbox"></span><p class="bold">{OPTION_NAME}</p>
+      <span class="checkmark ballotCheckbox"></span><p class="candidateName">{CANDIDATE_NAME}</p>
     </label>
   </div>
 `
@@ -69,12 +69,12 @@ const choiceHtml = `<td><span>{ORDINAL} <span class="{CLASS_NAME}">Choice</span>
 
 const candidateRowHtml = `<tr>{CANDIDATE} {OVALS}</tr>`
 
-const candidateHtml = `<td class="candidate-name"><p class="bold">{CANDIDATE_NAME}</p>
-        <p class="indent">{CANDIDATE_SUBTITLE}</p></td>`
+const candidateHtml = `<td class="candidate-name"><p class="candidateName">{CANDIDATE_NAME}</p>
+        <p class="candidateSubtitle">{CANDIDATE_SUBTITLE}</p></td>`
 
 const writeinHtml = `
           <td class="writein-name">
-              <label for="{INPUT_ID}"><p class="bold">Write-in: </p></label>
+              <label for="{INPUT_ID}"><p class="candidateName">Write-in: </p></label>
               <input type="text" id="{INPUT_ID}" aria-label="write-in" class="writebox" readonly>
           </td>`
 
@@ -131,7 +131,7 @@ function buildQuestionOptions(race, raceIndex) {
   let txt = ''
   race.candidates.forEach((candidate, candidateIndex) => {
       txt += questionOption
-        .replace(/{OPTION_NAME}/g, candidate.candidateName)
+        .replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
         .replace('{OVAL_ID}', raceIndex + '_' + candidateIndex)
         .replace('{OPTION_ARIA_LABEL}', buildOptionAriaLabel(raceIndex, candidateIndex))
   })

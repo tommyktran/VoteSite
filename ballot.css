@@ -173,12 +173,16 @@ table, .regCandidates {
 /* .indivCandidate:not(:first-child) {
     border-top: 2px solid black;
 } */
-.indent {
-    margin-left: 10px;
+
+
+.candidateName {
+    font-weight: 600;
 }
-.bold {
-    font-weight: bold;
+
+.candidateSubtitle {
+    margin-left: 14px
 }
+
 .container .writebox {
     position: relative;
     opacity: 100;
