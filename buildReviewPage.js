@@ -1,5 +1,5 @@
-const selectedVote = `<center>{CANDIDATE_NAME}</center>`
-const rankedVote = `<center>{RANK} choice: {CANDIDATE_NAME}</center>`
+const selectedVote = `{CANDIDATE_NAME}`
+const rankedVote = `{RANK} choice: {CANDIDATE_NAME}`
 const reviewContestHtml = `
 <a href="#contest_{REVIEW_ID}">
   <div class="reviewContestHeader">
@@ -34,7 +34,7 @@ function syncSelectedVotesToBallotData() {
     return ballot
 }
 
-function doneBtnHandler(event) {
+function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData();
     const reviewPage = document.getElementById("review")
     const selectionPage = document.getElementById('selection')

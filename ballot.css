@@ -219,7 +219,7 @@ p {
 ol {
     padding-left: 40px;
 }
-.reviewPage div {
+.affidavitPage div {
     border: 3px solid black;
 }
 
@@ -229,3 +229,7 @@ td > .container {
     align-items: center;
     justify-content: center;
 }
+
+/* start styles for ReviewPage */
+
+/* end styles for ReviewPage */
