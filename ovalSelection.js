@@ -178,13 +178,12 @@ function getCandidateName(ovalId) {
         const writeinBox = document.getElementById(split[0] + '_' + split[1] + '_w')
         name = 'Write-in Candidate: ' + writeinBox.value
     } else {
-        name = candidate.candidateName + ', ' + candidate.candidateSubtitle
+        const candidateName = candidate.candidateName.replace(/<br>/g, ' and ')
+        const candidateSubtitle = candidate.candidateSubtitle.replace(/<br>/g, ' ')
+        name = candidateName + ', ' + candidateSubtitle
     }
     if (name.includes('&quot;')) {
         name = name.replace(/&quot;/g, '"')
-    }
-    if (name.includes('<br>')) {
-        name = name.replace(/<br>/g, ' and ')
     }
     return name
 }
