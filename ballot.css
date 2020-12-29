@@ -80,8 +80,8 @@ table, .regCandidates {
 /* Create a custom checkbox */
 .checkmark {
     display: inline-block;
-    height: 14px;
-    width: 20px;
+    height: 18px;
+    width: 28px;
     border: 2px solid black;
     border-radius: 50%;
     background-color: white;
@@ -135,8 +135,6 @@ table, .regCandidates {
 .checkmark.ballotCheckbox {
     margin-right: 10px;
     display: inline-block;
-    height: 14px;
-    width: 20px;
     border: 2px solid black;
     border-radius: 50%;
     background-color: white;
