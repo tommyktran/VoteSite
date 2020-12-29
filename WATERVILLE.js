@@ -76,25 +76,25 @@ const ballot = {
       votingInstructions: "Rank Choices by Preference",
       candidates: [{
         candidateName: "Collins, Susan Margaret",
-        candidateSubtitle: "Bangor <br>Republican</br>",
+        candidateSubtitle: "Bangor<br>Republican",
         candidateCode: "",
         selected: 0
       },
       {
         candidateName: "Gideon, Sara I.",
-        candidateSubtitle: "Freeport <br>Democratic</br>",
+        candidateSubtitle: "Freeport<br>Democratic",
         candidateCode: "",
         selected: 0
       },
       {
         candidateName: "Linn, Max Patrick",
-        candidateSubtitle: "Bar Harbor <br>Independent</br>",
+        candidateSubtitle: "Bar Harbor<br>Independent",
         candidateCode: "",
         selected: 0
       },
       {
         candidateName: "Savage, Lisa",
-        candidateSubtitle: "Solon<br>Independent</br>",
+        candidateSubtitle: "Solon<br>Independent",
         candidateCode: "",
         selected: 0
       },
@@ -114,13 +114,13 @@ const ballot = {
       votingInstructions: "Rank Choices by Preference",
       candidates: [{
         candidateName: "Allen, Jay T.",
-        candidateSubtitle: "Bristol<br>Republican</br>",
+        candidateSubtitle: "Bristol<br>Republican",
         candidateCode: "",
         selected: 0
       },
       {
         candidateName: "Pingree, Chellie M.",
-        candidateSubtitle: "North Haven<br>Democratic</br>",
+        candidateSubtitle: "North Haven<br>Democratic",
         candidateCode: "",
         selected: 0
       },
