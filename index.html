@@ -45,7 +45,7 @@
 
     <div id='qrpage' style="display: none;">
         <div class='btn-wrapper'>
-            <button class='btn-inline' onclick="backToSelection()">&larr;&ensp;Back</button>
+            <button class="btn-inline" onclick="backToSelection()">&larr;&ensp;Back</button>
         </div>
         <h3>Please bring this QR code to the polling site to print your ballot</h3>
         <div id="qrcode" style="width:200px; height:200px; margin:40px auto;"></div>
@@ -55,7 +55,7 @@
         <h1>Review</h1>
         <div id="reviewBody"></div>
         <div id="reviewFooter">
-            <button class="backButton" type="submit">Back</button>
+            <button class="backButton" onclick="backToSelection()"">Back</button>
             <button onclick="createBallotPdf(ballot)">Create PDF</button>
         </div>
     </div>
