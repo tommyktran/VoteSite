@@ -180,7 +180,7 @@ table, .regCandidates {
 }
 
 .candidateSubtitle {
-    margin-left: 1px
+    margin-left: 12px;
 }
 
 .container .writebox {
@@ -221,4 +221,11 @@ ol {
 }
 .reviewPage div {
     border: 3px solid black;
+}
+
+td > .container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }

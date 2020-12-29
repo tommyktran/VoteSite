@@ -15,16 +15,15 @@ function syncSelectedVotesToBallotData() {
     ballot.contests.forEach((contest, contestIndex) => {
         contest.candidates.forEach((candidate, candidateIndex) => {
             let elemId = contestIndex + '_' + candidateIndex
-            candidate.selected = 0
             if (candidate.candidateCode.includes('writein')) {
                 candidate.candidateName = document.getElementById(elemId + '_w').value.toUpperCase()
             }
             if (contest.contestType === 'RC') {
-                candidate.ovals.forEach((oval, rankIndex) => {
+                for (let rankIndex in contest.candidates) {
                     if (document.getElementById(elemId + '_' + rankIndex).checked) {
-                        candidate.selected = rankIndex + 1
+                        candidate.selected = 1
                     }
-                })
+                }
             } else {
                 if (document.getElementById(elemId).checked) {
                     candidate.selected = 1
@@ -32,6 +31,7 @@ function syncSelectedVotesToBallotData() {
             }
         })
     })
+    return ballot
 }
 
 function doneBtnHandler(event) {
