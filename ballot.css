@@ -233,3 +233,40 @@ td > .container {
 /* start styles for ReviewPage */
 
 /* end styles for ReviewPage */
+
+#modal {
+    background-color: lightgray;
+    border-radius: 10px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    padding: 10px;
+    display: none;
+    box-shadow: 0px 0px 8px rgb(1,1,1,.4);
+    z-index:1002;
+}
+#modal a {
+    text-decoration: none;
+    color: black;
+    width: 30px;
+}
+.modalButtonDiv {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    bottom: 10px;
+    width: 100%;
+    margin-top: 20px;
+}
+#overlay {
+    display: none;
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    background-color:#fff;
+    opacity:0.8;
+    z-index:1001;
+}

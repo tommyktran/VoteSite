@@ -99,7 +99,14 @@
           <input type="text" id="password" name="password"><br><br>
           <button onclick="submit()">LOCK & SIGN</button>        
     </div>
-
+    <div id="overlay"></div>
+    <div id="modal">
+        <p id="modalText">Sample text here.</p>
+        <div class="modalButtonDiv">
+            <a class="button" href="#">Yes</a>
+            <a class="button" href="#">No</a>
+        </div>
+    </div>
 
     <script type="text/javascript">
         var qrcode = new QRCode(document.getElementById("qrcode"), {

@@ -146,23 +146,26 @@ function rankChoiceHandler(event) {
         if (savedWriteinName != '') {
             otherCandidateName = 'Write-in Candidate: ' + savedWriteinName
         }
-        const confirmed = confirm(`You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like change your ${ordinal} choice to: \n${selectedCandidateName}?`)
-        if(confirmed) {
-            for (let id of candidateSelections) {
-                document.getElementById(id).checked = false
-            }
-            for (let id of rankSelections) {
-                document.getElementById(id).checked = false
-            }
-        } else {
-            event.preventDefault()           
-            document.getElementById(rankSelections[0]).checked = true
-            document.getElementById(candidateSelections[0]).checked = true
-            if (savedWriteinName != '') {
-                const writeinBoxId = candidateSelections[0].split('_')[0] + candidateSelections[0].split('_')[1] + '_w'
-                document.getElementById(writeinBoxId).value = savedWriteinName
-            }
-        }           
+        // const confirmed = confirm(`You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like change your ${ordinal} choice to: \n${selectedCandidateName}?`)
+        document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like change your ${ordinal} choice to: \n${selectedCandidateName}?`
+        document.getElementById("modal").style = 'display:block;'
+        document.getElementById("overlay").style = 'display:block;'
+        // if(confirmed) {
+        //     for (let id of candidateSelections) {
+        //         document.getElementById(id).checked = false
+        //     }
+        //     for (let id of rankSelections) {
+        //         document.getElementById(id).checked = false
+        //     }
+        // } else {
+        //     event.preventDefault()           
+        //     document.getElementById(rankSelections[0]).checked = true
+        //     document.getElementById(candidateSelections[0]).checked = true
+        //     if (savedWriteinName != '') {
+        //         const writeinBoxId = candidateSelections[0].split('_')[0] + candidateSelections[0].split('_')[1] + '_w'
+        //         document.getElementById(writeinBoxId).value = savedWriteinName
+        //     }
+        // }           
     }     
 }
 
