@@ -21,7 +21,7 @@ function syncSelectedVotesToBallotData() {
             if (contest.contestType === 'RC') {
                 for (let rankIndex in contest.candidates) {
                     if (document.getElementById(elemId + '_' + rankIndex).checked) {
-                        candidate.selected = 1
+                        candidate.selected = parseInt(rankIndex) + 1
                     }
                 }
             } else {
