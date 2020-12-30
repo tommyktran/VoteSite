@@ -33,5 +33,8 @@ function initPage() {
     // allOvals.forEach(oval => oval.addEventListener('keydown', keypressHandler))
 
     document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
+
+
+
   }
 }
