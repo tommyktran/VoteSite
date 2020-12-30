@@ -147,9 +147,16 @@ function rankChoiceHandler(event) {
             otherCandidateName = 'Write-in Candidate: ' + savedWriteinName
         }
         // const confirmed = confirm(`You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like change your ${ordinal} choice to: \n${selectedCandidateName}?`)
-        document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like change your ${ordinal} choice to: \n${selectedCandidateName}?`
-        document.getElementById("modal").style = 'display:block;'
-        document.getElementById("overlay").style = 'display:block;'
+        document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like to change your ${ordinal} choice to: \n${selectedCandidateName}?`
+        
+        document.getElementById("yesButton").onclick = function() {modalAnswer(ovalId, candidateSelections, rankSelections, "Yes", savedWriteinName)}
+        document.getElementById("noButton").onclick = function() {modalAnswer(ovalId, candidateSelections, rankSelections, "No", savedWriteinName)}
+
+        showModal()
+        console.log(candidateSelections)
+        console.log(rankSelections)
+        event.preventDefault()
+
         // if(confirmed) {
         //     for (let id of candidateSelections) {
         //         document.getElementById(id).checked = false
@@ -167,6 +174,37 @@ function rankChoiceHandler(event) {
         //     }
         // }           
     }     
+}
+
+function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedWriteinName) {
+    if(answer == "Yes") {
+        for (let id of candidateSelections) {
+            document.getElementById(id).checked = false
+        }
+        for (let id of rankSelections) {
+            document.getElementById(id).checked = false
+        }
+        document.getElementById(ovalId).checked = true;
+    } else {
+        document.getElementById(ovalId).checked = false
+        document.getElementById(rankSelections[0]).checked = true
+        document.getElementById(candidateSelections[0]).checked = true
+        if (savedWriteinName != '') {
+            const writeinBoxId = candidateSelections[0].split('_')[0] + candidateSelections[0].split('_')[1] + '_w'
+            document.getElementById(writeinBoxId).value = savedWriteinName
+        }
+    }   
+    hideModal()
+    document.getElementById(ovalId).focus()
+}
+
+function showModal() {
+    document.getElementById("modal").style = 'display:block;'
+    document.getElementById("overlay").style = 'display:block;'
+}
+function hideModal() {
+    document.getElementById("modal").style = 'display:none;'
+    document.getElementById("overlay").style = 'display:none;'
 }
 
 function getCandidate(ovalId) {
