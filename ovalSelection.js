@@ -184,6 +184,7 @@ function getCandidateName(ovalId) {
         const candidateName = candidate.candidateName.replace(/<br>/g, ' and ')
         const candidateSubtitle = candidate.candidateSubtitle.replace(/<br>/g, ' ')
         name = candidateName + ', ' + candidateSubtitle
+        console.log(name)
     }
     if (name.includes('&quot;')) {
         name = name.replace(/&quot;/g, '"')

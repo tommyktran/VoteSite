@@ -55,9 +55,9 @@ function doneAndCreatePdf() {
     createBallotPdf(ballot)
 }
 
-function buildReview(race, index) {
+function buildReview(race, raceIndex) {
     let text = reviewContestHtml
-    text = text.replace(/{REVIEW_ID}/g, index)
+    text = text.replace(/{REVIEW_ID}/g, raceIndex)
     text = text.replace('{CONTESTNAME}', race.contestName)
     if (race.contestType === 'RC') {
         text = text.replace('Vote for {VOTEFOR}', 'Rank Choice')
@@ -65,18 +65,18 @@ function buildReview(race, index) {
         text = text.replace('{VOTEFOR}', race.voteFor)
     }
     if (race.contestType === 'RC') {
-        text = text.replace('{CANDIDATES}', buildReviewRankedVotes(race))
+        text = text.replace('{CANDIDATES}', buildReviewRankedVotes(race, raceIndex))
     } else {
-        text = text.replace('{CANDIDATES}', buildReviewSelectedVotes(race))
+        text = text.replace('{CANDIDATES}', buildReviewSelectedVotes(race, raceIndex))
     }
     return text;
 }
 
-function buildReviewSelectedVotes(race) {
+function buildReviewSelectedVotes(race, raceIndex) {
     let text = ''
-    race.candidates.forEach(candidate => {
+    race.candidates.forEach((candidate, candidateIndex) => {
         if (candidate.selected === 1) {
-            text += selectedVote.replace('{CANDIDATE_NAME}', candidate.candidateName)
+            text += selectedVote.replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + candidateIndex))
         }
     })
     if (text.trim() === '') {
@@ -86,7 +86,7 @@ function buildReviewSelectedVotes(race) {
     return text
 }
 
-function buildReviewRankedVotes(race) {
+function buildReviewRankedVotes(race, raceIndex) {
     let text = ''
     for (let i = 1; i < race.candidates.length + 1; i++) {
         for (let j = 0; j < race.candidates.length; j++) {
@@ -94,9 +94,9 @@ function buildReviewRankedVotes(race) {
                 text += rankedVote
                 text = text
                     .replace('{RANK}', choiceLabel(i))
-                    .replace('{CANDIDATE_NAME}', race.candidates[j].candidateName)
+                    .replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + j))
             }
-        }
+        } text += '<br>'
     }
     if (text.trim() === '') {
         text += selectedVote
