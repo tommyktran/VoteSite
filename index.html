@@ -100,8 +100,9 @@
           <button onclick="submit()">LOCK & SIGN</button>        
     </div>
     <div id="overlay"></div>
-    <div id="modal" role="alert">
-        <p id="modalText">Sample text here.</p>
+    <div id="modal" role="alertdialog" aria-labelledby="modalTitle" aria-describedby="modalText">
+        <h2 id="modalTitle">Confirm Selection</h2>
+        <p id="modalText">Modal text here</p>
         <div class="modalButtonDiv">
             <button class="button" onclick="return false;" id="yesButton">Yes</a>
             <button class="button" onclick="return false;" id="noButton">No</a>

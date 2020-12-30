@@ -231,7 +231,66 @@ td > .container {
 }
 
 /* start styles for ReviewPage */
+.reviewContestHeader {
+    border: solid;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    background-color: #e6e9ed;
+    /* width: 715px;
+    margin: auto; */
+}
 
+.reviewCandidates {
+    font-size: 20px;
+}
+
+#review {
+    display: none;
+}
+
+#selection {
+    display: block;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+a {
+    color: black;
+}
+
+/* Unvisited link  */
+a:visited {
+    color: black;
+}
+
+/* Visited link    */
+a:focus {
+    color: blue;
+}
+
+a:active {
+    color: black;
+}
+
+/* Selected link   */
+
+button:focus {
+    color: blue;
+    border: solid 3px blue;
+}
+
+button:focus {
+    color:blue;
+    border: solid 3px blue;
+}
+
+
+.reviewCandidateName {
+    margin-left: 43%;
+}
 /* end styles for ReviewPage */
 
 #modal {
