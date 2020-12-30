@@ -245,11 +245,30 @@ td > .container {
     display: none;
     box-shadow: 0px 0px 8px rgb(1,1,1,.4);
     z-index:1002;
+    color: #222;
 }
-#modal a {
+#modal button {
     text-decoration: none;
-    color: black;
-    width: 30px;
+    background-color: initial;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+#modal #yesButton {
+    color: white;
+    background-color: rgba(20, 126, 251, .7) ;
+}
+#modal #yesButton:hover {
+    background-color: rgba(20, 126, 251, .4)
+}
+#modal #noButton {
+    color: rgba(1,1,1, .8);
+    background-color: rgba(255,255,255,.7);
+}
+#modal #noButton:hover {
+    background-color: rgba(255,255,255,.4);
 }
 .modalButtonDiv {
     display: flex;
