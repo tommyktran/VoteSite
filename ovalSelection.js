@@ -154,7 +154,7 @@ function rankChoiceHandler(event) {
         document.getElementById(rankSelections[0]).checked = true
         document.getElementById(candidateSelections[0]).checked = true
         showModal()
-        document.getElementById("noButton").focus()
+        document.getElementById("yesButton").focus()
         event.preventDefault()
 
         // if(confirmed) {
