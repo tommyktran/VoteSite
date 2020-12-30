@@ -51,11 +51,11 @@
         <div id="qrcode" style="width:200px; height:200px; margin:40px auto;"></div>
     </div>
 
-    <div id="review">
+    <div id="reviewPage">
         <h1>Review</h1>
         <div id="reviewBody"></div>
         <div id="reviewFooter">
-            <button class="backButton" onclick="backToSelection()"">Back</button>
+            <button class="backButton" onclick="backToSelection()">Back</button>
             <button onclick="createBallotPdf(ballot)">Create PDF</button>
         </div>
     </div>
@@ -138,6 +138,7 @@
 
         function backToSelection() {
             document.getElementById('selection').style.display = 'block';
+            document.getElementById('reviewPage').style.display = 'none';
             document.getElementById('qrpage').style.display = 'none';
         }
     </script>

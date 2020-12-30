@@ -1,14 +1,16 @@
 const selectedVote = `{CANDIDATE_NAME}`
 const rankedVote = `{RANK} choice: {CANDIDATE_NAME}`
 const reviewContestHtml = `
-<a href="#contest_{REVIEW_ID}">
-  <div class="reviewContestHeader">
-    <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-    <div class="reviewCandidates">
-      {CANDIDATES}
+<div id="reviewDiv">  
+    <input type="button">
+    <div class="reviewContestHeader">
+        <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
     </div>
-  </div>
-</a>
+    <div class="reviewCandidates">
+        <center>{CANDIDATES}</center>
+    </div>
+    </input>   
+</div>
 `
 
 function syncSelectedVotesToBallotData() {
@@ -36,15 +38,16 @@ function syncSelectedVotesToBallotData() {
 
 function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData();
-    const reviewPage = document.getElementById("review")
+    const reviewPage = document.getElementById("reviewPage")
     const selectionPage = document.getElementById('selection')
     const reviewBody = document.getElementById('reviewBody')
     selectionPage.style.display = 'none'
     reviewPage.style.display = 'block'
+    reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
     })
-    const focusEle = document.getElementById('review')
+    const focusEle = document.getElementById('reviewPage')
     focusEle.scrollIntoView()
     const linkables = document.querySelectorAll('a')
     linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
@@ -67,6 +70,7 @@ function buildReview(race, raceIndex) {
     if (race.contestType === 'RC') {
         text = text.replace('{CANDIDATES}', buildReviewRankedVotes(race, raceIndex))
     } else {
+        console.log(race)
         text = text.replace('{CANDIDATES}', buildReviewSelectedVotes(race, raceIndex))
     }
     return text;
@@ -106,7 +110,7 @@ function buildReviewRankedVotes(race, raceIndex) {
 }
 
 function reviewBoxesHandler() {
-    let reviewPage = document.getElementById("review")
+    let reviewPage = document.getElementById("reviewPage")
     let selectionPage = document.getElementById('selection')
     selectionPage.style.display = 'block'
     reviewPage.style.display = 'none'
@@ -115,7 +119,7 @@ function reviewBoxesHandler() {
 }
 
 function backBtnHandler() {
-    const reviewPage = document.getElementById("review")
+    const reviewPage = document.getElementById("reviewPage")
     const selectionPage = document.getElementById('selection')
     const header = document.querySelector('header')
     reviewPage.style.display = 'none'

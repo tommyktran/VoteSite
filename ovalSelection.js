@@ -214,15 +214,18 @@ function getCandidate(ovalId) {
 // takes 1 argument: a string for the candidate's ovalId
 function getCandidateName(ovalId) {
     const candidate = getCandidate(ovalId)
+    const contestIndex = ovalId.split('_')[0]
     let name = ''
     if (candidate.candidateCode.includes('writein')) {
         const split = ovalId.split('_')
         const writeinBox = document.getElementById(split[0] + '_' + split[1] + '_w')
         name = 'Write-in Candidate: ' + writeinBox.value
     } else {
-        const candidateName = candidate.candidateName.replace(/<br>/g, ' and ')
-        const candidateSubtitle = candidate.candidateSubtitle.replace(/<br>/g, ' ')
-        name = candidateName + ', ' + candidateSubtitle
+        name = candidate.candidateName.replace(/<br>/g, ' and ')
+        if (ballot.contests[contestIndex].contestType === 'R') {
+            const candidateSubtitle = 
+            name += ', ' + candidate.candidateSubtitle.replace(/<br>/g, ' ')
+        }       
     }
     if (name.includes('&quot;')) {
         name = name.replace(/&quot;/g, '"')
