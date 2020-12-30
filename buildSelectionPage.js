@@ -257,11 +257,11 @@ function contestInfoString(raceIndex) {
 
 function candidateInfoString(raceIndex, candidateIndex) {
     let txt = ''
-    let lastCandidate = ballot.contests[raceIndex].candidates[ballot.contests[raceIndex].candidates.length - 1]
     let numOfTotalCandidates = ballot.contests[raceIndex].candidates.length
     let numOfWriteins = ballot.contests[raceIndex].candidates.filter((x) => x.candidateCode.includes('writein')).length
-    let candidateName = ballot.contests[raceIndex].candidates[candidateIndex].candidateName
-    let candidateSubtitle = ballot.contests[raceIndex].candidates[candidateIndex].candidateSubtitle
+    const candidate = ballot.contests[raceIndex].candidates[candidateIndex]
+    const candidateName = candidate.candidateName.replace(/<br>/g, ' and ')
+    const candidateSubtitle = candidate.candidateSubtitle.replace(/<br>/g, ' ')
     if (numOfWriteins > 0) {
         numOfTotalCandidates -= numOfWriteins   // reduce total candidates by the number of write-ins 
     }

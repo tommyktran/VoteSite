@@ -113,8 +113,7 @@ function rankChoiceHandler(event) {
                 writeinBox.value = ''
             }
         }
-    }
-  
+    }  
     // check the oval's row (check if another rank was selected for the chosen candidate)
     for (let r in ballot.contests[contestIndex].candidates) {
         if (r != rankIndex && document.getElementById(contestIndex + '_' + candidateIndex + '_' + r).checked) {  
@@ -211,6 +210,8 @@ function getCandidate(ovalId) {
     return ballot.contests[ovalId.split('_')[0]].candidates[ovalId.split('_')[1]]
 }
 
+// returns string with candidate's name + subtitle with all the html-text cleaned up (such as &quot; and <br>)
+// takes 1 argument: a string for the candidate's ovalId
 function getCandidateName(ovalId) {
     const candidate = getCandidate(ovalId)
     let name = ''
@@ -222,7 +223,6 @@ function getCandidateName(ovalId) {
         const candidateName = candidate.candidateName.replace(/<br>/g, ' and ')
         const candidateSubtitle = candidate.candidateSubtitle.replace(/<br>/g, ' ')
         name = candidateName + ', ' + candidateSubtitle
-        console.log(name)
     }
     if (name.includes('&quot;')) {
         name = name.replace(/&quot;/g, '"')
