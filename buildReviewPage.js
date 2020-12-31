@@ -1,21 +1,20 @@
 const selectedVote = `{CANDIDATE_NAME}`
 const rankedVote = `{RANK} choice: {CANDIDATE_NAME}`
 const reviewContestHtml = `
-<div id="reviewDiv">  
-    <input type="button">
+<div class="reviewDiv">  
     <div class="reviewContestHeader">
         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
     </div>
     <div class="reviewCandidates">
         <center>{CANDIDATES}</center>
-    </div>
-    </input>   
+    </div> 
 </div>
 `
 
 function syncSelectedVotesToBallotData() {
     ballot.contests.forEach((contest, contestIndex) => {
         contest.candidates.forEach((candidate, candidateIndex) => {
+            candidate.selected = 0
             let elemId = contestIndex + '_' + candidateIndex
             if (candidate.candidateCode.includes('writein')) {
                 candidate.candidateName = document.getElementById(elemId + '_w').value.toUpperCase()
@@ -36,12 +35,24 @@ function syncSelectedVotesToBallotData() {
     return ballot
 }
 
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+
 function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData();
     const reviewPage = document.getElementById("reviewPage")
     const selectionPage = document.getElementById('selection')
-    const reviewBody = document.getElementById('reviewBody')
+    const reviewBody = document.querySelector('#reviewBody')
     selectionPage.style.display = 'none'
+
+
+
+
+
     reviewPage.style.display = 'block'
     reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
