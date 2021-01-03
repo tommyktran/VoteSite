@@ -238,9 +238,9 @@ function buildOvalCells(race, choices, candidate, raceIndex, candidateIndex) {
     let ovalId = raceIndex + '_' + candidateIndex + '_' + choice
     let nameOfContest = ballot.contests[raceIndex].contestName
     let instructions = ballot.contests[raceIndex].votingInstructions
-    let lbl = contestInfoString(raceIndex) + ' ' + candidateInfoString(raceIndex, candidateIndex)
+    let lbl = candidateInfoString(raceIndex, candidateIndex)
     if (candidate.candidateCode.includes('writein'))
-      lbl = contestInfoString(raceIndex) + ' ' + 'Write-in'
+      lbl = 'Write-in'
     lbl += ' ' + choiceLabel(choice+1) + ' choice'
     txt += ovalHtml.replace(/{OVAL_ID}/g, ovalId).replace(/{OVAL_ARIA_LABEL}/g, lbl)
   }
