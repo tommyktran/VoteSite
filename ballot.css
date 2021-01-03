@@ -247,7 +247,7 @@ td > .container {
     font-size: 20px;
 }
 
-#review {
+#reviewPage {
     display: none;
 }
 
@@ -344,4 +344,8 @@ button:focus {
     background-color:#fff;
     opacity:0.8;
     z-index:1001;
+}
+
+#affidavitPage {
+    display: none;
 }

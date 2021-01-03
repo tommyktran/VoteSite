@@ -38,11 +38,11 @@
         </main>
         <button id="reviewButton" type="submit">Review</button>
         <hr style="height: 5px; background-color: black;" />
-        <div class='btn-wrapper'>
+        <!-- <div class='btn-wrapper'>
             <button class='btn-inline' onclick="doneAndCreatePdf()">Create PDF</button>
             <button class='btn-inline' onclick="doneAndCreateQRCode()">Create QR
                 Code</button>
-        </div>
+        </div> -->
     </div>
 
     <div id='qrpage' style="display: none;">
@@ -57,12 +57,13 @@
         <h1>Review</h1>
         <div id="reviewBody"></div>
         <div id="reviewFooter">
-            <button class="backButton" onclick="backToSelection()">Back</button>
-            <button onclick="createBallotPdf(ballot)">Create PDF</button>
+            <button onclick="backToSelection()">Back</button>
+            <button onclick="goToAffirmation()">Go to Affirmation Page</button>
+            <!-- <button onclick="createBallotPdf(ballot)">Create PDF</button> -->
         </div>
     </div>
 
-    <div class="affidavitPage">
+    <div id="affidavitPage">
         <h1>Maine Accessible Absentee Ballot Affirmation</h1>
         <p>Warning: Knowingly providing falsified information on this affidavit is illegal under State and federal
      law and could result in criminal sanctions.</p>
@@ -99,6 +100,7 @@
           <input type="text" id="date" name="date"><br><br>
           <label for="password">Password:</label>
           <input type="text" id="password" name="password"><br><br>
+          <button onclick="backToReview()">Back to Review Page</button>
           <button onclick="submit()">Done</button>        
     </div>
     <div id="overlay"></div>
@@ -141,7 +143,22 @@
         function backToSelection() {
             document.getElementById('selection').style.display = 'block';
             document.getElementById('reviewPage').style.display = 'none';
-            document.getElementById('qrpage').style.display = 'none';
+            document.getElementById('affidavitPage').style.display = 'none';
+
+        }
+
+        function backToReview() {
+            document.getElementById('selection').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'block';
+            document.getElementById('affidavitPage').style.display = 'none';
+        }
+
+
+
+        function goToAffirmation() {
+            document.getElementById('selection').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
+            document.getElementById('affidavitPage').style.display = 'block';
         }
     </script>
 
