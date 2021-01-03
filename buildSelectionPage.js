@@ -272,14 +272,12 @@ function candidateInfoString(raceIndex, candidateIndex) {
 
 function buildCandidateAriaLabel(raceIndex, candidateIndex) {
     let txt = ''
-    txt += contestInfoString(raceIndex, candidateIndex) + ' '
     txt += candidateInfoString(raceIndex, candidateIndex)
     return txt
 }
 
 function buildWriteinAriaLabel(raceIndex, candidateIndex) {
     let txt = ''
-    txt += contestInfoString(raceIndex, candidateIndex) + ' '
     txt += 'Write-in'
     return txt
 }
