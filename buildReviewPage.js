@@ -1,14 +1,28 @@
-const selectedVote = `{CANDIDATE_NAME}`
-const rankedVote = `{RANK} choice: {CANDIDATE_NAME}`
+const selectedVote = `<div>{CANDIDATE_NAME}</div>`
+const rankedVote = `<div>{RANK} choice: {CANDIDATE_NAME}</div>`
+
+// tommy's version of template without anchors
+// const reviewContestHtml = `
+// <div class="reviewDiv">  
+//     <div class="reviewContestHeader">
+//         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
+//     </div>
+//     <div class="reviewCandidates">
+//         <center>{CANDIDATES}</center>
+//     </div> 
+// </div>
+// `
+
+//older template using anchors:
 const reviewContestHtml = `
-<div class="reviewDiv">  
-    <div class="reviewContestHeader">
-        <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-    </div>
+<a href="#contest_{REVIEW_ID}">
+  <div class="reviewContestHeader">
+    <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
     <div class="reviewCandidates">
-        <center>{CANDIDATES}</center>
-    </div> 
-</div>
+      {CANDIDATES}
+    </div>
+  </div>
+</a>
 `
 
 function syncSelectedVotesToBallotData() {
