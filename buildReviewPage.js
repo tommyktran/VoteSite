@@ -15,14 +15,16 @@ const rankedVote = `<div>{RANK} choice: {CANDIDATE_NAME}</div>`
 
 //older template using anchors:
 const reviewContestHtml = `
-<a href="#contest_{REVIEW_ID}">
-  <div class="reviewContestHeader">
-    <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-    <div class="reviewCandidates">
-      {CANDIDATES}
+<div class="reviewContest">
+    <a href="#contest_{REVIEW_ID}">
+    <div class="reviewContestHeader">
+        <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
+        <div class="reviewCandidates">
+        {CANDIDATES}
+        </div>
     </div>
-  </div>
-</a>
+    </a>
+</div>
 `
 
 function syncSelectedVotesToBallotData() {
