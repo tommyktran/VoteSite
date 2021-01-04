@@ -222,15 +222,28 @@ p {
     font-weight: normal;
 }
 
-.bigbox {
-    padding: 20px 30px;
-  }
 
 ol {
     padding-left: 40px;
 }
-.affidavitPage div {
-    border: 3px solid black;
+
+#affidavitPage {
+    margin: 0 auto;
+    width: 600px;
+}
+
+#affidavitPage li {
+    padding: 10px;
+}
+
+.affidavitTopBox {
+    border: 3px solid black;   
+    padding: 20px 30px;
+}
+
+.affidavitBottomBox {
+    border: 3px solid black;   
+    padding: 10px 5px;
 }
 
 td > .container {
