@@ -1,30 +1,59 @@
-const selectedVote = `<center>{CANDIDATE_NAME}</center>`
-const rankedVote = `<center>{RANK} choice: {CANDIDATE_NAME}</center>`
+const selectedVote = `<div>{CANDIDATE_NAME}</div>`
+const rankedVote = `<div>{RANK} choice: {CANDIDATE_NAME}</div>`
+
+// tommy's version of template without anchors
+// const reviewContestHtml = `
+// <div class="reviewDiv">  
+//     <div class="reviewContestHeader">
+//         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
+//     </div>
+//     <div class="reviewCandidates">
+//         <center>{CANDIDATES}</center>
+//     </div> 
+// </div>
+// `
+
+//older template using anchors:
+// const reviewContestHtml = `
+// <div class="reviewContest">
+//     <a href="#contest_{REVIEW_ID}">
+//     <div class="reviewContestHeader">
+//         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
+//         <div class="reviewCandidates">
+//         {CANDIDATES}
+//         </div>
+//     </div>
+//     </a>
+// </div>
+// `
+
 const reviewContestHtml = `
-<a href="#contest_{REVIEW_ID}">
-  <div class="reviewContestHeader">
-    <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-    <div class="reviewCandidates">
-      {CANDIDATES}
+<div class="reviewContest">
+    <button id="review_{REVIEW_ID}" class="reviewContestButton">
+    <div class="reviewContestHeader">
+        <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
+        <div class="reviewCandidates">
+        {CANDIDATES}
+        </div>
     </div>
-  </div>
-</a>
+    </button>
+</div>
 `
 
 function syncSelectedVotesToBallotData() {
     ballot.contests.forEach((contest, contestIndex) => {
         contest.candidates.forEach((candidate, candidateIndex) => {
-            let elemId = contestIndex + '_' + candidateIndex
             candidate.selected = 0
+            let elemId = contestIndex + '_' + candidateIndex
             if (candidate.candidateCode.includes('writein')) {
                 candidate.candidateName = document.getElementById(elemId + '_w').value.toUpperCase()
             }
             if (contest.contestType === 'RC') {
-                candidate.ovals.forEach((oval, rankIndex) => {
+                for (let rankIndex in contest.candidates) {
                     if (document.getElementById(elemId + '_' + rankIndex).checked) {
-                        candidate.selected = rankIndex + 1
+                        candidate.selected = parseInt(rankIndex) + 1
                     }
-                })
+                }
             } else {
                 if (document.getElementById(elemId).checked) {
                     candidate.selected = 1
@@ -32,21 +61,33 @@ function syncSelectedVotesToBallotData() {
             }
         })
     })
+    return ballot
 }
 
-function doneBtnHandler(event) {
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+
+
+function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData();
-    const reviewPage = document.getElementById("review")
+    const reviewPage = document.getElementById("reviewPage")
     const selectionPage = document.getElementById('selection')
-    const reviewBody = document.getElementById('reviewBody')
+    const reviewBody = document.querySelector('#reviewBody')
     selectionPage.style.display = 'none'
     reviewPage.style.display = 'block'
+    reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
     })
-    const focusEle = document.getElementById('review')
+    const focusEle = document.getElementById('reviewPage')
     focusEle.scrollIntoView()
-    const linkables = document.querySelectorAll('a')
+    // const linkables = document.querySelectorAll('a')
+    // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
+    const linkables = document.querySelectorAll('.reviewContestButton')
+    console.log(linkables)
     linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
 }
 
@@ -55,9 +96,9 @@ function doneAndCreatePdf() {
     createBallotPdf(ballot)
 }
 
-function buildReview(race, index) {
+function buildReview(race, raceIndex) {
     let text = reviewContestHtml
-    text = text.replace(/{REVIEW_ID}/g, index)
+    text = text.replace(/{REVIEW_ID}/g, raceIndex)
     text = text.replace('{CONTESTNAME}', race.contestName)
     if (race.contestType === 'RC') {
         text = text.replace('Vote for {VOTEFOR}', 'Rank Choice')
@@ -65,18 +106,18 @@ function buildReview(race, index) {
         text = text.replace('{VOTEFOR}', race.voteFor)
     }
     if (race.contestType === 'RC') {
-        text = text.replace('{CANDIDATES}', buildReviewRankedVotes(race))
+        text = text.replace('{CANDIDATES}', buildReviewRankedVotes(race, raceIndex))
     } else {
-        text = text.replace('{CANDIDATES}', buildReviewSelectedVotes(race))
+        text = text.replace('{CANDIDATES}', buildReviewSelectedVotes(race, raceIndex))
     }
     return text;
 }
 
-function buildReviewSelectedVotes(race) {
+function buildReviewSelectedVotes(race, raceIndex) {
     let text = ''
-    race.candidates.forEach(candidate => {
+    race.candidates.forEach((candidate, candidateIndex) => {
         if (candidate.selected === 1) {
-            text += selectedVote.replace('{CANDIDATE_NAME}', candidate.candidateName)
+            text += selectedVote.replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + candidateIndex))
         }
     })
     if (text.trim() === '') {
@@ -86,7 +127,7 @@ function buildReviewSelectedVotes(race) {
     return text
 }
 
-function buildReviewRankedVotes(race) {
+function buildReviewRankedVotes(race, raceIndex) {
     let text = ''
     for (let i = 1; i < race.candidates.length + 1; i++) {
         for (let j = 0; j < race.candidates.length; j++) {
@@ -94,10 +135,11 @@ function buildReviewRankedVotes(race) {
                 text += rankedVote
                 text = text
                     .replace('{RANK}', choiceLabel(i))
-                    .replace('{CANDIDATE_NAME}', race.candidates[j].candidateName)
+                    .replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + j))
             }
         }
     }
+    console.log(text)
     if (text.trim() === '') {
         text += selectedVote
         text = text.replace('{CANDIDATE_NAME}', '-------- No Selection --------')
@@ -105,17 +147,24 @@ function buildReviewRankedVotes(race) {
     return text
 }
 
-function reviewBoxesHandler() {
-    let reviewPage = document.getElementById("review")
+function reviewBoxesHandler(event) {
+    
+    let reviewPage = document.getElementById("reviewPage")
     let selectionPage = document.getElementById('selection')
     selectionPage.style.display = 'block'
     reviewPage.style.display = 'none'
     const reviewBody = document.getElementById('reviewBody')
     reviewBody.innerHTML = ''
+    let contestId = event.target.id.replace('review', 'contest')
+    
+    let contestEle = document.getElementById(contestId)
+    console.log(contestEle)
+    contestEle.scrollIntoView()
+    // contestEle.focus()
 }
 
 function backBtnHandler() {
-    const reviewPage = document.getElementById("review")
+    const reviewPage = document.getElementById("reviewPage")
     const selectionPage = document.getElementById('selection')
     const header = document.querySelector('header')
     reviewPage.style.display = 'none'

@@ -49,6 +49,7 @@ function regularHandler(event) {
             howManySelected++
         }
     }
+    console.log(howManySelected)
     if (howManySelected >= voteMax) {
         if (voteMax === 1) {
             uncheckOtherCandidates(contestIndex, candidateIndex)
@@ -57,6 +58,8 @@ function regularHandler(event) {
             return
         }
     }
+
+    console.log(isWritein)
     if (isWritein) {
         const writeinBox = document.getElementById(ovalId + '_w');
         if (writeinBox.value === '') {
@@ -113,8 +116,7 @@ function rankChoiceHandler(event) {
                 writeinBox.value = ''
             }
         }
-    }
-  
+    }  
     // check the oval's row (check if another rank was selected for the chosen candidate)
     for (let r in ballot.contests[contestIndex].candidates) {
         if (r != rankIndex && document.getElementById(contestIndex + '_' + candidateIndex + '_' + r).checked) {  
@@ -146,45 +148,90 @@ function rankChoiceHandler(event) {
         if (savedWriteinName != '') {
             otherCandidateName = 'Write-in Candidate: ' + savedWriteinName
         }
-        const confirmed = confirm(`You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like change your ${ordinal} choice to: \n${selectedCandidateName}?`)
-        if(confirmed) {
-            for (let id of candidateSelections) {
-                document.getElementById(id).checked = false
-            }
-            for (let id of rankSelections) {
-                document.getElementById(id).checked = false
-            }
-        } else {
-            event.preventDefault()           
-            document.getElementById(rankSelections[0]).checked = true
-            document.getElementById(candidateSelections[0]).checked = true
-            if (savedWriteinName != '') {
-                const writeinBoxId = candidateSelections[0].split('_')[0] + candidateSelections[0].split('_')[1] + '_w'
-                document.getElementById(writeinBoxId).value = savedWriteinName
-            }
-        }           
+        // const confirmed = confirm(`<p>You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like change your ${ordinal} choice to: \n${selectedCandidateName}?<p>`)
+        document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like to change your ${ordinal} choice to: \n${selectedCandidateName}?`
+        
+        document.getElementById("yesButton").onclick = function() {modalAnswer(ovalId, candidateSelections, rankSelections, "Yes", savedWriteinName)}
+        document.getElementById("noButton").onclick = function() {modalAnswer(ovalId, candidateSelections, rankSelections, "No", savedWriteinName)}
+        document.getElementById(rankSelections[0]).checked = true
+        document.getElementById(candidateSelections[0]).checked = true
+        showModal()
+        document.getElementById("yesButton").focus()
+        event.preventDefault()
+
+        // if(confirmed) {
+        //     for (let id of candidateSelections) {
+        //         document.getElementById(id).checked = false
+        //     }
+        //     for (let id of rankSelections) {
+        //         document.getElementById(id).checked = false
+        //     }
+        // } else {
+        //     event.preventDefault()           
+            // document.getElementById(rankSelections[0]).checked = true
+            // document.getElementById(candidateSelections[0]).checked = true
+        //     if (savedWriteinName != '') {
+        //         const writeinBoxId = candidateSelections[0].split('_')[0] + candidateSelections[0].split('_')[1] + '_w'
+        //         document.getElementById(writeinBoxId).value = savedWriteinName
+        //     }
+        // }           
     }     
+}
+
+function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedWriteinName) {
+    if(answer == "Yes") {
+        for (let id of candidateSelections) {
+            document.getElementById(id).checked = false
+        }
+        for (let id of rankSelections) {
+            document.getElementById(id).checked = false
+        }
+        document.getElementById(ovalId).checked = true;
+    } else {
+        document.getElementById(ovalId).checked = false
+        document.getElementById(rankSelections[0]).checked = true
+        document.getElementById(candidateSelections[0]).checked = true
+        if (savedWriteinName != '') {
+            const writeinBoxId = candidateSelections[0].split('_')[0] + candidateSelections[0].split('_')[1] + '_w'
+            document.getElementById(writeinBoxId).value = savedWriteinName
+        }
+    }   
+    hideModal()
+    document.getElementById(ovalId).focus()
+}
+
+function showModal() {
+    document.getElementById("modal").style = 'display:block;'
+    document.getElementById("overlay").style = 'display:block;'
+}
+function hideModal() {
+    document.getElementById("modal").style = 'display:none;'
+    document.getElementById("overlay").style = 'display:none;'
 }
 
 function getCandidate(ovalId) {
     return ballot.contests[ovalId.split('_')[0]].candidates[ovalId.split('_')[1]]
 }
 
+// returns string with candidate's name + subtitle with all the html-text cleaned up (such as &quot; and <br>)
+// takes 1 argument: a string for the candidate's ovalId
 function getCandidateName(ovalId) {
     const candidate = getCandidate(ovalId)
+    const contestIndex = ovalId.split('_')[0]
     let name = ''
     if (candidate.candidateCode.includes('writein')) {
         const split = ovalId.split('_')
         const writeinBox = document.getElementById(split[0] + '_' + split[1] + '_w')
         name = 'Write-in Candidate: ' + writeinBox.value
     } else {
-        name = candidate.candidateName + ', ' + candidate.candidateSubtitle
+        name = candidate.candidateName.replace(/<br>/g, ' and ')
+        if (ballot.contests[contestIndex].contestType === 'R') {
+            const candidateSubtitle = 
+            name += ', ' + candidate.candidateSubtitle.replace(/<br>/g, ' ')
+        }       
     }
     if (name.includes('&quot;')) {
         name = name.replace(/&quot;/g, '"')
-    }
-    if (name.includes('<br>')) {
-        name = name.replace(/<br>/g, ' and ')
     }
     return name
 }
