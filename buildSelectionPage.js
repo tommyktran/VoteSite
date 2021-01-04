@@ -46,12 +46,12 @@ const rRaceHtml = `
 
 const candidateRegLine = `
   <div class="indivCandidate">
-    <label class="container candidateLabel">
+    <label class="container candidateLabel" id="label_{OVAL_ID}">
       <div class="candidateNameDiv">
-      <h3 class="candidateName">{CANDIDATE_NAME}</h3>
-      <h4 class="candidateSubtitle">{CANDIDATE_SUBTITLE}</h4>
-      <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
-      <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
+        <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
+        <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
+        <h3 class="candidateName">{CANDIDATE_NAME}</h3>
+        <h4 class="candidateSubtitle">{CANDIDATE_SUBTITLE}</h4> 
       </div>
     </label>
   </div>
@@ -137,7 +137,7 @@ function buildRegCandidates(race, raceIndex) {
     } else {
       txt += candidateRegLine
         .replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
-        .replace('{OVAL_ID}', raceIndex + '_' + candidateIndex)
+        .replace(/{OVAL_ID}/g, raceIndex + '_' + candidateIndex)
         .replace('{CANDIDATE_ARIA_LABEL}', buildCandidateAriaLabel(raceIndex, candidateIndex))
         .replace('{CANDIDATE_SUBTITLE}', candidate.candidateSubtitle)
     }
@@ -150,7 +150,7 @@ function buildQuestionOptions(race, raceIndex) {
   race.candidates.forEach((candidate, candidateIndex) => {
       txt += questionOption
         .replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
-        .replace('{OVAL_ID}', raceIndex + '_' + candidateIndex)
+        .replace(/{OVAL_ID}/g, raceIndex + '_' + candidateIndex)
         .replace('{OPTION_ARIA_LABEL}', buildOptionAriaLabel(raceIndex, candidateIndex))
   })
   return txt
