@@ -6,7 +6,19 @@ const rcRaceHtml = `
   <table aria-label="{CONTEST_NAME}" class="{CLASS_NAME}">
       {HEADER_ROW}
       {CANDIDATE_ROWS}
-  </table>`
+  </table>
+`
+// original template using table
+// const rcRaceHtml = `
+//   <hr />
+//   <h3 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h3>
+//   <h4 class="contestSubtitle">{CONTEST_SUBTITLE}</h4>
+//   <h4 class="votingInstructions">{VOTING_INSTRUCTIONS}</h4>
+//   <table aria-label="{CONTEST_NAME}" class="{CLASS_NAME}">
+//       {HEADER_ROW}
+//       {CANDIDATE_ROWS}
+//   </table>
+// `
 
 
 const qRaceHtml = `
@@ -38,8 +50,8 @@ const candidateRegLine = `
       <input type="checkbox" id="{OVAL_ID}" aria-label="{CANDIDATE_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
       <div class="candidateNameDiv">
-      <p class="candidateName">{CANDIDATE_NAME}</p>
-      <p class="candidateSubtitle">{CANDIDATE_SUBTITLE}</p>
+      <h3 class="candidateName">{CANDIDATE_NAME}</h3>
+      <h4 class="candidateSubtitle">{CANDIDATE_SUBTITLE}</h4>
       </div>
     </label>
   </div>
@@ -49,16 +61,19 @@ const candidateRegWriteIn = `
   <div class="indivCandidate">
     <label class="container candidateLabel">
       <input type="checkbox" id="{OVAL_ID}" aria-label="{WRITEIN_ARIA_LABEL}">
-      <span class="checkmark ballotCheckbox"></span><p class="candidateName">Write-in:</p>
-      <input id="{OVAL_ID}_w" type="text" class="writebox" readonly>
-      </label>
+      <span class="checkmark ballotCheckbox"></span>
+      <h3 class="candidateName">Write-in:
+        <input id="{OVAL_ID}_w" type="text" class="writebox" readonly>
+      </h3>
+    </label>
   </div>
   `
 const questionOption = `
   <div class="questionOption">
     <label class="container candidateLabel">
       <input id="{OVAL_ID}" type="checkbox" aria-label="{OPTION_ARIA_LABEL}">
-      <span class="checkmark ballotCheckbox"></span><p class="candidateName">{CANDIDATE_NAME}</p>
+      <span class="checkmark ballotCheckbox"></span>
+      <h3 class="candidateName">{CANDIDATE_NAME}</h3>
     </label>
   </div>
 `
@@ -69,13 +84,15 @@ const choiceHtml = `<td><span>{ORDINAL} <span class="{CLASS_NAME}">Choice</span>
 
 const candidateRowHtml = `<tr>{CANDIDATE} {OVALS}</tr>`
 
-const candidateHtml = `<td class="candidate-name"><p class="candidateName">{CANDIDATE_NAME}</p>
-        <p class="candidateSubtitle">{CANDIDATE_SUBTITLE}</p></td>`
+const candidateHtml = `<td class="candidate-name"><h3 class="candidateName">{CANDIDATE_NAME}</h3>
+        <h4 class="candidateSubtitle">{CANDIDATE_SUBTITLE}</h4></td>`
 
 const writeinHtml = `
           <td class="writein-name">
-              <label for="{INPUT_ID}"><p class="candidateName">Write-in: </p></label>
+            <h3 class="candidateName">
+              <label for="{INPUT_ID}">Write-in: </label>
               <input type="text" id="{INPUT_ID}" aria-label="write-in" class="writebox" readonly>
+            </h3>
           </td>`
 
 const ovalHtml = `

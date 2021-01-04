@@ -179,11 +179,15 @@ table, .regCandidates {
 
 
 .candidateName {
-    font-weight: 600;
+    text-align: left;
+    font-size: 20px;
 }
 
 .candidateSubtitle {
     margin-left: 12px;
+    text-align: left;
+    font-weight: 100;
+    font-size: 20px;
 }
 
 .container .writebox {
