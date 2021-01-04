@@ -55,8 +55,9 @@
 
     <div id="reviewPage">
         <h1>Review</h1>
+        <h3>Click on the contest boxes to go back to that part of the ballot and change your selection.</h1>
         <div id="reviewBody"></div>
-        <div id="reviewFooter">
+        <div id="reviewFooter" class="buttonDiv">
             <button onclick="backToSelection()">Back</button>
             <button onclick="goToAffirmation()">Go to Affirmation Page</button>
             <!-- <button onclick="createBallotPdf(ballot)">Create PDF</button> -->
@@ -100,8 +101,11 @@
           <input type="text" id="date" name="date"><br><br>
           <label for="password">Password:</label>
           <input type="text" id="password" name="password"><br><br>
-          <button onclick="backToReview()">Back to Review Page</button>
-          <button onclick="submit()">Done</button>        
+          <div class="buttonDiv">
+            <button onclick="backToReview()">Back to Review Page</button>
+            <button onclick="submit()">Done</button>  
+          </div>
+                
     </div>
     <div id="overlay"></div>
     <div id="modal" role="alertdialog" aria-labelledby="modalTitle" aria-describedby="modalText">
