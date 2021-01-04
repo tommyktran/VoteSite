@@ -257,7 +257,6 @@ td > .container {
 
 /* start styles for ReviewPage */
 .reviewContestHeader {
-    border: solid;
     padding-bottom: 20px;
     margin-bottom: 20px;
     background-color: #e6e9ed;
@@ -276,6 +275,9 @@ td > .container {
 
 #reviewPage {
     display: none;
+}
+#reviewFooter {
+    margin-top: 5px;
 }
 
 #selection {
@@ -403,4 +405,9 @@ button:hover {
 .reviewContest {
     width: 600px;
     text-align: center;
+}
+
+.reviewContestButton {
+    width: 600px;
+    margin: 3px 0;
 }
