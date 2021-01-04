@@ -29,14 +29,14 @@ const rankedVote = `<div>{RANK} choice: {CANDIDATE_NAME}</div>`
 
 const reviewContestHtml = `
 <div class="reviewContest">
-    <button id="review_{REVIEW_ID}" class="reviewContestButton">
+    <a href="#contest_{REVIEW_ID}" class="reviewContestLink">
     <div class="reviewContestHeader">
         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
         <div class="reviewCandidates">
         {CANDIDATES}
         </div>
     </div>
-    </button>
+    </a>
 </div>
 `
 
@@ -86,8 +86,7 @@ function reviewBtnHandler(event) {
     focusEle.scrollIntoView()
     // const linkables = document.querySelectorAll('a')
     // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
-    const linkables = document.querySelectorAll('.reviewContestButton')
-    console.log(linkables)
+    const linkables = document.querySelectorAll('.reviewContestLink')
     linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
 }
 
@@ -139,7 +138,6 @@ function buildReviewRankedVotes(race, raceIndex) {
             }
         }
     }
-    console.log(text)
     if (text.trim() === '') {
         text += selectedVote
         text = text.replace('{CANDIDATE_NAME}', '-------- No Selection --------')
@@ -148,20 +146,12 @@ function buildReviewRankedVotes(race, raceIndex) {
 }
 
 function reviewBoxesHandler(event) {
-    
     let reviewPage = document.getElementById("reviewPage")
     let selectionPage = document.getElementById('selection')
     selectionPage.style.display = 'block'
     reviewPage.style.display = 'none'
     const reviewBody = document.getElementById('reviewBody')
     reviewBody.innerHTML = ''
-
-    let contestId = event.target.id.replace('review', 'contest')
-    console.log(contestId)
-    let contestEle = document.getElementById(contestId)
-    console.log(contestEle)
-    contestEle.scrollIntoView()
-    // contestEle.focus()
 }
 
 function backBtnHandler() {
