@@ -373,11 +373,6 @@ const ballot = {
           candidateName: "No",
           candidateCode: "",
           selected: 0
-        },
-        {
-          candidateName: "Maybe",
-          candidateCode: "",
-          selected: 0
         }
       ]
     }
