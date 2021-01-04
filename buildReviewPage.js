@@ -62,11 +62,6 @@ function reviewBtnHandler(event) {
     const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
     selectionPage.style.display = 'none'
-
-
-
-
-
     reviewPage.style.display = 'block'
     reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
@@ -95,7 +90,6 @@ function buildReview(race, raceIndex) {
     if (race.contestType === 'RC') {
         text = text.replace('{CANDIDATES}', buildReviewRankedVotes(race, raceIndex))
     } else {
-        console.log(race)
         text = text.replace('{CANDIDATES}', buildReviewSelectedVotes(race, raceIndex))
     }
     return text;
@@ -125,8 +119,9 @@ function buildReviewRankedVotes(race, raceIndex) {
                     .replace('{RANK}', choiceLabel(i))
                     .replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + j))
             }
-        } text += '<br>'
+        }
     }
+    console.log(text)
     if (text.trim() === '') {
         text += selectedVote
         text = text.replace('{CANDIDATE_NAME}', '-------- No Selection --------')
