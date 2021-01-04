@@ -98,11 +98,9 @@
         </div>
         <br>
           <label for="signedby">Signed by:</label>
-          <input type="text" id="signedby" name="signedby"><br><br>
+          <input type="password" id="signedby" name="signedby"><br><br>
           <label for="date">Date:</label>
           <input type="text" id="date" name="date"><br><br>
-          <label for="password">Password:</label>
-          <input type="text" id="password" name="password"><br><br>
           <div class="buttonDiv">
             <button onclick="backToReview()">Back to Review Page</button>
             <button onclick="submit()">Done</button>  
@@ -165,6 +163,7 @@
             document.getElementById('selection').style.display = 'none';
             document.getElementById('reviewPage').style.display = 'none';
             document.getElementById('affidavitPage').style.display = 'block';
+            document.getElementById('affidavitPage').scrollIntoView();
         }
     </script>
 
