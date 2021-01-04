@@ -236,8 +236,6 @@ function buildOvalCells(race, choices, candidate, raceIndex, candidateIndex) {
   let txt = ''
   for (let choice = 0; choice < choices; choice++) {
     let ovalId = raceIndex + '_' + candidateIndex + '_' + choice
-    let nameOfContest = ballot.contests[raceIndex].contestName
-    let instructions = ballot.contests[raceIndex].votingInstructions
     let lbl = candidateInfoString(raceIndex, candidateIndex)
     if (candidate.candidateCode.includes('writein'))
       lbl = 'Write-in'
@@ -247,13 +245,13 @@ function buildOvalCells(race, choices, candidate, raceIndex, candidateIndex) {
   return txt
 }
 
-function contestInfoString(raceIndex) {
-    let txt = ''
-    txt += 'Race ' + (raceIndex+1) + ' of ' + ballot.contests.length + ': '
-    txt += ballot.contests[raceIndex].contestName + '. '
-    txt += ballot.contests[raceIndex].votingInstructions + '.'
-    return txt
-}
+// function contestInfoString(raceIndex) {
+//     let txt = ''
+//     txt += 'Race ' + (raceIndex+1) + ' of ' + ballot.contests.length + ': '
+//     txt += ballot.contests[raceIndex].contestName + '. '
+//     txt += ballot.contests[raceIndex].votingInstructions + '.'
+//     return txt
+// }
 
 function candidateInfoString(raceIndex, candidateIndex) {
     let txt = ''
