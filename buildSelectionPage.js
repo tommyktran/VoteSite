@@ -140,12 +140,11 @@ function buildQuestionOptions(race, raceIndex) {
 
 function buildOptionAriaLabel(raceIndex, candidateIndex) {
   let txt = ''
-    txt += 'Race ' + (raceIndex+1) + ' of ' + ballot.contests.length + ' '
-    txt += 'This is a ballot question. '
-    txt += ballot.contests[raceIndex].contestName + '. '
-    txt += 'Option ' + (candidateIndex + 1) + ' of ' + ballot.contests[raceIndex].candidates.length + ': '
-    txt += ballot.contests[raceIndex].candidates[candidateIndex].candidateName
-    return txt
+  // txt += 'Race ' + (raceIndex+1) + ' of ' + ballot.contests.length + ' '
+  // txt += 'This is a ballot question. '
+  // txt += ballot.contests[raceIndex].contestName + '. '
+  // txt += 'Option ' + (candidateIndex + 1) + ' of ' + ballot.contests[raceIndex].candidates.length + ': '
+  txt += ballot.contests[raceIndex].candidates[candidateIndex].candidateName
   return txt
 }
 
@@ -258,14 +257,37 @@ function candidateInfoString(raceIndex, candidateIndex) {
     let numOfTotalCandidates = ballot.contests[raceIndex].candidates.length
     let numOfWriteins = ballot.contests[raceIndex].candidates.filter((x) => x.candidateCode.includes('writein')).length
     const candidate = ballot.contests[raceIndex].candidates[candidateIndex]
-    const candidateName = candidate.candidateName.replace(/<br>/g, ' and ')
+    // const candidateName = candidate.candidateName.replace(/<br>/g, ' and ')
+    const candidateName = getCandidateLastName(raceIndex, candidateIndex)
     const candidateSubtitle = candidate.candidateSubtitle.replace(/<br>/g, ' ')
     if (numOfWriteins > 0) {
         numOfTotalCandidates -= numOfWriteins   // reduce total candidates by the number of write-ins 
     }
-    txt += 'Candidate ' + (candidateIndex + 1) + ' of ' + numOfTotalCandidates + ': '
+    // txt += 'Candidate ' + (candidateIndex + 1) + ' of ' + numOfTotalCandidates + ': '
     txt += candidateName + ', ' + candidateSubtitle
     return txt
+}
+
+function getCandidateLastName(raceIndex, candidateIndex) {
+  const candidate = ballot.contests[raceIndex].candidates[candidateIndex]
+  let split = candidate.candidateName.split('<br>')
+
+  // uncomment if last names only when there is more than one candidate in the name, otherwise display the fullname
+  // if (split.length > 1) {
+  //   let lastNames = new Array()
+  //   for (let name of split) {
+  //     lastNames.push(name.split(',')[0])
+  //   }
+  //   return lastNames.join(' and ')
+  // } else {
+  //   return candidate.candidateName
+  // }
+
+  let lastNames = new Array()
+  for (let name of split) {
+    lastNames.push(name.split(',')[0])
+  }
+  return lastNames.join(' and ')
 }
 
 function buildCandidateAriaLabel(raceIndex, candidateIndex) {
