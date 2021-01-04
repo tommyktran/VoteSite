@@ -50,7 +50,7 @@ const candidateRegLine = `
       <div class="candidateNameDiv">
       <h3 class="candidateName">{CANDIDATE_NAME}</h3>
       <h4 class="candidateSubtitle">{CANDIDATE_SUBTITLE}</h4>
-      <input type="checkbox" id="{OVAL_ID}" aria-label="{CANDIDATE_ARIA_LABEL}">
+      <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
       </div>
     </label>
@@ -59,11 +59,11 @@ const candidateRegLine = `
 
 const candidateRegWriteIn = `
   <div class="indivCandidate">
-    <label class="container candidateLabel">
+    <label class="container candidateLabel" for="{OVAL_ID}">
       <h3 class="candidateName">Write-in:
         <input id="{OVAL_ID}_w" type="text" class="writebox" readonly>
       </h3>
-    <input type="checkbox" id="{OVAL_ID}" aria-label="{WRITEIN_ARIA_LABEL}">
+    <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{WRITEIN_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox"></span>
       </label>
     
@@ -72,7 +72,7 @@ const candidateRegWriteIn = `
 const questionOption = `
   <div class="questionOption">
     <label class="container candidateLabel">
-      <input id="{OVAL_ID}" type="checkbox" aria-label="{OPTION_ARIA_LABEL}">
+      <input id="{OVAL_ID}" type="checkbox" class="questionRaceOval" aria-label="{OPTION_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox"></span>
       <h3 class="candidateName">{CANDIDATE_NAME}</h3>
     </label>
@@ -98,7 +98,7 @@ const writeinHtml = `
 
 const ovalHtml = `
           <td><label class="container">
-              <input type="checkbox" id="{OVAL_ID}" aria-label="{OVAL_ARIA_LABEL}">
+              <input type="checkbox" id="{OVAL_ID}" class="rankChoiceRaceOval" aria-label="{OVAL_ARIA_LABEL}">
               <span class="checkmark" aria-hidden="true"></span>
           </label></td>`
 

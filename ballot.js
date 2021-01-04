@@ -17,13 +17,13 @@ function initPage() {
     //start running other javascript after page is rendered
     document.querySelector('input[type="checkbox"]').focus() // places focus on the first oval on page
 
-    let question = document.querySelectorAll('.questionOption > label > input')
+    let question = document.querySelectorAll('.questionRaceOval')
     question.forEach(checkbox => checkbox.addEventListener('click', questionHandler))
 
-    let test_all = document.querySelectorAll('.indivCandidate > label > input')
+    let test_all = document.querySelectorAll('.regularRaceOval')
     test_all.forEach(checkbox => checkbox.addEventListener('click', regularHandler))
 
-    let rc = document.querySelectorAll('table input[type="checkbox"]')
+    let rc = document.querySelectorAll('.rankChoiceRaceOval')
     rc.forEach(checkbox => checkbox.addEventListener('click', rankChoiceHandler))
 
     // let writeboxes = document.querySelectorAll('input[type="text"]')

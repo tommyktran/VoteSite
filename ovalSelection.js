@@ -49,6 +49,7 @@ function regularHandler(event) {
             howManySelected++
         }
     }
+    console.log(howManySelected)
     if (howManySelected >= voteMax) {
         if (voteMax === 1) {
             uncheckOtherCandidates(contestIndex, candidateIndex)
@@ -57,6 +58,8 @@ function regularHandler(event) {
             return
         }
     }
+
+    console.log(isWritein)
     if (isWritein) {
         const writeinBox = document.getElementById(ovalId + '_w');
         if (writeinBox.value === '') {
