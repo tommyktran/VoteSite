@@ -153,6 +153,8 @@ table, .regCandidates {
 .indivCandidate .checkmark, .questionOption .checkmark {
     position: absolute;
     right: 0;
+    top: 50%;
+    transform: translateY(-50%);
 }
 .candidateLabel {
     width: 100%;

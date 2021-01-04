@@ -375,6 +375,27 @@ const ballot = {
           selected: 0
         }
       ]
+    },
+    {
+      contestName: "Question 2",
+      contestSubtitle: "",
+      contestCode: "",
+      contestType: "Q",
+      questionText: "Shall the City of Waterville approve the Charter revision recommended by the Charter Commission? Vote Yes or No",
+      voteFor: 1,
+      votingInstructions: "Vote Yes or No",
+      candidates: [
+        {
+          candidateName: "Yes",
+          candidateCode: "",
+          selected: 0
+        },
+        {
+          candidateName: "No",
+          candidateCode: "",
+          selected: 0
+        }
+      ]
     }
   ]
 }
