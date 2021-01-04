@@ -155,8 +155,9 @@ function reviewBoxesHandler(event) {
     reviewPage.style.display = 'none'
     const reviewBody = document.getElementById('reviewBody')
     reviewBody.innerHTML = ''
+
     let contestId = event.target.id.replace('review', 'contest')
-    
+    console.log(contestId)
     let contestEle = document.getElementById(contestId)
     console.log(contestEle)
     contestEle.scrollIntoView()
