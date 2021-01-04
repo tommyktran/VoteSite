@@ -354,7 +354,6 @@ button:focus {
     opacity:0.8;
     z-index:1001;
 }
-
 #affidavitPage {
     display: none;
 }
@@ -362,15 +361,15 @@ button {
     background-color:initial;
     border: none;
     font-size: 22px;
-
     border: 2px solid gray;
     border-radius: 13px;
     padding: 5px 10px;
-
     background-color: lightgray;
-
     margin: 0 auto;
     display: block;
+}
+button:hover {
+    background-color: darkgray;
 }
 .buttonDiv * {
     display: inline;
