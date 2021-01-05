@@ -48,14 +48,28 @@ const candidateRegLine = `
   <div class="indivCandidate">
     <label class="container candidateLabel" id="label_{OVAL_ID}">
       <div class="candidateNameDiv">
-        <h3 class="candidateName" aria-label="{CANDIDATE_NAME}, {CANDIDATE_SUBTITLE}">{CANDIDATE_NAME}</h3>
+        <h3 class="candidateName" aria-hidden="true">{CANDIDATE_NAME}</h3>
         <h3 class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</h3>
-      </div>
         <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
-        <span class="checkmark ballotCheckbox" aria-hidden="true"></span>      
+        <span class="checkmark ballotCheckbox" aria-hidden="true"></span>    
+      </div>          
     </label>
   </div>
   `
+
+
+  // const candidateRegLine = `
+  // <div class="indivCandidate">
+  //   <label class="container candidateLabel" id="label_{OVAL_ID}">
+  //     <div class="candidateNameDiv">
+  //       <h3 class="candidateName" aria-label="{CANDIDATE_NAME}, {CANDIDATE_SUBTITLE}">{CANDIDATE_NAME}</h3>
+  //       <h3 class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</h3>
+  //     </div>
+  //       <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
+  //       <span class="checkmark ballotCheckbox" aria-hidden="true"></span>      
+  //   </label>
+  // </div>
+  // `
 
 const candidateRegWriteIn = `
   <div class="indivCandidate">
