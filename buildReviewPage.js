@@ -116,7 +116,11 @@ function buildReviewSelectedVotes(race, raceIndex) {
     let text = ''
     race.candidates.forEach((candidate, candidateIndex) => {
         if (candidate.selected === 1) {
-            text += selectedVote.replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + candidateIndex))
+            if (candidate.candidateCode.includes("writein")) {
+                text += selectedVote.replace('{CANDIDATE_NAME}', candidate.candidateName + ' (Write-in)')
+            } else {
+                text += selectedVote.replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + candidateIndex))
+            }            
         }
     })
     if (text.trim() === '') {
