@@ -3,6 +3,9 @@ function questionHandler(event) {
     const contestIndex = ovalId.split('_')[0]
     const candidateIndex = ovalId.split('_')[1]
     uncheckOtherCandidates(contestIndex, candidateIndex);
+
+    // live update for review section
+    reviewBtnHandler(event) 
 }
 
 function uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex) {
@@ -69,9 +72,14 @@ function regularHandler(event) {
             }
         } else { // click is to deselect a writein oval so need to clear the writeinBox
             writeinBox.value = ''
+
+            // live update for review section
+            reviewBtnHandler(event) 
             return
         }
     }
+    // live update for review section
+    reviewBtnHandler(event) 
 }
 
 function isWriteinCandidate(contestIndex, candidateIndex) {
@@ -156,6 +164,9 @@ function rankChoiceHandler(event) {
         document.getElementById("yesButton").focus()
         event.preventDefault()
 
+        // live update for review section
+        reviewBtnHandler(event)
+
         // if(confirmed) {
         //     for (let id of candidateSelections) {
         //         document.getElementById(id).checked = false
@@ -172,7 +183,9 @@ function rankChoiceHandler(event) {
         //         document.getElementById(writeinBoxId).value = savedWriteinName
         //     }
         // }           
-    }     
+    }
+    // live update for review section
+    reviewBtnHandler(event)     
 }
 
 function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedWriteinName) {
@@ -195,6 +208,9 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
     }   
     hideModal()
     document.getElementById(ovalId).focus()
+
+    // live update for review section
+    reviewBtnHandler(event)
 }
 
 function showModal() {
