@@ -15,7 +15,7 @@ function initPage() {
       elm.insertAdjacentHTML("beforeend", buildRace(race, index))
     })
     //start running other javascript after page is rendered
-    document.querySelector('input[type="checkbox"]').focus() // places focus on the first oval on page
+    //document.querySelector('input[type="checkbox"]').focus() // places focus on the first oval on page
 
     let question = document.querySelectorAll('.questionRaceOval')
     question.forEach(checkbox => checkbox.addEventListener('click', questionHandler))

@@ -49,10 +49,10 @@ const candidateRegLine = `
     <label class="container candidateLabel" id="label_{OVAL_ID}">
       <div class="candidateNameDiv">
         <h3 class="candidateName" aria-hidden="true">{CANDIDATE_NAME}</h3>
-        <h3 class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</h3>
-        <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
-        <span class="checkmark ballotCheckbox" aria-hidden="true"></span>    
-      </div>          
+        <h3 class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</h3>           
+      </div>
+      <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
+      <span class="checkmark ballotCheckbox" aria-hidden="true"></span>           
     </label>
   </div>
   `
@@ -304,15 +304,15 @@ function getCandidateLastName(raceIndex, candidateIndex) {
   let split = candidate.candidateName.split('<br>')
 
   // uncomment if last names only when there is more than one candidate in the name, otherwise display the fullname
-  // if (split.length > 1) {
-  //   let lastNames = new Array()
-  //   for (let name of split) {
-  //     lastNames.push(name.split(',')[0])
-  //   }
-  //   return lastNames.join(' and ')
-  // } else {
-  //   return candidate.candidateName
-  // }
+  if (split.length > 1) {
+    let lastNames = new Array()
+    for (let name of split) {
+      lastNames.push(name.split(',')[0])
+    }
+    return lastNames.join(' and ')
+  } else {
+    return candidate.candidateName
+  }
 
   let lastNames = new Array()
   for (let name of split) {
