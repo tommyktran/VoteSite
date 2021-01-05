@@ -48,11 +48,11 @@ const candidateRegLine = `
   <div class="indivCandidate">
     <label class="container candidateLabel" id="label_{OVAL_ID}">
       <div class="candidateNameDiv">
-        <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
-        <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
-        <h3 class="candidateName">{CANDIDATE_NAME}</h3>
-        <h3 class="candidateSubtitle">{CANDIDATE_SUBTITLE}</h3> 
+        <h3 class="candidateName" aria-label="{CANDIDATE_NAME}, {CANDIDATE_SUBTITLE}">{CANDIDATE_NAME}</h3>
+        <h3 class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</h3>
       </div>
+        <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
+        <span class="checkmark ballotCheckbox" aria-hidden="true"></span>      
     </label>
   </div>
   `
@@ -64,7 +64,7 @@ const candidateRegWriteIn = `
         <input id="{OVAL_ID}_w" type="text" class="writebox" readonly aria-label="Write-in textbox">
       </h3>
     <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{WRITEIN_ARIA_LABEL}">
-      <span class="checkmark ballotCheckbox"></span>
+      <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
       </label>
   </div>
   `
@@ -72,7 +72,7 @@ const questionOption = `
   <div class="questionOption">
     <label class="container candidateLabel">
       <input id="{OVAL_ID}" type="checkbox" class="questionRaceOval" aria-label="{OPTION_ARIA_LABEL}">
-      <span class="checkmark ballotCheckbox"></span>
+      <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
       <h3 class="candidateName">{CANDIDATE_NAME}</h3>
     </label>
   </div>
@@ -138,7 +138,7 @@ function buildRegCandidates(race, raceIndex) {
         .replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
         .replace(/{OVAL_ID}/g, raceIndex + '_' + candidateIndex)
         .replace('{CANDIDATE_ARIA_LABEL}', buildCandidateAriaLabel(raceIndex, candidateIndex))
-        .replace('{CANDIDATE_SUBTITLE}', candidate.candidateSubtitle)
+        .replace(/{CANDIDATE_SUBTITLE}/g, candidate.candidateSubtitle)
     }
   })
   return txt
@@ -243,8 +243,8 @@ function buildCandidateCell(contestCode, candidate, raceIndex, candidateIndex) {
   if (candidate.candidateCode.includes('writein'))
     return writeinHtml.replace(/{INPUT_ID}/g, raceIndex + '_' + candidateIndex + '_w')
   else
-    return candidateHtml.replace('{CANDIDATE_NAME}', candidate.candidateName)
-                        .replace('{CANDIDATE_SUBTITLE}', candidate.candidateSubtitle)
+    return candidateHtml.replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
+                        .replace(/{CANDIDATE_SUBTITLE}/g, candidate.candidateSubtitle)
 
 }
 

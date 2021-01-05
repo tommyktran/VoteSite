@@ -24,7 +24,9 @@ td {
 }
 
 .header-row {
-    background-color: #adb5bd;
+    /* background-color: #adb5bd; */
+    background-color: #e6e9ed;
+
 }
 
 .candidate-name {
@@ -413,4 +415,11 @@ button:hover {
 .reviewContestButton {
     width: 600px;
     margin: 3px 0;
+}
+
+#reviewPageInstructions {
+    width: 600px;
+    margin: 0 auto;
+    border: 2px solid darkgray;
+    padding: 10px;
 }

@@ -34,10 +34,10 @@
             <h3>Bradley</h3>
         </section>
 
-        <main id="contests" role="application">
+        <main id="contests">
         </main>
         <button id="reviewButton" type="submit">Review</button>
-        <hr style="height: 5px; background-color: black;" />
+        <!-- <hr style="height: 5px; background-color: black;" /> -->
         <!-- <div class='btn-wrapper'>
             <button class='btn-inline' onclick="doneAndCreatePdf()">Create PDF</button>
             <button class='btn-inline' onclick="doneAndCreateQRCode()">Create QR
@@ -55,10 +55,10 @@
 
     <div id="reviewPage">
         <h1>Review</h1>
-        <h2>Click on the contest boxes to go back to that part of the ballot and change your selection.</h2>
+        <p id="reviewPageInstructions">Listed below is a summary of your selections for each contest. If you need to change your selection, each contest is a link that will take you back to the Selection Page where you change your selections. Once you are done reviewing all selections, click the "Go to Affirmation Page" button to view and sign the Affirmation Page.</p>
         <div id="reviewBody"></div>
         <div id="reviewFooter" class="buttonDiv">
-            <button onclick="backToSelection()">Back</button>
+            <button onclick="backToSelection()">Back to Selection Page</button>
             <button onclick="goToAffirmation()">Go to Affirmation Page</button>
             <!-- <button onclick="createBallotPdf(ballot)">Create PDF</button> -->
         </div>
