@@ -29,7 +29,7 @@ td {
 
 }
 
-.candidate-name {
+/* .candidate-name {
     text-align: left;
 }
 
@@ -39,7 +39,7 @@ td {
     margin: 0px;
     border: none;
     display: flex;
-}
+} */
 
 section {
     text-align: center;

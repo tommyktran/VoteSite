@@ -48,7 +48,7 @@ const candidateRegLine = `
   <div class="indivCandidate">
     <label class="container candidateLabel" id="label_{OVAL_ID}">
       <div class="candidateNameDiv">
-        <h3 class="candidateName" aria-hidden="true">{CANDIDATE_NAME}</h3>
+        <h3 class="candidateName" aria-label="{CANDIDATE_NAME}, {CANDIDATE_SUBTITLE}">{CANDIDATE_NAME}</h3>
         <h3 class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</h3>           
       </div>
       <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
@@ -77,9 +77,9 @@ const candidateRegWriteIn = `
       <h3 class="candidateName">Write-in:
         <input id="{OVAL_ID}_w" type="text" class="writebox" readonly aria-label="Write-in textbox">
       </h3>
-    <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{WRITEIN_ARIA_LABEL}">
+      <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{WRITEIN_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
-      </label>
+    </label>
   </div>
   `
 const questionOption = `
@@ -98,11 +98,11 @@ const choiceHtml = `<td><span>{ORDINAL} <span class="{CLASS_NAME}">Choice</span>
 
 const candidateRowHtml = `<tr>{CANDIDATE} {OVALS}</tr>`
 
-const candidateHtml = `<td class="candidate-name"><h3 class="candidateName">{CANDIDATE_NAME}</h3>
+const candidateHtml = `<td><h3 class="candidateName">{CANDIDATE_NAME}</h3>
         <h4 class="candidateSubtitle">{CANDIDATE_SUBTITLE}</h4></td>`
 
 const writeinHtml = `
-          <td class="writein-name">
+          <td>
             <h3 class="candidateName">
               <label for="{INPUT_ID}" id="writein_label_{INPUT_ID}">Write-in: </label>
               <input type="text" id="{INPUT_ID}" class="writebox" readonly aria-label="Write-in textbox">
