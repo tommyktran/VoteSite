@@ -76,14 +76,14 @@ function reviewBtnHandler(event) {
     const reviewPage = document.getElementById("reviewPage")
     const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
-    selectionPage.style.display = 'none'
-    reviewPage.style.display = 'block'
+    // selectionPage.style.display = 'none'
+    // reviewPage.style.display = 'block'
     reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
     })
-    const focusEle = document.getElementById('reviewPage')
-    focusEle.scrollIntoView()
+    //const focusEle = document.getElementById('reviewPage')
+    //focusEle.scrollIntoView()
     // const linkables = document.querySelectorAll('a')
     // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
     const linkables = document.querySelectorAll('.reviewContestLink')
@@ -146,10 +146,10 @@ function buildReviewRankedVotes(race, raceIndex) {
 }
 
 function reviewBoxesHandler(event) {
-    let reviewPage = document.getElementById("reviewPage")
-    let selectionPage = document.getElementById('selection')
-    selectionPage.style.display = 'block'
-    reviewPage.style.display = 'none'
+    // let reviewPage = document.getElementById("reviewPage")
+    // let selectionPage = document.getElementById('selection')
+    // selectionPage.style.display = 'block'
+    // reviewPage.style.display = 'none'
     const reviewBody = document.getElementById('reviewBody')
     reviewBody.innerHTML = ''
 }
