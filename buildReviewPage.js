@@ -46,7 +46,7 @@ function syncSelectedVotesToBallotData() {
             candidate.selected = 0
             let elemId = contestIndex + '_' + candidateIndex
             if (candidate.candidateCode.includes('writein')) {
-                candidate.candidateName = document.getElementById(elemId + '_w').value.toUpperCase()
+                candidate.candidateName = document.getElementById(elemId + '_w').textContent.toUpperCase()
             }
             if (contest.contestType === 'RC') {
                 for (let rankIndex in contest.candidates) {

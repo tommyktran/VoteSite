@@ -15,9 +15,10 @@ function uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex) {
             document.getElementById(id).checked = false
             if (isWriteinCandidate(contestIndex, c)) {
                 const writeinBox = document.getElementById(contestIndex + '_' + c + '_w')
-                if (writeinBox.value !== '') {
+                if (writeinBox.textContent !== '') {
                     //alert('Please note that the writein(s) for this contest has been deselected.')
-                    writeinBox.value = ''
+                    writeinBox.textContent = ''
+                    document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${writeinBox.textContent}`)
                 }                
             }
         }
@@ -30,9 +31,14 @@ function uncheckOtherCandidates(contestIndex, candidateIndex) {
             const id = contestIndex + '_' + i
             document.getElementById(id).checked = false
             if (isWriteinCandidate(contestIndex, i)) {
-                if (document.getElementById(id + '_w').value !== '') {
-                    document.getElementById(id + '_w').value = ''
+                if (document.getElementById(id + '_w').textContent !== '') {
+                    const writeinBox = document.getElementById(id + '_w')
+                    writeinBox.textContent = ''
+                    console.log('Hey')
+                    console.log(contestIndex + '_' + i)
+                    document.getElementById(contestIndex + '_' + i).setAttribute('aria-label', `Write-in Candidate: ${writeinBox.textContent}`)
                     //alert('Please note that the writein(s) for this contest has been deselected.')
+                    
                 } 
             }
         }
@@ -62,17 +68,18 @@ function regularHandler(event) {
     }
     if (isWritein) {
         const writeinBox = document.getElementById(ovalId + '_w');
-        if (writeinBox.value === '') {
+        if (writeinBox.textContent === '') {
             const input = prompt('Please type the name of the write-in candidate you want to vote for:')
             if (input === null || input.trim() === '') {
                 event.preventDefault()
                 return
             } else {
-                writeinBox.value = input.toUpperCase()
+                writeinBox.textContent = input.toUpperCase()
+                document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${writeinBox.textContent}`)
             }
         } else { // click is to deselect a writein oval so need to clear the writeinBox
-            writeinBox.value = ''
-
+            writeinBox.textContent = ''
+            document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${writeinBox.textContent}`) 
             // live update for review section
             reviewBtnHandler(event) 
             return
@@ -98,13 +105,14 @@ function rankChoiceHandler(event) {
     let savedWriteinName = ''
     if (isWritein) {
         const writeinBox = document.getElementById(contestIndex + '_' + candidateIndex + '_w')
-        if (writeinBox.value === '') {
+        if (writeinBox.textContent === '') {
             const input = prompt('Please type the name of the write-in candidate you want to vote for:')
             if (input === null || input.trim() === '') { // if invalid input
                 event.preventDefault()
                 return
             } else {
-                writeinBox.value = input.toUpperCase()
+                writeinBox.textContent = input.toUpperCase()
+                document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${writeinBox.textContent}`)
             }
         } else { // there is already a writein name
             let isWriteinDeselection = true 
@@ -118,7 +126,8 @@ function rankChoiceHandler(event) {
                 }
             }
             if (isWriteinDeselection) {
-                writeinBox.value = ''
+                writeinBox.textContent = ''
+                document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${writeinBox.textContent}`)
             }
         }
     }  
@@ -203,7 +212,8 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
         document.getElementById(candidateSelections[0]).checked = true
         if (savedWriteinName != '') {
             const writeinBoxId = candidateSelections[0].split('_')[0] + candidateSelections[0].split('_')[1] + '_w'
-            document.getElementById(writeinBoxId).value = savedWriteinName
+            document.getElementById(writeinBoxId).textContent = savedWriteinName
+            document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${savedWriteinName}`)
         }
     }   
     hideModal()
@@ -235,7 +245,7 @@ function getCandidateName(ovalId) {
     if (candidate.candidateCode.includes('writein')) {
         const split = ovalId.split('_')
         const writeinBox = document.getElementById(split[0] + '_' + split[1] + '_w')
-        name = 'Write-in Candidate: ' + writeinBox.value
+        name = 'Write-in Candidate: ' + writeinBox.textContent
     } else {
         name = candidate.candidateName.replace(/<br>/g, ' and ')
         if (ballot.contests[contestIndex].contestType === 'R') {

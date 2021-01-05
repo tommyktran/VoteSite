@@ -16,7 +16,6 @@ td {
     border-collapse: collapse;
     margin-bottom: 40px;
     font-size: 20px;
-    text-align: center;
     padding: 5px;
     width: 100%;
     margin-left: auto;
@@ -26,6 +25,7 @@ td {
 .header-row {
     /* background-color: #adb5bd; */
     background-color: #e6e9ed;
+    text-align: center;
 
 }
 
@@ -188,6 +188,7 @@ table, .regCandidates {
 .candidateName {
     text-align: left;
     font-size: 20px;
+    display: inline;
 }
 
 .candidateSubtitle {
@@ -423,4 +424,13 @@ button:hover {
     margin: 0 auto;
     border: 2px solid darkgray;
     padding: 10px;
+}
+
+.writeinName {
+    border-bottom: 1px solid gray;
+    margin-left: 10px;
+    display: inline-block;
+    text-align: left;
+    color: blue;
+    font-size: initial;
 }
