@@ -262,6 +262,11 @@ td > .container {
 }
 
 /* start styles for ReviewPage */
+
+/* #reviewPage {
+    display: none;
+} */
+
 .reviewContest {
     width: 800px;
     text-align: center;
@@ -275,7 +280,6 @@ td > .container {
 .reviewContestButton {
     width: 800px;
     margin: 3px 0;
-    
 }
 
 #reviewPageInstructions {
@@ -303,12 +307,16 @@ td > .container {
     padding-top: 12px;
 }
 
-/* #reviewPage {
-    display: none;
-} */
+.reviewPageNoSelection {
+    font-style: italic;
+    color: rgb(220 46 46);
+}
+
 #reviewFooter {
     margin-top: 5px;
 }
+
+/* End styles for ReviewPage */
 
 #selection {
     display: block;

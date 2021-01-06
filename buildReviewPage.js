@@ -1,5 +1,6 @@
 const selectedVote = `<div>{CANDIDATE_NAME}</div>`
 const rankedVote = `<div>{RANK} choice: {CANDIDATE_NAME}</div>`
+const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
 
 // tommy's version of template without anchors
 // const reviewContestHtml = `
@@ -124,8 +125,7 @@ function buildReviewSelectedVotes(race, raceIndex) {
         }
     })
     if (text.trim() === '') {
-        text += selectedVote;
-        text = text.replace('{CANDIDATE_NAME}', '-------- No Selection --------')
+        text += noSelection
     }
     return text
 }
@@ -143,8 +143,7 @@ function buildReviewRankedVotes(race, raceIndex) {
         }
     }
     if (text.trim() === '') {
-        text += selectedVote
-        text = text.replace('{CANDIDATE_NAME}', '-------- No Selection --------')
+        text += noSelection
     }
     return text
 }
