@@ -34,6 +34,8 @@ function initPage() {
 
     document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
 
+    // live update for review section
+    reviewBtnHandler(event)
 
 
   }
