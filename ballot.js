@@ -15,22 +15,27 @@ function initPage() {
       elm.insertAdjacentHTML("beforeend", buildRace(race, index))
     })
     //start running other javascript after page is rendered
-    document.querySelector('input[type="checkbox"]').focus() // places focus on the first oval on page
+    //document.querySelector('input[type="checkbox"]').focus() // places focus on the first oval on page
 
-    let question = document.querySelectorAll('.questionOption > label > input')
+    let question = document.querySelectorAll('.questionRaceOval')
     question.forEach(checkbox => checkbox.addEventListener('click', questionHandler))
 
-    let test_all = document.querySelectorAll('.indivCandidate > label > input')
+    let test_all = document.querySelectorAll('.regularRaceOval')
     test_all.forEach(checkbox => checkbox.addEventListener('click', regularHandler))
 
-    let rc = document.querySelectorAll('table input[type="checkbox"]')
+    let rc = document.querySelectorAll('.rankChoiceRaceOval')
     rc.forEach(checkbox => checkbox.addEventListener('click', rankChoiceHandler))
 
     // let writeboxes = document.querySelectorAll('input[type="text"]')
     // writeboxes.forEach(writebox => writebox.addEventListener('focusout', textHandler))
 
-    let allOvals = document.querySelectorAll('input[type="checkbox"]')
-    allOvals.forEach(oval => oval.addEventListener('keydown', keypressHandler))
+    // let allOvals = document.querySelectorAll('input[type="checkbox"]')
+    // allOvals.forEach(oval => oval.addEventListener('keydown', keypressHandler))
+
+    document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
+
+
+
   }
 }
 
@@ -50,10 +55,3 @@ function addWriteinsToData() {
   })
 }
 
-function submit() {
-  document.querySelector('.tooltiptext').style = "visibility: visible; opacity: 1;"
-  window.setTimeout(() => {
-    document.querySelector('.tooltiptext').style = "visibility: visible; opacity: 1; animation: fade .3s forwards"
-  }, 2500);
-
-}

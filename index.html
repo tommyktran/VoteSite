@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="user-scalable=1" />
     <link rel='stylesheet' href='ballot.css' />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
     <script type="text/javascript" src="qrcode.min.js"></script>
@@ -20,6 +20,8 @@
     <script src='ovalSelection.js'></script>
     <script src='buildReviewPage.js'></script>
     <script src='keyboard.js'></script>
+    <script src='affidavitPage.js'></script>
+
     <title>Bradley Democratic Primary</title>
 </head>
 
@@ -34,47 +36,49 @@
 
         <main id="contests">
         </main>
-        <button id="doneButton" type="submit">Done</button>
-        <hr style="height: 5px; background-color: black;" />
-        <div class='btn-wrapper'>
+        <button id="reviewButton" type="submit">Review</button>
+        <!-- <hr style="height: 5px; background-color: black;" /> -->
+        <!-- <div class='btn-wrapper'>
             <button class='btn-inline' onclick="doneAndCreatePdf()">Create PDF</button>
             <button class='btn-inline' onclick="doneAndCreateQRCode()">Create QR
                 Code</button>
-        </div>
+        </div> -->
     </div>
 
     <div id='qrpage' style="display: none;">
         <div class='btn-wrapper'>
-            <button class='btn-inline' onclick="backToSelection()">&larr;&ensp;Back</button>
+            <button class="btn-inline" onclick="backToSelection()">&larr;&ensp;Back</button>
         </div>
         <h3>Please bring this QR code to the polling site to print your ballot</h3>
         <div id="qrcode" style="width:200px; height:200px; margin:40px auto;"></div>
     </div>
 
-    <div id="review">
+    <div id="reviewPage">
         <h1>Review</h1>
+        <p id="reviewPageInstructions">Listed below is a summary of your selections for each contest. If you need to change your selection, each contest is a link that will take you back to the Selection Page where you change your selections. Once you are done reviewing all selections, click the "Go to Affirmation Page" button to view and sign the Affirmation Page.</p>
         <div id="reviewBody"></div>
-        <div id="reviewFooter">
-            <button class="backButton" type="submit">Back</button>
-            <button onclick="createBallotPdf(ballot)">Create PDF</button>
+        <div id="reviewFooter" class="buttonDiv">
+            <button onclick="backToSelection()">Back to Selection Page</button>
+            <button onclick="goToAffirmation()">Go to Affirmation Page</button>
+            <!-- <button onclick="createBallotPdf(ballot)">Create PDF</button> -->
         </div>
     </div>
 
-    <div class="reviewPage">
+    <div id="affidavitPage">
         <h1>Maine Accessible Absentee Ballot Affirmation</h1>
         <p>Warning: Knowingly providing falsified information on this affidavit is illegal under State and federal
      law and could result in criminal sanctions.</p>
-    
-        <div class="bigbox">
+        <br>
+        <div class="affidavitTopBox">
           <p>I am a U.S. citizen residing inside the United States who is blind or otherwise disabled.</p>
         </div>
         <br>
-        <div class="bigbox">
+        <div class="affidavitTopBox">
           <p>My name and Maine voting residence (city or town):</p>
           <p>Voter’s name: Mary Smith</p>
           <p>City or Town: Lewiston</p>
         </div>
-    
+        <br>
         <p>Affirmation – I swear or affirm, under penalty of perjury, that:</p>
         <ol>
           <li><p>I am blind or otherwise disabled, and my disability prevents or substantially limits me from being able to privately and independently complete a paper absentee ballot. I require use of an accessible electronic absentee ballot in order to vote privately and independently without visiting a clerk’s office or voting place and using a ballot marking device; and</p></li>
@@ -87,22 +91,34 @@
           <li><p> I understand that, with any absentee ballot, my name and signature will be permanently separated from my voted ballot to maintain its secrecy at the outset of the tabulation process and thereafter.</p></li>
         </ol>
     
-        <div>
-          <p> If you are marking the ballot on your computer with Adobe Reader, please enter your password in the 'Signed by' field below, click the 'LOCK & SIGN' button, save the document to your computer, then email it as an attachment to UOCAVA.CEC@maine.gov.</p>
+        <div class="affidavitBottomBox">
+          <p> If you are marking the ballot on your computer with Adobe Reader, please enter your password in the 'Signed by' field below, click the 'Done' button, save the document to your computer, then email it as an attachment to UOCAVA.CEC@maine.gov.</p>
         </div>
         <br>
           <label for="signedby">Signed by:</label>
-          <input type="text" id="signedby" name="signedby"><br><br>
+          <input type="password" id="signedby" name="signedby"><br><br>
           <label for="date">Date:</label>
           <input type="text" id="date" name="date"><br><br>
           <label for="password">Password:</label>
           <div class="tooltip">
             <input type="text" id="password" name="password" >
             <span class="tooltiptext">Please enter the correct password.</span>
-          </div><br><br>
-          <button onclick="submit()">LOCK & SIGN</button>        
+          </div><br><br>       
+          <div class="buttonDiv">
+            <button onclick="backToReview()">Back to Review Page</button>
+            <button onclick="submit()">Done</button>  
+          </div>
+                
     </div>
-
+    <div id="overlay"></div>
+    <div id="modal" role="alertdialog" aria-labelledby="modalTitle" aria-describedby="modalText">
+        <h2 id="modalTitle">Confirm Selection</h2>
+        <p id="modalText">Modal text here</p>
+        <div class="modalButtonDiv">
+            <button class="button" onclick="return false;" id="yesButton">Yes</a>
+            <button class="button" onclick="return false;" id="noButton">No</a>
+        </div>
+    </div>
 
     <script type="text/javascript">
         var qrcode = new QRCode(document.getElementById("qrcode"), {
@@ -133,7 +149,24 @@
 
         function backToSelection() {
             document.getElementById('selection').style.display = 'block';
-            document.getElementById('qrpage').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
+            document.getElementById('affidavitPage').style.display = 'none';
+
+        }
+
+        function backToReview() {
+            document.getElementById('selection').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'block';
+            document.getElementById('affidavitPage').style.display = 'none';
+        }
+
+
+
+        function goToAffirmation() {
+            document.getElementById('selection').style.display = 'none';
+            document.getElementById('reviewPage').style.display = 'none';
+            document.getElementById('affidavitPage').style.display = 'block';
+            document.getElementById('affidavitPage').scrollIntoView();
         }
     </script>
 

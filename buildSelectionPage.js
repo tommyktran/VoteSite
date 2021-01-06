@@ -1,67 +1,12 @@
 const rcRaceHtml = `
   <hr />
-  <h3 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h3>
-  <h4 class="contestSubtitle">{CONTEST_SUBTITLE}</h4>
-  <h4 class="votingInstructions">{VOTING_INSTRUCTIONS}</h4>
+  <h2 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h2>
+  <h2 class="contestSubtitle">{CONTEST_SUBTITLE}</h2>
+  <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
   <table aria-label="{CONTEST_NAME}" class="{CLASS_NAME}">
       {HEADER_ROW}
       {CANDIDATE_ROWS}
   </table>`
-
-
-const qRaceHtml = `
-  <hr />
-  <div class="questionDiv">
-  <h3 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h3>
-  <h4 class="contestSubtitle">{CONTEST_SUBTITLE}</h4>
-  <h4 class="votingInstructions">{VOTING_INSTRUCTIONS}</h4>
-  <p class="question">{QUESTION_TEXT}</p>
-  <div class="questionOptionsDiv">
-    {QUESTION_OPTIONS}
-  </div>
-  </div>
-  `
-
-const rRaceHtml = `
-  <hr />
-  <h3 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h3>
-  <h4 class="contestSubtitle">{CONTEST_SUBTITLE}</h4>
-  <h4 class="votingInstructions">{VOTING_INSTRUCTIONS}</h4>
-  <div class="regCandidates">
-    {CANDIDATES}
-  </div>
-  `
-
-const candidateRegLine = `
-  <div class="indivCandidate">
-    <label class="container candidateLabel">
-      <input type="checkbox" id="{OVAL_ID}" aria-label="{CANDIDATE_ARIA_LABEL}">
-      <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
-      <div class="candidateNameDiv">
-      <p class="bold">{CANDIDATE_NAME}</p>
-      <p class="indent">{CANDIDATE_SUBTITLE}</p>
-      </div>
-    </label>
-  </div>
-  `
-
-const candidateRegWriteIn = `
-  <div class="indivCandidate">
-    <label class="container candidateLabel">
-      <input type="checkbox" id="{OVAL_ID}" aria-label="{WRITEIN_ARIA_LABEL}">
-      <span class="checkmark ballotCheckbox"></span><p class="bold">Write-in:</p>
-      <input id="{OVAL_ID}_w" type="text" class="writebox" readonly>
-      </label>
-  </div>
-  `
-const questionOption = `
-  <div class="questionOption">
-    <label class="container candidateLabel">
-      <input id="{OVAL_ID}" type="checkbox" aria-label="{OPTION_ARIA_LABEL}">
-      <span class="checkmark ballotCheckbox"></span><p class="bold">{OPTION_NAME}</p>
-    </label>
-  </div>
-`
 
 const headerRowHtml = `<tr class="header-row"><td>Candidate</td>{CHOICES}</tr>`
 
@@ -69,22 +14,76 @@ const choiceHtml = `<td><span>{ORDINAL} <span class="{CLASS_NAME}">Choice</span>
 
 const candidateRowHtml = `<tr>{CANDIDATE} {OVALS}</tr>`
 
-const candidateHtml = `<td class="candidate-name"><p class="bold">{CANDIDATE_NAME}</p>
-        <p class="indent">{CANDIDATE_SUBTITLE}</p></td>`
+const candidateHtml = `
+  <td><h3 class="candidateName" aria-label="{CANDIDATE_ARIA_LABEL}">{CANDIDATE_NAME}</h3>
+  <h3 class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</h4></td>`
 
 const writeinHtml = `
-          <td class="writein-name">
-              <label for="{INPUT_ID}"><p class="bold">Write-in: </p></label>
-              <input type="text" id="{INPUT_ID}" aria-label="write-in" class="writebox" readonly>
-          </td>`
+  <td>
+    <h3 class="candidateName">
+      <label for="{INPUT_ID}" id="writein_label_{INPUT_ID}">Write-in: </label>
+      <input type="text" id="{INPUT_ID}" class="writebox" readonly aria-label="Write-in textbox">
+    </h3>
+  </td>`
 
 const ovalHtml = `
           <td><label class="container">
-              <input type="checkbox" id="{OVAL_ID}" aria-label="{OVAL_ARIA_LABEL}">
+              <input type="checkbox" id="{OVAL_ID}" class="rankChoiceRaceOval" aria-label="{OVAL_ARIA_LABEL}">
               <span class="checkmark" aria-hidden="true"></span>
           </label></td>`
 
+const rRaceHtml = `
+  <hr />
+  <h2 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h2>
+  <h2 class="contestSubtitle">{CONTEST_SUBTITLE}</h2>
+  <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
+  <div class="regCandidates">
+    {CANDIDATES}
+  </div>`
 
+const candidateRegLine = `
+  <div class="indivCandidate">
+    <label class="container candidateLabel" id="label_{OVAL_ID}">
+      <div class="candidateNameDiv">
+        <h3 class="candidateName" aria-label="{CANDIDATE_ARIA_LABEL}">{CANDIDATE_NAME}</h3>
+        <h3 class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</h3>           
+      </div>
+      <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
+      <span class="checkmark ballotCheckbox" aria-hidden="true"></span>           
+    </label>
+  </div>`
+
+const candidateRegWriteIn = `
+  <div class="indivCandidate">
+    <label class="container candidateLabel" for="{OVAL_ID}">
+      <h3 class="candidateName">Write-in:
+        <input id="{OVAL_ID}_w" type="text" class="writebox" readonly aria-label="Write-in textbox">
+      </h3>
+      <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{WRITEIN_ARIA_LABEL}">
+      <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
+    </label>
+  </div>`
+
+const qRaceHtml = `
+  <hr />
+  <div class="questionDiv">
+    <h2 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h2>
+    <h2 class="contestSubtitle">{CONTEST_SUBTITLE}</h2>
+    <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
+    <p class="question">{QUESTION_TEXT}</p>
+    <div class="questionOptionsDiv">
+      {QUESTION_OPTIONS}
+    </div>
+  </div>`
+
+const questionOption = `
+  <div class="questionOption">
+    <label class="container candidateLabel">      
+      <h3 class="candidateName">{CANDIDATE_NAME}</h3>
+      <input id="{OVAL_ID}" type="checkbox" class="questionRaceOval" aria-label="{OPTION_ARIA_LABEL}">
+      <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
+    </label>
+  </div>`
 
 function buildRace(race, raceIndex) {
   if (race.contestType === 'RC') {
@@ -119,9 +118,9 @@ function buildRegCandidates(race, raceIndex) {
     } else {
       txt += candidateRegLine
         .replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
-        .replace('{OVAL_ID}', raceIndex + '_' + candidateIndex)
-        .replace('{CANDIDATE_ARIA_LABEL}', buildCandidateAriaLabel(raceIndex, candidateIndex))
-        .replace('{CANDIDATE_SUBTITLE}', candidate.candidateSubtitle)
+        .replace(/{OVAL_ID}/g, raceIndex + '_' + candidateIndex)
+        .replace(/{CANDIDATE_ARIA_LABEL}/g, buildCandidateAriaLabel(raceIndex, candidateIndex))
+        .replace(/{CANDIDATE_SUBTITLE}/g, candidate.candidateSubtitle)
     }
   })
   return txt
@@ -131,8 +130,8 @@ function buildQuestionOptions(race, raceIndex) {
   let txt = ''
   race.candidates.forEach((candidate, candidateIndex) => {
       txt += questionOption
-        .replace(/{OPTION_NAME}/g, candidate.candidateName)
-        .replace('{OVAL_ID}', raceIndex + '_' + candidateIndex)
+        .replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
+        .replace(/{OVAL_ID}/g, raceIndex + '_' + candidateIndex)
         .replace('{OPTION_ARIA_LABEL}', buildOptionAriaLabel(raceIndex, candidateIndex))
   })
   return txt
@@ -140,12 +139,11 @@ function buildQuestionOptions(race, raceIndex) {
 
 function buildOptionAriaLabel(raceIndex, candidateIndex) {
   let txt = ''
-    txt += 'Race ' + (raceIndex+1) + ' of ' + ballot.contests.length + ' '
-    txt += 'This is a ballot question. '
-    txt += ballot.contests[raceIndex].contestName + '. '
-    txt += 'Option ' + (candidateIndex + 1) + ' of ' + ballot.contests[raceIndex].candidates.length + ': '
-    txt += ballot.contests[raceIndex].candidates[candidateIndex].candidateName
-    return txt
+  // txt += 'Race ' + (raceIndex+1) + ' of ' + ballot.contests.length + ' '
+  // txt += 'This is a ballot question. '
+  // txt += ballot.contests[raceIndex].contestName + '. '
+  // txt += 'Option ' + (candidateIndex + 1) + ' of ' + ballot.contests[raceIndex].candidates.length + ': '
+  txt += ballot.contests[raceIndex].candidates[candidateIndex].candidateName
   return txt
 }
 
@@ -227,8 +225,9 @@ function buildCandidateCell(contestCode, candidate, raceIndex, candidateIndex) {
   if (candidate.candidateCode.includes('writein'))
     return writeinHtml.replace(/{INPUT_ID}/g, raceIndex + '_' + candidateIndex + '_w')
   else
-    return candidateHtml.replace('{CANDIDATE_NAME}', candidate.candidateName)
-                        .replace('{CANDIDATE_SUBTITLE}', candidate.candidateSubtitle)
+    return candidateHtml.replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
+                        .replace(/{CANDIDATE_SUBTITLE}/g, candidate.candidateSubtitle)
+                        .replace(/{CANDIDATE_ARIA_LABEL}/g, buildCandidateAriaLabel(raceIndex, candidateIndex))
 
 }
 
@@ -236,50 +235,69 @@ function buildOvalCells(race, choices, candidate, raceIndex, candidateIndex) {
   let txt = ''
   for (let choice = 0; choice < choices; choice++) {
     let ovalId = raceIndex + '_' + candidateIndex + '_' + choice
-    let nameOfContest = ballot.contests[raceIndex].contestName
-    let instructions = ballot.contests[raceIndex].votingInstructions
-    let lbl = contestInfoString(raceIndex) + ' ' + candidateInfoString(raceIndex, candidateIndex)
+    let lbl = candidateInfoString(raceIndex, candidateIndex)
     if (candidate.candidateCode.includes('writein'))
-      lbl = contestInfoString(raceIndex) + ' ' + 'Write-in'
+      lbl = 'Write-in'
     lbl += ' ' + choiceLabel(choice+1) + ' choice'
     txt += ovalHtml.replace(/{OVAL_ID}/g, ovalId).replace(/{OVAL_ARIA_LABEL}/g, lbl)
   }
   return txt
 }
 
-function contestInfoString(raceIndex) {
-    let txt = ''
-    txt += 'Race ' + (raceIndex+1) + ' of ' + ballot.contests.length + ': '
-    txt += ballot.contests[raceIndex].contestName + '. '
-    txt += ballot.contests[raceIndex].votingInstructions + '.'
-    return txt
-}
+// function contestInfoString(raceIndex) {
+//     let txt = ''
+//     txt += 'Race ' + (raceIndex+1) + ' of ' + ballot.contests.length + ': '
+//     txt += ballot.contests[raceIndex].contestName + '. '
+//     txt += ballot.contests[raceIndex].votingInstructions + '.'
+//     return txt
+// }
 
 function candidateInfoString(raceIndex, candidateIndex) {
     let txt = ''
-    let lastCandidate = ballot.contests[raceIndex].candidates[ballot.contests[raceIndex].candidates.length - 1]
     let numOfTotalCandidates = ballot.contests[raceIndex].candidates.length
     let numOfWriteins = ballot.contests[raceIndex].candidates.filter((x) => x.candidateCode.includes('writein')).length
-    let candidateName = ballot.contests[raceIndex].candidates[candidateIndex].candidateName
-    let candidateSubtitle = ballot.contests[raceIndex].candidates[candidateIndex].candidateSubtitle
+    const candidate = ballot.contests[raceIndex].candidates[candidateIndex]
+    // const candidateName = candidate.candidateName.replace(/<br>/g, ' and ')
+    const candidateName = getCandidateLastName(raceIndex, candidateIndex)
+    const candidateSubtitle = candidate.candidateSubtitle.replace(/<br>/g, ' ')
     if (numOfWriteins > 0) {
         numOfTotalCandidates -= numOfWriteins   // reduce total candidates by the number of write-ins 
     }
-    txt += 'Candidate ' + (candidateIndex + 1) + ' of ' + numOfTotalCandidates + ': '
+    // txt += 'Candidate ' + (candidateIndex + 1) + ' of ' + numOfTotalCandidates + ': '
     txt += candidateName + ', ' + candidateSubtitle
     return txt
 }
 
+function getCandidateLastName(raceIndex, candidateIndex) {
+  const candidate = ballot.contests[raceIndex].candidates[candidateIndex]
+  let split = candidate.candidateName.split('<br>')
+
+  // uncomment if last names only when there is more than one candidate in the name, otherwise display the fullname
+  if (split.length > 1) {
+    let lastNames = new Array()
+    for (let name of split) {
+      lastNames.push(name.split(',')[0])
+    }
+    return lastNames.join(' and ')
+  } else {
+    return candidate.candidateName
+  }
+
+  let lastNames = new Array()
+  for (let name of split) {
+    lastNames.push(name.split(',')[0])
+  }
+  return lastNames.join(' and ')
+}
+
 function buildCandidateAriaLabel(raceIndex, candidateIndex) {
     let txt = ''
-    txt += contestInfoString(raceIndex, candidateIndex) + ' '
     txt += candidateInfoString(raceIndex, candidateIndex)
     return txt
 }
 
 function buildWriteinAriaLabel(raceIndex, candidateIndex) {
     let txt = ''
-    txt += contestInfoString(raceIndex, candidateIndex) + ' '
     txt += 'Write-in'
     return txt
 }
