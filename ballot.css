@@ -278,6 +278,8 @@ td > .container {
 }
 .reviewCandidates {
     font-size: 20px;
+    border-top: 1px inset gray;
+    padding-top: 13px;
 }
 
 /* #reviewPage {
