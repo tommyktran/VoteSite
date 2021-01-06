@@ -263,11 +263,12 @@ td > .container {
 
 /* start styles for ReviewPage */
 .reviewContestHeader {
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    padding: 12px;
+    margin-bottom: 15px;
     background-color: #e6e9ed;
-    /* width: 715px;
-    margin: auto; */
+    border: 1px solid black;
+    border-radius: 16px;
+
 }
 #reviewBody {
     margin-top: 20px;
