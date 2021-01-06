@@ -32,9 +32,9 @@ const reviewContestHtml = `
     <a href="#contest_{REVIEW_ID}" class="reviewContestLink">
     <div class="reviewContestHeader">
         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-        <div class="reviewCandidates">
+    </div>
+    <div class="reviewCandidates">
         {CANDIDATES}
-        </div>
     </div>
     </a>
 </div>

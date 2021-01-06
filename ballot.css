@@ -262,24 +262,45 @@ td > .container {
 }
 
 /* start styles for ReviewPage */
-.reviewContestHeader {
+.reviewContest {
+    width: 800px;
+    text-align: center;
+    background-color: #e6e9ed;
     padding: 12px;
     margin-bottom: 15px;
-    background-color: #e6e9ed;
     border: 1px solid black;
     border-radius: 16px;
-
 }
+
+.reviewContestButton {
+    width: 800px;
+    margin: 3px 0;
+    
+}
+
+#reviewPageInstructions {
+    width: 800px;
+    margin: 0 auto;
+    /* border: 2px solid darkgray; */
+    padding: 10px;
+}
+
 #reviewBody {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
+.reviewContestHeader {
+    margin: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black
+}
+
 .reviewCandidates {
     font-size: 20px;
-    border-top: 1px inset gray;
-    padding-top: 13px;
+    padding-top: 12px;
 }
 
 /* #reviewPage {
@@ -412,22 +433,7 @@ button:hover {
     justify-content: center;
     width:800px;
 }
-.reviewContest {
-    width: 800px;
-    text-align: center;
-}
 
-.reviewContestButton {
-    width: 800px;
-    margin: 3px 0;
-}
-
-#reviewPageInstructions {
-    width: 800px;
-    margin: 0 auto;
-    /* border: 2px solid darkgray; */
-    padding: 10px;
-}
 
 .writeinName {
     border-bottom: 1px solid gray;
