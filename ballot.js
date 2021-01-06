@@ -49,3 +49,11 @@ function addWriteinsToData() {
     }
   })
 }
+
+function submit() {
+  document.querySelector('.tooltiptext').style = "visibility: visible; opacity: 1;"
+  window.setTimeout(() => {
+    document.querySelector('.tooltiptext').style = "visibility: visible; opacity: 1; animation: fade .3s forwards"
+  }, 2500);
+
+}
