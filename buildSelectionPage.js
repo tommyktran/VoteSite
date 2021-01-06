@@ -1,12 +1,14 @@
 const rcRaceHtml = `
-  <hr />
-  <h2 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h2>
-  <h2 class="contestSubtitle">{CONTEST_SUBTITLE}</h2>
-  <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
-  <table aria-label="{CONTEST_NAME}" class="{CLASS_NAME}">
-      {HEADER_ROW}
-      {CANDIDATE_ROWS}
-  </table>`
+  <div class="selectionContest">
+    <h2 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h2>
+    <h2 class="contestSubtitle">{CONTEST_SUBTITLE}</h2>
+    <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
+    <table aria-label="{CONTEST_NAME}" class="{CLASS_NAME}">
+        {HEADER_ROW}
+        {CANDIDATE_ROWS}
+    </table>  
+  </div>
+  `
 
 const headerRowHtml = `<tr class="header-row"><td>Candidate</td>{CHOICES}</tr>`
 
@@ -33,13 +35,15 @@ const ovalHtml = `
           </label></td>`
 
 const rRaceHtml = `
-  <hr />
+<div class="selectionContest">
   <h2 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h2>
   <h2 class="contestSubtitle">{CONTEST_SUBTITLE}</h2>
   <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
   <div class="regCandidates">
     {CANDIDATES}
-  </div>`
+  </div>
+</div>
+`
 
 const candidateRegLine = `
   <div class="indivCandidate">
@@ -64,7 +68,7 @@ const candidateRegWriteIn = `
   </div>`
 
 const qRaceHtml = `
-  <hr />
+<div class="selectionContest">
   <div class="questionDiv">
     <h2 id="contest_{CONTEST_INDEX}" class="contestName">{CONTEST_NAME}</h2>
     <h2 class="contestSubtitle">{CONTEST_SUBTITLE}</h2>
@@ -73,7 +77,8 @@ const qRaceHtml = `
     <div class="questionOptionsDiv">
       {QUESTION_OPTIONS}
     </div>
-  </div>`
+  </div>
+</div>`
 
 const questionOption = `
   <div class="questionOption">
