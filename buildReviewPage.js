@@ -74,10 +74,12 @@ function removeAllChildNodes(parent) {
 function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData();
     const reviewPage = document.getElementById("reviewPage")
+    
     const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
-    selectionPage.style.display = 'none'  // NOTE: used hidden instead of display : none
+    selectionPage.style.display = 'none'  
     reviewPage.style.display = 'block'
+    reviewPage.style.visibility = 'visible'
     reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
@@ -149,7 +151,7 @@ function reviewBoxesHandler(event) {
     let reviewPage = document.getElementById("reviewPage")
     let selectionPage = document.getElementById('selection')
     selectionPage.style.display = 'block'
-    reviewPage.style.display = 'none'
+    reviewPage.style.visibility = 'hidden'
     const reviewBody = document.getElementById('reviewBody')
     reviewBody.innerHTML = ''
 }
