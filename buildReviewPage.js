@@ -76,7 +76,7 @@ function reviewBtnHandler(event) {
     const reviewPage = document.getElementById("reviewPage")
     const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
-    selectionPage.style.display = 'none'
+    selectionPage.style.display = 'hidden'  // NOTE: used hidden instead of display : none
     reviewPage.style.display = 'block'
     reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
