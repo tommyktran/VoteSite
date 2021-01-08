@@ -84,7 +84,8 @@ function reviewBtnHandler(event) {
     ballot.contests.forEach((race, index, contests) => {
         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
     })
-    const focusEle = document.getElementById('reviewPage')
+    const focusEle = document.getElementById('reviewPageInstructions')
+    focusEle.focus()
     focusEle.scrollIntoView()
     // const linkables = document.querySelectorAll('a')
     // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
