@@ -5,7 +5,7 @@ function questionHandler(event) {
     uncheckOtherCandidates(contestIndex, candidateIndex);
 
     // live update for review section
-    reviewBtnHandler(event) 
+    syncAndBuildReviewPage(event) 
 }
 
 function uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex) {
@@ -81,12 +81,12 @@ function regularHandler(event) {
             writeinBox.textContent = ''
             document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${writeinBox.textContent}`) 
             // live update for review section
-            reviewBtnHandler(event) 
+            syncAndBuildReviewPage(event) 
             return
         }
     }
     // live update for review section
-    reviewBtnHandler(event) 
+    syncAndBuildReviewPage(event) 
 }
 
 function isWriteinCandidate(contestIndex, candidateIndex) {
@@ -174,7 +174,7 @@ function rankChoiceHandler(event) {
         event.preventDefault()
 
         // live update for review section
-        reviewBtnHandler(event)
+        syncAndBuildReviewPage(event)
 
         // if(confirmed) {
         //     for (let id of candidateSelections) {
@@ -194,7 +194,7 @@ function rankChoiceHandler(event) {
         // }           
     }
     // live update for review section
-    reviewBtnHandler(event)     
+    syncAndBuildReviewPage(event)     
 }
 
 function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedWriteinName) {
@@ -220,7 +220,7 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
     document.getElementById(ovalId).focus()
 
     // live update for review section
-    reviewBtnHandler(event)
+    syncAndBuildReviewPage(event)
 }
 
 function showModal() {

@@ -71,12 +71,15 @@ function removeAllChildNodes(parent) {
     }
 }
 
-
-function reviewBtnHandler(event) {
+function syncAndBuildReviewPage() {
     syncSelectedVotesToBallotData();
     const reviewPage = document.getElementById("reviewPage")
     const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
+
+    /// Toggles the screen-reader only class list (removes class)
+    //document.getElementById('reviewPage').classList.toggle('sr-only')
+
     // selectionPage.style.display = 'none'
     // reviewPage.style.display = 'block'
     reviewBody.innerHTML = ''
@@ -89,6 +92,13 @@ function reviewBtnHandler(event) {
     // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
     const linkables = document.querySelectorAll('.reviewContestLink')
     linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
+}
+
+
+function reviewBtnHandler(event) {
+    syncAndBuildReviewPage()
+    document.getElementById('selection').classList.toggle('sr-only') // hide
+    document.getElementById('reviewPage').classList.toggle('sr-only') // show
 }
 
 function doneAndCreatePdf() {

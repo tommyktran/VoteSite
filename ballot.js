@@ -35,7 +35,10 @@ function initPage() {
     document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
 
     // live update for review section
-    reviewBtnHandler(event)
+    syncAndBuildReviewPage()
+
+    document.getElementById('reviewPage').classList.toggle('sr-only')
+    document.getElementById('affidavitPage').classList.toggle('sr-only')
 
 
   }

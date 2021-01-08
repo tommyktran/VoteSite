@@ -54,14 +54,14 @@
     </div>
 
     <div id="reviewPage">
-        <!-- <h1>Review</h1> -->
+        <h1>Review</h1>
         <p id="reviewPageInstructions">Listed below is a summary of your selections for each contest. If you need to change your selection, each contest is a link that will scroll you back to that part of the ballot where you change your selections. When you are done reviewing all selections, please read and sign the Affirmation form below with your password.</p>
         <div id="reviewBody"></div>
-        <!-- <div id="reviewFooter" class="buttonDiv">
-            <button onclick="backToSelection()">Back to Selection Page</button>
-            <button onclick="goToAffirmation()">Go to Affirmation Page</button>
-            <button onclick="createBallotPdf(ballot)">Create PDF</button> 
-        </div> -->
+        <div id="reviewFooter" class="buttonDiv">
+            <button id="backToSelectionButton" onclick="backToSelection()">Back to Selection Page</button>
+            <button id="gotToAffirmationButton"onclick="goToAffirmation()">Go to Affirmation Page</button>
+            <!-- <button onclick="createBallotPdf(ballot)">Create PDF</button>  -->
+        </div>
     </div>
 
     <div id="affidavitPage">
@@ -102,7 +102,7 @@
           <label for="date">Date:</label>
           <input type="text" id="date" name="date"><br><br>
           <div class="buttonDiv">
-            <!-- <button onclick="backToReview()">Back to Review Page</button> -->
+            <button onclick="backToReview()">Back to Review Page</button>
             <button onclick="submit()">Done</button>  
           </div>
                 
@@ -145,25 +145,28 @@
         }
 
         function backToSelection() {
-            document.getElementById('selection').style.display = 'block';
-            document.getElementById('reviewPage').style.display = 'none';
-            document.getElementById('affidavitPage').style.display = 'none';
-
+            document.getElementById('selection').scrollIntoView()
+            document.getElementById('selection').focus()
+            document.getElementById('selection').classList.toggle('sr-only') // show
+            document.getElementById('reviewPage').classList.toggle('sr-only') // hide
         }
 
         function backToReview() {
-            document.getElementById('selection').style.display = 'none';
-            document.getElementById('reviewPage').style.display = 'block';
-            document.getElementById('affidavitPage').style.display = 'none';
+            document.getElementById('reviewPage').scrollIntoView()
+            document.getElementById('reviewPage').focus()
+                        
+            document.getElementById('reviewPage').classList.toggle('sr-only') // show
+            document.getElementById('affidavitPage').classList.toggle('sr-only') // hide
         }
 
 
 
         function goToAffirmation() {
-            document.getElementById('selection').style.display = 'none';
-            document.getElementById('reviewPage').style.display = 'none';
-            document.getElementById('affidavitPage').style.display = 'block';
-            document.getElementById('affidavitPage').scrollIntoView();
+            document.getElementById('affidavitPage').scrollIntoView()
+            document.getElementById('affidavitPage').focus()
+
+            document.getElementById('affidavitPage').classList.toggle('sr-only') // show
+            document.getElementById('reviewPage').classList.toggle('sr-only') // hide
         }
     </script>
 
