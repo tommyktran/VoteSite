@@ -3,6 +3,13 @@ let activeWriteinOvalId = ''
 let loadTimer = setInterval(initPage, 100)
 const idHtmlTemplate = '{contestIndex}_{candidateIndex}_{rankIndex}'
 
+// service worker for PWA
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+    .then(reg => console.log('service worker registered'))
+    .catch(err => console.log('service worker not registered'))
+}
+
 function initPage() {
   if (document.readyState == 'complete') {
     clearInterval(loadTimer)

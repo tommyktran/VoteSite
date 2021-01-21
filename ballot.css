@@ -458,3 +458,11 @@ button:hover {
     color: blue;
     font-size: initial;
 }
+
+/* start media queries */
+@media (max-width: 1024px) {
+    .candidateSubtitle {
+        font-weight: 400;
+    }
+}
+/* end media queries */
