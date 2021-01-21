@@ -2,13 +2,19 @@ const staticCacheName = 'site-static';
 const assets = [
     '/',
     '/index.html',
-    'affidavitPage.js',
-    '/ballot.css',
     '/ballot.js',
-    '/buildReviewPage.js',
+    '/WATERVILLE.js',
     '/buildSelectionPage.js',
     '/ovalSelection.js',
-    '/WATERVILLE.js'
+    '/buildReviewPage.js',
+    '/keyboard.js',
+    '/affidavitPage.js',
+    
+    //'/ballotpdf.js',
+    //'/jspdf.min.js',
+    //'/manifest.json',
+    //'/qrcode.min.js',
+    // and icons ?? 
 ];
 
 // install event
@@ -29,5 +35,5 @@ self.addEventListener('activate', evt => {
 
 // fetch event
 self.addEventListener('fetch', evt => {
-    //console.log('service worker fetched', evt);
+    console.log('service worker fetched', evt);
 });
