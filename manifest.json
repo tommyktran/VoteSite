@@ -4,6 +4,7 @@
     "start_url": "/index.html",
     "display": "standalone",
     "background_color": "#5e5a56",
+    "theme_color": "#f69435",
     "description": "A web app that allows you to mark your ballot",
     "scope": "/",
     "icons": [
