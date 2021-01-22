@@ -1,12 +1,11 @@
 {
-    "theme_color": "#f69435",
-    "background_color": "#5e5a56",
-    "display": "standalone",
-    "scope": "/",
-    "start_url": "/index.html",
-    "app_name": "IVS Ballot App",
+    "name": "IVS Ballot App",
     "short_name": "Ballot",
+    "start_url": "/index.html",
+    "display": "standalone",
+    "background_color": "#5e5a56",
     "description": "A web app that allows you to mark your ballot",
+    "scope": "/",
     "icons": [
         {
             "src": "/img/icons/icon-192x192.png",
