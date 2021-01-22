@@ -1,14 +1,14 @@
 const staticCacheName = 'site-static';
 const assets = [
-    '/',
-    '/index.html',
-    '/ballot.js',
-    '/WATERVILLE.js',
-    '/buildSelectionPage.js',
-    '/ovalSelection.js',
-    '/buildReviewPage.js',
-    '/keyboard.js',
-    '/affidavitPage.js',
+    './',
+    './index.html',
+    './ballot.js',
+    './WATERVILLE.js',
+    './buildSelectionPage.js',
+    './ovalSelection.js',
+    './buildReviewPage.js',
+    './keyboard.js',
+    './affidavitPage.js',
     
     //'/ballotpdf.js',
     //'/jspdf.min.js',

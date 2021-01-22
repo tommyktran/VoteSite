@@ -459,6 +459,15 @@ button:hover {
     font-size: initial;
 }
 
+.btn {
+    font-size: 20px;
+    padding: 5px 10px;
+    background-color:#BBB;
+    border: 2px solid #999;
+    border-radius: 13px;
+    
+}
+
 /* start media queries */
 @media (max-width: 1024px) {
     .candidateSubtitle {
