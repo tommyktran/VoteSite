@@ -30,7 +30,7 @@ const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
 
 const reviewContestHtml = `
 <div class="reviewContest">
-    <a href="#contest_{REVIEW_ID}" class="reviewContestLink">
+    <a href="index.html#contest_{REVIEW_ID}" class="reviewContestLink">
     <div class="reviewContestHeader">
         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
     </div>
@@ -42,6 +42,8 @@ const reviewContestHtml = `
 `
 
 function syncSelectedVotesToBallotData() {
+    console.log(ballot)
+
     ballot.contests.forEach((contest, contestIndex) => {
         contest.candidates.forEach((candidate, candidateIndex) => {
             candidate.selected = 0
@@ -62,6 +64,8 @@ function syncSelectedVotesToBallotData() {
             }
         })
     })
+    sessionStorage.setItem('data', JSON.stringify(ballot))
+    console.log(sessionStorage)
     return ballot
 }
 
@@ -73,7 +77,7 @@ function removeAllChildNodes(parent) {
 
 
 function reviewBtnHandler(event) {
-    syncSelectedVotesToBallotData();
+    // syncSelectedVotesToBallotData();
     const reviewPage = document.getElementById("reviewPage")
     const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
@@ -153,8 +157,11 @@ function reviewBoxesHandler(event) {
     // let selectionPage = document.getElementById('selection')
     // selectionPage.style.display = 'block'
     // reviewPage.style.display = 'none'
-    const reviewBody = document.getElementById('reviewBody')
-    reviewBody.innerHTML = ''
+
+    // const reviewBody = document.getElementById('reviewBody')
+    // reviewBody.innerHTML = ''
+
+
 }
 
 function backBtnHandler() {

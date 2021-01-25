@@ -14,10 +14,12 @@
     <link rel='stylesheet' href='ballot.css' />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
     <script type="text/javascript" src="qrcode.min.js"></script>
-    <script src='ballot.js'></script>
+    
     <!-- <script src='ballot_260111_d.js'></script> -->
     <script src='WATERVILLE.js'></script>
     <!-- <script src='data.js'></script> -->
+
+    <script src='ballot.js'></script>
     <script src='ballotpdf.js'></script>
     <script src='buildSelectionPage.js'></script>
     <script src='ovalSelection.js'></script>
@@ -31,6 +33,13 @@
     <link rel="apple-touch-icon" href="/img/icons/icon-96x96.png">
     <meta name="apple-mobile-web-app-status-bar" content="#FFE1C4">
     <meta name="theme-color" content="#f69435">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
 </head>
 
 <body>
@@ -174,6 +183,8 @@
             document.getElementById('affidavitPage').style.display = 'block';
             document.getElementById('affidavitPage').scrollIntoView();
         }
+        let loadTimer = setInterval(initPage, 100)
+
     </script>
 
 </body>

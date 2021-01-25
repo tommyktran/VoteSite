@@ -4,8 +4,8 @@ function questionHandler(event) {
     const candidateIndex = ovalId.split('_')[1]
     uncheckOtherCandidates(contestIndex, candidateIndex);
 
-    // live update for review section
-    reviewBtnHandler(event) 
+    syncSelectedVotesToBallotData()
+
 }
 
 function uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex) {
@@ -85,8 +85,8 @@ function regularHandler(event) {
             return
         }
     }
-    // live update for review section
-    reviewBtnHandler(event) 
+    syncSelectedVotesToBallotData()
+
 }
 
 function isWriteinCandidate(contestIndex, candidateIndex) {
@@ -192,9 +192,9 @@ function rankChoiceHandler(event) {
         //         document.getElementById(writeinBoxId).value = savedWriteinName
         //     }
         // }           
-    }
-    // live update for review section
-    reviewBtnHandler(event)     
+    }    syncSelectedVotesToBallotData()
+
+
 }
 
 function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedWriteinName) {
@@ -220,7 +220,8 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
     document.getElementById(ovalId).focus()
 
     // live update for review section
-    reviewBtnHandler(event)
+    // reviewBtnHandler(event)
+    syncSelectedVotesToBallotData()
 }
 
 function showModal() {
