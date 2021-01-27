@@ -33,126 +33,25 @@
     <script>    
         window.onload = function() {
             ballot = JSON.parse(sessionStorage.getItem('data'))
-            reviewBtnHandler();
+            console.log(ballot);
+
+            // const reviewPage = document.getElementById("reviewPage")
+            const selectionPage = document.getElementById('selection')
+            const reviewBody = document.querySelector('#reviewBody')
+            // selectionPage.style.display = 'none'
+            // reviewPage.style.display = 'block'
+            reviewBody.innerHTML = ''
+            ballot.contests.forEach((race, index, contests) => {
+                reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
+            })
+            //const focusEle = document.getElementById('reviewPage')
+            //focusEle.scrollIntoView()
+            // const linkables = document.querySelectorAll('a')
+            // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
+            const linkables = document.querySelectorAll('.reviewContestLink')
+            linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
+
         }
-    
-        // const selectedVote = `<div>{CANDIDATE_NAME}</div>`
-        // const rankedVote = `<div>{RANK} choice: {CANDIDATE_NAME}</div>`
-        // const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
-        // const reviewContestHtml = `
-        // <div class="reviewContest">
-        //     <a href="#contest_{REVIEW_ID}" class="reviewContestLink">
-        //     <div class="reviewContestHeader">
-        //         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-        //     </div>
-        //     <div class="reviewCandidates">
-        //         {CANDIDATES}
-        //     </div>
-        //     </a>
-        // </div>
-        // `
-
-
-        // function removeAllChildNodes(parent) {
-        //     while (parent.firstChild) {
-        //         parent.removeChild(parent.firstChild);
-        //     }
-        // }
-
-
-        // function reviewBtnHandler(event) {
-        //     const reviewPage = document.getElementById("reviewPage")
-        //     const reviewBody = document.querySelector('#reviewBody')
-        //     // selectionPage.style.display = 'none'
-        //     // reviewPage.style.display = 'block'
-        //     reviewBody.innerHTML = ''
-        //     ballot.contests.forEach((race, index, contests) => {
-        //         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
-        //     })
-
-        //     //const linkables = document.querySelectorAll('.reviewContestLink')
-        //     //linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
-        // }
-
-        // function doneAndCreatePdf() {
-        //     syncSelectedVotesToBallotData()
-        //     createBallotPdf(ballot)
-        // }
-
-        // function buildReview(race, raceIndex) {
-        //     let text = reviewContestHtml
-        //     text = text.replace(/{REVIEW_ID}/g, raceIndex)
-        //     text = text.replace('{CONTESTNAME}', race.contestName)
-        //     if (race.contestType === 'RC') {
-        //         text = text.replace('Vote for {VOTEFOR}', 'Rank Choice')
-        //     } else {
-        //         text = text.replace('{VOTEFOR}', race.voteFor)
-        //     }
-        //     if (race.contestType === 'RC') {
-        //         text = text.replace('{CANDIDATES}', buildReviewRankedVotes(race, raceIndex))
-        //     } else {
-        //         text = text.replace('{CANDIDATES}', buildReviewSelectedVotes(race, raceIndex))
-        //     }
-        //     return text;
-        // }
-
-        // function buildReviewSelectedVotes(race, raceIndex) {
-        //     let text = ''
-        //     race.candidates.forEach((candidate, candidateIndex) => {
-        //         if (candidate.selected === 1) {
-        //             if (candidate.candidateCode.includes("writein")) {
-        //                 text += selectedVote.replace('{CANDIDATE_NAME}', candidate.candidateName + ' (Write-in)')
-        //             } else {
-        //                 text += selectedVote.replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + candidateIndex))
-        //             }            
-        //         }
-        //     })
-        //     if (text.trim() === '') {
-        //         text += noSelection
-        //     }
-        //     return text
-        // }
-
-        // function buildReviewRankedVotes(race, raceIndex) {
-        //     let text = ''
-        //     for (let i = 1; i < race.candidates.length + 1; i++) {
-        //         for (let j = 0; j < race.candidates.length; j++) {
-        //             if (race.candidates[j].selected === i) {
-        //                 text += rankedVote
-        //                 text = text
-        //                     .replace('{RANK}', choiceLabel(i))
-        //                     .replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + j))
-        //             }
-        //         }
-        //     }
-        //     if (text.trim() === '') {
-        //         text += noSelection
-        //     }
-        //     return text
-        // }
-
-        // function reviewBoxesHandler(event) {
-        //     // let reviewPage = document.getElementById("reviewPage")
-        //     // let selectionPage = document.getElementById('selection')
-        //     // selectionPage.style.display = 'block'
-        //     // reviewPage.style.display = 'none'
-        //     const reviewBody = document.getElementById('reviewBody')
-        //     reviewBody.innerHTML = ''
-        // }
-
-        // function backBtnHandler() {
-        //     const reviewPage = document.getElementById("reviewPage")
-        //     const selectionPage = document.getElementById('selection')
-        //     const header = document.querySelector('header')
-        //     reviewPage.style.display = 'none'
-        //     selectionPage.style.display = 'block'   
-        //     document.querySelector('input[type="checkbox"]').focus() // places focus on the first oval on page
-        //     const reviewBody = document.getElementById('reviewBody')
-        //     reviewBody.innerHTML = '';
-        //     header.scrollIntoView();
-        // }
-
-
     </script>
 </body>
 </html>

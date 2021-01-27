@@ -33,7 +33,6 @@ if ('serviceWorker' in navigator) {
 
 function initPage() {
   if (document.readyState == 'complete') {
-    console.log(navigationType())
     if (navigationType() == 1) {
       sessionStorage.clear()      
     }
@@ -42,11 +41,6 @@ function initPage() {
 
     // add the additional writeins into the ballot data:
     // addWriteinsToData();
-
-    console.log(ballot)
-    console.log('index load js')
-    
-    console.log('index load js after')
 
     let elm = document.getElementById("contests")
     // console.log(ele)
@@ -115,7 +109,7 @@ function initPage() {
     document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
 
     // live update for review section
-    reviewBtnHandler(event)
+    //reviewBtnHandler(event)
 
 
   }

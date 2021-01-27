@@ -42,8 +42,6 @@ const reviewContestHtml = `
 `
 
 function syncSelectedVotesToBallotData() {
-    console.log(ballot)
-
     ballot.contests.forEach((contest, contestIndex) => {
         contest.candidates.forEach((candidate, candidateIndex) => {
             candidate.selected = 0
@@ -64,8 +62,8 @@ function syncSelectedVotesToBallotData() {
             }
         })
     })
-    sessionStorage.setItem('data', JSON.stringify(ballot))
-    console.log(sessionStorage)
+    // sessionStorage.setItem('data', JSON.stringify(ballot))
+    // console.log('saving ballot data to sessionStorage')
     return ballot
 }
 
@@ -77,22 +75,28 @@ function removeAllChildNodes(parent) {
 
 
 function reviewBtnHandler(event) {
-    // syncSelectedVotesToBallotData();
-    const reviewPage = document.getElementById("reviewPage")
-    const selectionPage = document.getElementById('selection')
-    const reviewBody = document.querySelector('#reviewBody')
-    // selectionPage.style.display = 'none'
-    // reviewPage.style.display = 'block'
-    reviewBody.innerHTML = ''
-    ballot.contests.forEach((race, index, contests) => {
-        reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
-    })
-    //const focusEle = document.getElementById('reviewPage')
-    //focusEle.scrollIntoView()
-    // const linkables = document.querySelectorAll('a')
+    alert('hi')
+    syncSelectedVotesToBallotData()
+    sessionStorage.setItem('data', JSON.stringify(ballot))
+    //alert(JSON.parse(sessionStorage.getItem('data')))
+    event.preventDefault()
+
+    // syncSelectedVotesToBallotData()
+    // const reviewPage = document.getElementById("reviewPage")
+    // const selectionPage = document.getElementById('selection')
+    // const reviewBody = document.querySelector('#reviewBody')
+    // // selectionPage.style.display = 'none'
+    // // reviewPage.style.display = 'block'
+    // reviewBody.innerHTML = ''
+    // ballot.contests.forEach((race, index, contests) => {
+    //     reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
+    // })
+    // //const focusEle = document.getElementById('reviewPage')
+    // //focusEle.scrollIntoView()
+    // // const linkables = document.querySelectorAll('a')
+    // // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
+    // const linkables = document.querySelectorAll('.reviewContestLink')
     // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
-    const linkables = document.querySelectorAll('.reviewContestLink')
-    linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
 }
 
 function doneAndCreatePdf() {
@@ -153,15 +157,7 @@ function buildReviewRankedVotes(race, raceIndex) {
 }
 
 function reviewBoxesHandler(event) {
-    // let reviewPage = document.getElementById("reviewPage")
-    // let selectionPage = document.getElementById('selection')
-    // selectionPage.style.display = 'block'
-    // reviewPage.style.display = 'none'
-
-    // const reviewBody = document.getElementById('reviewBody')
-    // reviewBody.innerHTML = ''
-
-
+    event.preventDefault();
 }
 
 function backBtnHandler() {

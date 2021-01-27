@@ -3,9 +3,6 @@ function questionHandler(event) {
     const contestIndex = ovalId.split('_')[0]
     const candidateIndex = ovalId.split('_')[1]
     uncheckOtherCandidates(contestIndex, candidateIndex);
-
-    syncSelectedVotesToBallotData()
-
 }
 
 function uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex) {
@@ -85,8 +82,6 @@ function regularHandler(event) {
             return
         }
     }
-    syncSelectedVotesToBallotData()
-
 }
 
 function isWriteinCandidate(contestIndex, candidateIndex) {
@@ -172,29 +167,7 @@ function rankChoiceHandler(event) {
         showModal()
         document.getElementById("yesButton").focus()
         event.preventDefault()
-
-        // live update for review section
-        reviewBtnHandler(event)
-
-        // if(confirmed) {
-        //     for (let id of candidateSelections) {
-        //         document.getElementById(id).checked = false
-        //     }
-        //     for (let id of rankSelections) {
-        //         document.getElementById(id).checked = false
-        //     }
-        // } else {
-        //     event.preventDefault()           
-            // document.getElementById(rankSelections[0]).checked = true
-            // document.getElementById(candidateSelections[0]).checked = true
-        //     if (savedWriteinName != '') {
-        //         const writeinBoxId = candidateSelections[0].split('_')[0] + candidateSelections[0].split('_')[1] + '_w'
-        //         document.getElementById(writeinBoxId).value = savedWriteinName
-        //     }
-        // }           
-    }    syncSelectedVotesToBallotData()
-
-
+    }    
 }
 
 function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedWriteinName) {
