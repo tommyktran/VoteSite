@@ -329,28 +329,7 @@ td > .container {
     display: block;
 }
 
-a {
-    text-decoration: none;
-}
 
-
-a {
-    color: black;
-}
-
-/* Unvisited link  */
-a:visited {
-    color: black;
-}
-
-/* Visited link    */
-a:focus {
-    color: blue;
-}
-
-a:active {
-    color: black;
-}
 
 /* Selected link   */
 

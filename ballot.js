@@ -50,10 +50,32 @@ function initPage() {
       elm.insertAdjacentHTML("beforeend", buildRace(race, index))
     })
 
+    //start running other javascript after page is rendered
+    //document.querySelector('input[type="checkbox"]').focus() // places focus on the first oval on page
+
+    let question = document.querySelectorAll('.questionRaceOval')
+    question.forEach(checkbox => checkbox.addEventListener('click', questionHandler))
+
+    let test_all = document.querySelectorAll('.regularRaceOval')
+    test_all.forEach(checkbox => checkbox.addEventListener('click', regularHandler))
+
+    let rc = document.querySelectorAll('.rankChoiceRaceOval')
+    rc.forEach(checkbox => checkbox.addEventListener('click', rankChoiceHandler))
+
+    // let writeboxes = document.querySelectorAll('input[type="text"]')
+    // writeboxes.forEach(writebox => writebox.addEventListener('focusout', textHandler))
+
+    // let allOvals = document.querySelectorAll('input[type="checkbox"]')
+    // allOvals.forEach(oval => oval.addEventListener('keydown', keypressHandler))
+
+    // document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
+
+    // live update for review section
+    //reviewBtnHandler(event)
 
     //checks to see if there's alreay selection data saved in local storage. If so, then overwrite the ballot json data
     if (sessionStorage.getItem('data')) {
-      console.log('found')
+      console.log('found ballot selection in sessionStorage');
       ballot = JSON.parse(sessionStorage.getItem('data'))
       console.log('updating ballot with storageSession data')
       console.log(ballot)
@@ -87,29 +109,16 @@ function initPage() {
         }
       })
     }
+    // checks to see if user clicked on a review contest link to get to this page. If so, then scroll / focus to that particular contest
+    if (sessionStorage.getItem('reviewLink')) {
+      console.log('reviewLink found', sessionStorage.getItem('reviewLink'));
+      const contestId = sessionStorage.getItem('reviewLink').split('#')[1];
+      console.dir(contestId);
+      document.getElementById(contestId).scrollIntoView();
+  } else {
+      console.log('Fresh page, no reviewLink found');
+  }
 
-    //start running other javascript after page is rendered
-    //document.querySelector('input[type="checkbox"]').focus() // places focus on the first oval on page
-
-    let question = document.querySelectorAll('.questionRaceOval')
-    question.forEach(checkbox => checkbox.addEventListener('click', questionHandler))
-
-    let test_all = document.querySelectorAll('.regularRaceOval')
-    test_all.forEach(checkbox => checkbox.addEventListener('click', regularHandler))
-
-    let rc = document.querySelectorAll('.rankChoiceRaceOval')
-    rc.forEach(checkbox => checkbox.addEventListener('click', rankChoiceHandler))
-
-    // let writeboxes = document.querySelectorAll('input[type="text"]')
-    // writeboxes.forEach(writebox => writebox.addEventListener('focusout', textHandler))
-
-    // let allOvals = document.querySelectorAll('input[type="checkbox"]')
-    // allOvals.forEach(oval => oval.addEventListener('keydown', keypressHandler))
-
-    document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
-
-    // live update for review section
-    //reviewBtnHandler(event)
 
 
   }

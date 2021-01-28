@@ -30,15 +30,14 @@ const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
 
 const reviewContestHtml = `
 <div class="reviewContest">
-    <a href="index.html#contest_{REVIEW_ID}" class="reviewContestLink">
     <div class="reviewContestHeader">
         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
     </div>
     <div class="reviewCandidates">
         {CANDIDATES}
     </div>
-    </a>
-</div>
+    <a href="index.html#contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</a>
+    </div>
 `
 
 function syncSelectedVotesToBallotData() {
@@ -75,7 +74,6 @@ function removeAllChildNodes(parent) {
 
 
 function reviewBtnHandler(event) {
-    alert('hi')
     syncSelectedVotesToBallotData()
     sessionStorage.setItem('data', JSON.stringify(ballot))
     //alert(JSON.parse(sessionStorage.getItem('data')))
@@ -157,7 +155,8 @@ function buildReviewRankedVotes(race, raceIndex) {
 }
 
 function reviewBoxesHandler(event) {
-    event.preventDefault();
+    console.dir(event.target.hash);
+    sessionStorage.setItem('reviewLink', event.target.hash);
 }
 
 function backBtnHandler() {
