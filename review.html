@@ -29,7 +29,7 @@
             <button onclick="goToAffirmation()">Go to Affirmation Page</button>
             <button onclick="createBallotPdf(ballot)">Create PDF</button> 
         </div> -->
-        <a href="index.html" class="btn">Back</a>
+        <a href="index.html" id="backButton_ReviewPage" class="btn">Back</a>
     </div>
     <script>    
         window.onload = function() {
@@ -51,6 +51,10 @@
             // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
             const linkables = document.querySelectorAll('.reviewContestLink')
             linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
+
+            document.getElementById('backButton_ReviewPage').addEventListener('click', (event) => {
+                sessionStorage.removeItem('reviewLink');
+            })
 
         }
     </script>
