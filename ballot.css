@@ -465,7 +465,7 @@ button:hover {
     }
 }
 @media (max-width: 830px) {
-    .regCandidates, .questionDiv, table, #reviewPageInstructions, .reviewContest {
+    .regCandidates, .questionDiv, table, #reviewPageInstructions, .reviewContest, #affidavitPage {
         width: 100%;
     }
     body {
