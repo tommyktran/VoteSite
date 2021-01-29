@@ -37,6 +37,8 @@ function initPage() {
       sessionStorage.clear()      
     }
 
+
+
     clearInterval(loadTimer)
 
     // add the additional writeins into the ballot data:
@@ -112,14 +114,13 @@ function initPage() {
     // checks to see if user clicked on a review contest link to get to this page. If so, then scroll / focus to that particular contest
     if (sessionStorage.getItem('reviewLink')) {
       console.log('reviewLink found', sessionStorage.getItem('reviewLink'));
-      const contestId = sessionStorage.getItem('reviewLink').split('#')[1];
-      console.dir(contestId);
+      const contestId = sessionStorage.getItem('reviewLink').replace('review_', '');
+      console.log(contestId);
       document.getElementById(contestId).scrollIntoView();
-  } else {
-      console.log('Fresh page, no reviewLink found');
-  }
-
-
-
+      document.getElementById(contestId).focus();
+    } else {
+        console.log('Fresh page, no reviewLink found');
+    }
+    
   }
 }

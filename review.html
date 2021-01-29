@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ballot</title>
     <link rel='stylesheet' href='ballot.css' />
     <script src="buildReviewPage.js"></script>
     <script src="WATERVILLE.js"></script>
@@ -11,25 +11,34 @@
     <script src="buildSelectionPage.js"></script>
     <script src="ovalSelection.js"></script>
 
+    <!-- pwa manifests -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="/img/icons/icon-96x96.png">
+    <meta name="apple-mobile-web-app-status-bar" content="#FFE1C4">
+    <meta name="theme-color" content="#f69435">
+
     <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
     <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
-    <meta name="theme-color" content="#ffffff">
 
 </head>
 <body>
     <div id="reviewPage">
-        <!-- <h1>Review</h1> -->
-        <p id="reviewPageInstructions">Listed below is a summary of your selections for each contest. If you need to change your selection, each contest is a link that will scroll you back to that part of the ballot where you change your selections. When you are done reviewing all selections, please read and sign the Affirmation form below with your password.</p>
+        <h1>Review</h1>
+        <p id="reviewPageInstructions">Listed below is a summary of your selections for each contest. If you need to change your selection, each contest has a link that will take you back to that part of the ballot where you change your selections. When you are done reviewing all selections, click "Next" to go to the next page where you can read and sign the Affirmation Page.</p>
         <div id="reviewBody"></div>
         <!-- <div id="reviewFooter" class="buttonDiv">
             <button onclick="backToSelection()">Back to Selection Page</button>
             <button onclick="goToAffirmation()">Go to Affirmation Page</button>
             <button onclick="createBallotPdf(ballot)">Create PDF</button> 
         </div> -->
-        <a href="index.html" id="backButton_ReviewPage" class="btn">Back</a>
+        <div id="buttonWrap_ReviewPage">
+            <a href="index.html" id="backButton_ReviewPage" class="btn">Back</a>
+            <a href="affidavitPage.html" id="affidavitButton_ReviewPage" class="btn">Next</a>
+        </div>       
     </div>
     <script>    
         window.onload = function() {
@@ -56,6 +65,11 @@
                 sessionStorage.removeItem('reviewLink');
             })
 
+            document.getElementById('affidavitButton_ReviewPage').addEventListener('click', nextBtnHandler_ReviewPage)
+
+            function nextBtnHandler_ReviewPage(event) {
+                sessionStorage.removeItem('reviewLink');
+            }
         }
     </script>
 </body>

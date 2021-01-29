@@ -36,9 +36,10 @@ const reviewContestHtml = `
     <div class="reviewCandidates">
         {CANDIDATES}
     </div>
-    <a href="index.html#contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</a>
-    </div>
+    <button id="review_contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</a>
+</div>
 `
+//<a href="index.html#contest_{REVIEW_ID}" id="review_contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</a>
 
 function syncSelectedVotesToBallotData() {
     ballot.contests.forEach((contest, contestIndex) => {
@@ -76,8 +77,9 @@ function removeAllChildNodes(parent) {
 function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData()
     sessionStorage.setItem('data', JSON.stringify(ballot))
+    sessionStorage.removeItem('reviewLink');
     //alert(JSON.parse(sessionStorage.getItem('data')))
-    event.preventDefault()
+    //event.preventDefault()
 
     // syncSelectedVotesToBallotData()
     // const reviewPage = document.getElementById("reviewPage")
@@ -155,8 +157,9 @@ function buildReviewRankedVotes(race, raceIndex) {
 }
 
 function reviewBoxesHandler(event) {
-    console.dir(event.target.hash);
-    sessionStorage.setItem('reviewLink', event.target.hash);
+    console.dir(event.target.id);
+    sessionStorage.setItem('reviewLink', event.target.id);
+    location.href = './index.html'
 }
 
 function backBtnHandler() {

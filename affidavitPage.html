@@ -1,4 +1,31 @@
-<div id="affidavitPage">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ballot</title>
+    <link rel='stylesheet' href='ballot.css' />
+    <script src="buildReviewPage.js"></script>
+    <script src="WATERVILLE.js"></script>
+    <script src="ballot.js"></script>
+    <script src="buildSelectionPage.js"></script>
+    <script src="ovalSelection.js"></script>
+
+    <!-- pwa manifests -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- ios support -->
+    <link rel="apple-touch-icon" href="/img/icons/icon-96x96.png">
+    <meta name="apple-mobile-web-app-status-bar" content="#FFE1C4">
+    <meta name="theme-color" content="#f69435">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+    <link rel="mask-icon" href="favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+</head>
+<body>
+  <div id="affidavitPage">
     <h1>Maine Accessible Absentee Ballot Affirmation</h1>
     <p>Warning: Knowingly providing falsified information on this affidavit is illegal under State and federal
  law and could result in criminal sanctions.</p>
@@ -35,8 +62,14 @@
       <input type="password" id="signedby" name="signedby"><br><br>
       <label for="date">Date:</label>
       <input type="text" id="date" name="date"><br><br>
-      <div class="buttonDiv">
-        <!-- <button onclick="backToReview()">Back to Review Page</button> -->
-        <button onclick="submit()">Done</button>  
+      <div id="buttonWrap_AffidavitPage">
+        <a href="review.html" id="backButton_AffidavitPage" class="btn">Back</a>
+        <a href="thankyou.html" id="doneButton_AffidavitPage" class="btn">Done</a>
+        <!-- <button onclick="submit()">Done</button>   -->
       </div>                
-</div>
+  </div>  
+</body>
+</html>
+
+
+

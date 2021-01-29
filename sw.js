@@ -2,14 +2,18 @@ const staticCacheName = 'site-static';
 const assets = [
     './',
     './index.html',
+    './review.html',
+    './thankyou.html',
+    './affidavitPage.html',
+    './affidavitPage.js',
+    './ballot.css',
     './ballot.js',
     './WATERVILLE.js',
     './buildSelectionPage.js',
     './ovalSelection.js',
     './buildReviewPage.js',
     './keyboard.js',
-    './affidavitPage.js',
-    
+        
     //'/ballotpdf.js',
     //'/jspdf.min.js',
     //'/manifest.json',

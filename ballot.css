@@ -444,7 +444,18 @@ button:hover {
     background-color:#BBB;
     border: 2px solid #999;
     border-radius: 13px;
+    text-decoration: none;
     
+}
+
+#buttonWrap_ReviewPage, #buttonWrap_AffidavitPage {
+    display: flex;
+    justify-content: space-between;
+}
+
+#buttonWrap_BallotPage {
+    display: flex;
+    justify-content: center;
 }
 
 /* start media queries */
