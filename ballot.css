@@ -464,4 +464,21 @@ button:hover {
         font-weight: 400;
     }
 }
+@media (max-width: 830px) {
+    .regCandidates, .questionDiv, table, #reviewPageInstructions, .reviewContest {
+        width: 100%;
+    }
+    body {
+        margin: 0;
+    }
+    html {
+        zoom: 56%;
+    }
+    #reviewPage {
+        padding: 0 3px;
+    }
+    .selectionContest {
+        margin: 0;
+    }
+}
 /* end media queries */
