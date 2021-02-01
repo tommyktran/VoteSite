@@ -306,13 +306,13 @@ td > .container {
 .reviewContestHeader {
     margin: 5px;
     padding-bottom: 5px;
-    border-bottom: 1px solid black
+    border-bottom: 1px solid black;
+    color: rgb(43, 43, 192);
 }
 
 .reviewCandidates {
     font-size: 20px;
     padding-top: 12px;
-    color: blue;
 }
 
 .reviewPageNoSelection {
@@ -470,14 +470,14 @@ button:hover {
     
 }
 
-#buttonWrap_ReviewPage, #buttonWrap_AffidavitPage {
-    display: flex;
-    justify-content: space-between;
-}
-
-#buttonWrap_BallotPage {
+#buttonWrap_ReviewPage {
     display: flex;
     justify-content: center;
+}
+
+#buttonWrap_AffidavitPage {
+    display: flex;
+    justify-content: space-between;
 }
 
 

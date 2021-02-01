@@ -64,6 +64,17 @@
         <a href="thankyou.html" id="doneButton_AffidavitPage" class="btn">Done</a>
         <!-- <button onclick="submit()">Done</button>   -->
       </div>                
-  </div>  
+  </div>
+  <script>
+    document.getElementById('doneButton_AffidavitPage').addEventListener('click', (event) => {
+      
+      const passwordEle = document.getElementById('signedby');
+      const password = 'vote!';
+      if (passwordEle.value !== password) {
+        event.preventDefault();
+        alert('Incorrect password!');
+      }
+    });
+  </script>  
 </body>
 </html>
