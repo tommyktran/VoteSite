@@ -116,8 +116,8 @@ function initPage() {
       console.log('reviewLink found', sessionStorage.getItem('reviewLink'));
       const contestId = sessionStorage.getItem('reviewLink').replace('review_', '');
       console.log(contestId);
-      document.getElementById(contestId).scrollIntoView();
       document.getElementById(contestId).focus();
+      document.getElementById(contestId).scrollIntoView();
     } else {
         console.log('Fresh page, no reviewLink found');
     }
