@@ -44,7 +44,7 @@
 
         <main id="contests">
         </main>
-        <button id="reviewButton" type="submit">Review</button>
+        <!-- <button id="reviewButton" type="submit">Review</button> -->
         <!-- <hr style="height: 5px; background-color: black;" /> -->
         <!-- <div class='btn-wrapper'>
             <button class='btn-inline' onclick="doneAndCreatePdf()">Create PDF</button>
@@ -53,16 +53,16 @@
         </div> -->
     </div>
 
-    <div id='qrpage' style="display: none;">
+    <!-- <div id='qrpage' style="display: none;">
         <div class='btn-wrapper'>
             <button class="btn-inline" onclick="backToSelection()">&larr;&ensp;Back</button>
         </div>
         <h3>Please bring this QR code to the polling site to print your ballot</h3>
         <div id="qrcode" style="width:200px; height:200px; margin:40px auto;"></div>
-    </div>
+    </div> -->
 
     <div id="reviewPage">
-        <!-- <h1>Review</h1> -->
+        <h1>Review</h1>
         <p id="reviewPageInstructions">Listed below is a summary of your selections for each contest. If you need to change your selection, each contest is a link that will scroll you back to that part of the ballot where you change your selections. When you are done reviewing all selections, please read and sign the Affirmation form below with your password.</p>
         <div id="reviewBody"></div>
         <!-- <div id="reviewFooter" class="buttonDiv">
@@ -71,50 +71,10 @@
             <button onclick="createBallotPdf(ballot)">Create PDF</button> 
         </div> -->
     </div>
+    <a href="affidavitPage.html" id="affidavitButton_ReviewPage" class="btn">Next</a>
 
-    <div id="affidavitPage">
-        <h1>Maine Accessible Absentee Ballot Affirmation</h1>
-        <p>Warning: Knowingly providing falsified information on this affidavit is illegal under State and federal
-     law and could result in criminal sanctions.</p>
-        <br>
-        <div class="affidavitTopBox">
-          <p>I am a U.S. citizen residing inside the United States who is blind or otherwise disabled.</p>
-        </div>
-        <br>
-        <div class="affidavitTopBox">
-          <p>My name and Maine voting residence (city or town):</p>
-          <p>Voter’s name: Mary Smith</p>
-          <p>City or Town: Lewiston</p>
-        </div>
-        <br>
-        <p>Affirmation – I swear or affirm, under penalty of perjury, that:</p>
-        <ol>
-          <li><p>I am blind or otherwise disabled, and my disability prevents or substantially limits me from being able to privately and independently complete a paper absentee ballot. I require use of an accessible electronic absentee ballot in order to vote privately and independently without visiting a clerk’s office or voting place and using a ballot marking device; and</p></li>
-          <li><p> I am a U.S. citizen, at least 18 years of age (or will be by the day of the election), eligible to vote in the requested jurisdiction; and</p></li>
-          <li><p> I am not registering, requesting a ballot, or voting in any other jurisdiction in the U.S.; and</p></li>
-          <li><p> I am completing and returning only one authorized absentee ballot; and</p></li>
-          <li><p>I have not made additional copies of the absentee ballot or provided them to other voters; and</p></li>
-          <li><p>My signature and date below indicate when I completed this document; and</p></li>
-          <li><p>The information on this form is true and complete to the best of my knowledge. I understand that a material misstatement of fact in completion of this document may constitute grounds for conviction of perjury; and</p></li>
-          <li><p> I understand that, with any absentee ballot, my name and signature will be permanently separated from my voted ballot to maintain its secrecy at the outset of the tabulation process and thereafter.</p></li>
-        </ol>
+
     
-        <div class="affidavitBottomBox">
-          <p> If you are marking the ballot on your computer with Adobe Reader, please enter your password in the 'Signed by' field below, click the 'Done' button, save the document to your computer, then email it as an attachment to <strong>UOCAVA.CEC@maine.gov</strong>.                                 
-          </p>
-          <p>Note: password for testing is "<strong>vote!</strong>"</p>
-        </div>
-        <br>
-          <label for="signedby">Signed by:</label>
-          <input type="password" id="signedby" name="signedby"><br><br>
-          <label for="date">Date:</label>
-          <input type="text" id="date" name="date"><br><br>
-          <div class="buttonDiv">
-            <!-- <button onclick="backToReview()">Back to Review Page</button> -->
-            <button onclick="submit()">Done</button>  
-          </div>
-                
-    </div>
     <div id="overlay"></div>
     <div id="modal" role="alertdialog" aria-labelledby="modalTitle" aria-describedby="modalText">
         <h2 id="modalTitle">Confirm Selection</h2>
@@ -126,10 +86,10 @@
     </div>
 
     <script type="text/javascript">
-        var qrcode = new QRCode(document.getElementById("qrcode"), {
-            width: 200,
-            height: 200
-        });
+        // var qrcode = new QRCode(document.getElementById("qrcode"), {
+        //     width: 200,
+        //     height: 200
+        // });
 
         function doneAndCreateQRCode() {
             qrcode.makeCode(encodeVotes())

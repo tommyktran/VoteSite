@@ -21,7 +21,7 @@
 //   ]
 // }
 
-const ballot = {
+let ballot = {
   contests: [
     {
       contestName: "President and Vice President",

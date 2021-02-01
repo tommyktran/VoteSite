@@ -87,8 +87,8 @@ function reviewBtnHandler(event) {
     //focusEle.scrollIntoView()
     // const linkables = document.querySelectorAll('a')
     // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
-    const linkables = document.querySelectorAll('.reviewContestLink')
-    linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
+    // const linkables = document.querySelectorAll('.reviewContestLink')
+    // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
 }
 
 function doneAndCreatePdf() {
@@ -148,14 +148,14 @@ function buildReviewRankedVotes(race, raceIndex) {
     return text
 }
 
-function reviewBoxesHandler(event) {
-    // let reviewPage = document.getElementById("reviewPage")
-    // let selectionPage = document.getElementById('selection')
-    // selectionPage.style.display = 'block'
-    // reviewPage.style.display = 'none'
-    const reviewBody = document.getElementById('reviewBody')
-    reviewBody.innerHTML = ''
-}
+// function reviewBoxesHandler(event) {
+//     // let reviewPage = document.getElementById("reviewPage")
+//     // let selectionPage = document.getElementById('selection')
+//     // selectionPage.style.display = 'block'
+//     // reviewPage.style.display = 'none'
+//     // const reviewBody = document.getElementById('reviewBody')
+//     // reviewBody.innerHTML = ''
+// }
 
 function backBtnHandler() {
     const reviewPage = document.getElementById("reviewPage")
@@ -168,3 +168,4 @@ function backBtnHandler() {
     reviewBody.innerHTML = '';
     header.scrollIntoView();
 }
+

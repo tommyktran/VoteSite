@@ -9,11 +9,35 @@ if ('serviceWorker' in navigator) {
     .then(reg => console.log('service worker registered'))
     .catch(err => console.log('service worker not registered'))
 }
+function navigationType(){
 
+  var result;
+  var p;
+
+  if (window.performance.navigation) {
+      result=window.performance.navigation;
+      if (result==255){result=4} // 4 is my invention!
+  }
+
+  if (window.performance.getEntriesByType("navigation")){
+    p=window.performance.getEntriesByType("navigation")[0].type;
+
+    if (p=='navigate'){result=0}
+    if (p=='reload'){result=1}
+    if (p=='back_forward'){result=2}
+    if (p=='prerender'){result=3} //3 is my invention!
+  }
+  return result;
+}
 function initPage() {
   if (document.readyState == 'complete') {
+
     clearInterval(loadTimer)
 
+    // clears out all selections if page is refreshed
+    if (navigationType() == 1) {
+      sessionStorage.clear()      
+    }
     // add the additional writeins into the ballot data:
     // addWriteinsToData();
 
@@ -39,11 +63,55 @@ function initPage() {
     // let allOvals = document.querySelectorAll('input[type="checkbox"]')
     // allOvals.forEach(oval => oval.addEventListener('keydown', keypressHandler))
 
-    document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
+    // document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
+
 
     // live update for review section
     reviewBtnHandler(event)
 
+    // adds event listener to Next button. This block will save the user's selection data to session storage. This will be used to update the checkboxes if in case the user navigates back to the ballot
+    document.getElementById('affidavitButton_ReviewPage').addEventListener('click', (event) => {
+        syncSelectedVotesToBallotData();
+        sessionStorage.setItem('data', JSON.stringify(ballot));
+    });
+
+    //checks to see if there's alreay selection data saved in local storage. If so, then overwrite the ballot json data
+    if (sessionStorage.getItem('data')) {
+      console.log('found ballot selection in sessionStorage');
+      ballot = JSON.parse(sessionStorage.getItem('data'))
+      console.log('updating ballot with storageSession data')
+      console.log(ballot)
+      console.log('updating checkboxes with new data')
+      ballot.contests.forEach((contest, contestIndex) => {
+        if (contest.contestType === 'RC') {
+          contest.candidates.forEach((candidate, candidateIndex) => {
+            if (candidate.selected !== 0) {
+              const ovalId = contestIndex + "_" + candidateIndex + "_" + (candidate.selected - 1)
+              document.getElementById(ovalId).checked = true;
+
+              if (candidate.candidateCode.includes("writein")) {
+                console.log(contestIndex + "_" + candidateIndex + "_w")
+                document.getElementById(contestIndex + "_" + candidateIndex + "_w").textContent = candidate.candidateName
+              }
+            }
+
+          })
+        } else {
+          contest.candidates.forEach((candidate, candidateIndex) => {
+            if (candidate.selected !== 0) {
+              const ovalId = contestIndex + "_" + candidateIndex
+              document.getElementById(ovalId).checked = true;
+
+              if (candidate.candidateCode.includes("writein")) {
+                console.log(contestIndex + "_" + candidateIndex + "_w")
+                document.getElementById(contestIndex + "_" + candidateIndex + "_w").textContent = candidate.candidateName
+              }
+            }
+          })
+        }
+      })
+      reviewBtnHandler(event);
+    }
 
   }
 }
