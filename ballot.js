@@ -55,14 +55,14 @@ function initPage() {
     //start running other javascript after page is rendered
     //document.querySelector('input[type="checkbox"]').focus() // places focus on the first oval on page
 
-    let question = document.querySelectorAll('.questionRaceOval')
-    question.forEach(checkbox => checkbox.addEventListener('click', questionHandler))
+    // let question = document.querySelectorAll('.questionRaceOval')
+    // question.forEach(checkbox => checkbox.addEventListener('click', questionHandler))
 
-    let test_all = document.querySelectorAll('.regularRaceOval')
-    test_all.forEach(checkbox => checkbox.addEventListener('click', regularHandler))
+    // let test_all = document.querySelectorAll('.regularRaceOval')
+    // test_all.forEach(checkbox => checkbox.addEventListener('click', regularHandler))
 
-    let rc = document.querySelectorAll('.rankChoiceRaceOval')
-    rc.forEach(checkbox => checkbox.addEventListener('click', rankChoiceHandler))
+    // let rc = document.querySelectorAll('.rankChoiceRaceOval')
+    // rc.forEach(checkbox => checkbox.addEventListener('click', rankChoiceHandler))
 
     // let writeboxes = document.querySelectorAll('input[type="text"]')
     // writeboxes.forEach(writebox => writebox.addEventListener('focusout', textHandler))
@@ -121,6 +121,5 @@ function initPage() {
     } else {
         console.log('Fresh page, no reviewLink found');
     }
-    
   }
 }
