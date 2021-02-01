@@ -475,10 +475,17 @@ button:hover {
     justify-content: center;
 }
 
-#buttonWrap_AffidavitPage {
+#inputsWrap_AffidavitPage, #buttonWrap_AffidavitPage {
     display: flex;
     justify-content: space-between;
+    margin-top: 20px;   
 }
+
+#inputsWrap_AffidavitPage {
+    font-size: 20px;
+}
+
+
 
 
 /* start media queries */
