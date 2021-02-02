@@ -52,7 +52,7 @@
     <div class="affidavitBottomBox">
       <p> If you are marking the ballot on your computer with Adobe Reader, please enter your password in the 'Signed by' field below, click the 'Done' button, save the document to your computer, then email it as an attachment to <strong>UOCAVA.CEC@maine.gov</strong>.                                 
       </p>
-      <p>Note: password for testing is "<strong>vote!</strong>"</p>
+      <p>Note: password for testing is "<strong>vote123</strong>"</p>
     </div>
 
       <div id="inputsWrap_AffidavitPage">
@@ -75,7 +75,7 @@
     document.getElementById('doneButton_AffidavitPage').addEventListener('click', (event) => {
       
       const passwordEle = document.getElementById('signedby');
-      const password = 'vote!';
+      const password = 'vote123';
       if (passwordEle.value !== password) {
         event.preventDefault();
         alert('Incorrect password!');
