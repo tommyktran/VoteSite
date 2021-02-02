@@ -247,6 +247,10 @@ ol {
     width: 800px;
 }
 
+#title_AffidavitPAge {
+    margin: 10px 0px;
+}
+
 #affidavitPage li {
     padding: 10px;
 }
@@ -254,6 +258,7 @@ ol {
 .affidavitTopBox {
     border: 3px solid black;   
     padding: 20px 30px;
+    margin: 25px 0px;
 }
 
 .affidavitBottomBox {
