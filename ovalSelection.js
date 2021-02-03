@@ -3,9 +3,6 @@ function questionHandler(event) {
     const contestIndex = ovalId.split('_')[0]
     const candidateIndex = ovalId.split('_')[1]
     uncheckOtherCandidates(contestIndex, candidateIndex);
-
-    // live update for review section
-    reviewBtnHandler(event) 
 }
 
 function uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex) {
@@ -85,8 +82,6 @@ function regularHandler(event) {
             return
         }
     }
-    // live update for review section
-    reviewBtnHandler(event) 
 }
 
 function isWriteinCandidate(contestIndex, candidateIndex) {
@@ -162,7 +157,6 @@ function rankChoiceHandler(event) {
         if (savedWriteinName != '') {
             otherCandidateName = 'Write-in Candidate: ' + savedWriteinName
         }
-        // const confirmed = confirm(`<p>You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like change your ${ordinal} choice to: \n${selectedCandidateName}?<p>`)
         document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like to change your ${ordinal} choice to: \n${selectedCandidateName}?`
         
         document.getElementById("yesButton").onclick = function() {modalAnswer(ovalId, candidateSelections, rankSelections, "Yes", savedWriteinName)}
@@ -172,29 +166,7 @@ function rankChoiceHandler(event) {
         showModal()
         document.getElementById("yesButton").focus()
         event.preventDefault()
-
-        // live update for review section
-        reviewBtnHandler(event)
-
-        // if(confirmed) {
-        //     for (let id of candidateSelections) {
-        //         document.getElementById(id).checked = false
-        //     }
-        //     for (let id of rankSelections) {
-        //         document.getElementById(id).checked = false
-        //     }
-        // } else {
-        //     event.preventDefault()           
-            // document.getElementById(rankSelections[0]).checked = true
-            // document.getElementById(candidateSelections[0]).checked = true
-        //     if (savedWriteinName != '') {
-        //         const writeinBoxId = candidateSelections[0].split('_')[0] + candidateSelections[0].split('_')[1] + '_w'
-        //         document.getElementById(writeinBoxId).value = savedWriteinName
-        //     }
-        // }           
     }
-    // live update for review section
-    reviewBtnHandler(event)     
 }
 
 function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedWriteinName) {

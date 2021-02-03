@@ -63,55 +63,13 @@ function initPage() {
     // let allOvals = document.querySelectorAll('input[type="checkbox"]')
     // allOvals.forEach(oval => oval.addEventListener('keydown', keypressHandler))
 
-    // document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
+    document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
 
 
-    // live update for review section
-    reviewBtnHandler(event)
+    
 
-    // adds event listener to Next button. This block will save the user's selection data to session storage. This will be used to update the checkboxes if in case the user navigates back to the ballot
-    document.getElementById('affidavitButton_ReviewPage').addEventListener('click', (event) => {
-        syncSelectedVotesToBallotData();
-        sessionStorage.setItem('data', JSON.stringify(ballot));
-    });
 
-    //checks to see if there's alreay selection data saved in local storage. If so, then overwrite the ballot json data
-    if (sessionStorage.getItem('data')) {
-      console.log('found ballot selection in sessionStorage');
-      ballot = JSON.parse(sessionStorage.getItem('data'))
-      console.log('updating ballot with storageSession data')
-      console.log(ballot)
-      console.log('updating checkboxes with new data')
-      ballot.contests.forEach((contest, contestIndex) => {
-        if (contest.contestType === 'RC') {
-          contest.candidates.forEach((candidate, candidateIndex) => {
-            if (candidate.selected !== 0) {
-              const ovalId = contestIndex + "_" + candidateIndex + "_" + (candidate.selected - 1)
-              document.getElementById(ovalId).checked = true;
-
-              if (candidate.candidateCode.includes("writein")) {
-                console.log(contestIndex + "_" + candidateIndex + "_w")
-                document.getElementById(contestIndex + "_" + candidateIndex + "_w").textContent = candidate.candidateName
-              }
-            }
-
-          })
-        } else {
-          contest.candidates.forEach((candidate, candidateIndex) => {
-            if (candidate.selected !== 0) {
-              const ovalId = contestIndex + "_" + candidateIndex
-              document.getElementById(ovalId).checked = true;
-
-              if (candidate.candidateCode.includes("writein")) {
-                console.log(contestIndex + "_" + candidateIndex + "_w")
-                document.getElementById(contestIndex + "_" + candidateIndex + "_w").textContent = candidate.candidateName
-              }
-            }
-          })
-        }
-      })
-      reviewBtnHandler(event);
-    }
+    
 
   }
 }

@@ -30,14 +30,14 @@ const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
 
 const reviewContestHtml = `
 <div class="reviewContest">
-    <a href="#contest_{REVIEW_ID}" class="reviewContestLink">
+    
     <div class="reviewContestHeader">
         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
     </div>
     <div class="reviewCandidates">
         {CANDIDATES}
     </div>
-    </a>
+    <a href="#contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</a>
 </div>
 `
 
@@ -74,21 +74,21 @@ function removeAllChildNodes(parent) {
 
 function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData();
+    console.log(ballot);
     const reviewPage = document.getElementById("reviewPage")
     const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
-    // selectionPage.style.display = 'none'
-    // reviewPage.style.display = 'block'
+    selectionPage.style.display = 'none'
+    reviewPage.style.display = 'block'
     reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
     })
-    //const focusEle = document.getElementById('reviewPage')
-    //focusEle.scrollIntoView()
-    // const linkables = document.querySelectorAll('a')
-    // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
-    // const linkables = document.querySelectorAll('.reviewContestLink')
-    // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
+    const focusEle = document.getElementById('reviewPage')
+    focusEle.scrollIntoView()
+    
+    const linkables = document.querySelectorAll('.reviewContestLink')
+    linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
 }
 
 function doneAndCreatePdf() {
@@ -148,14 +148,14 @@ function buildReviewRankedVotes(race, raceIndex) {
     return text
 }
 
-// function reviewBoxesHandler(event) {
-//     // let reviewPage = document.getElementById("reviewPage")
-//     // let selectionPage = document.getElementById('selection')
-//     // selectionPage.style.display = 'block'
-//     // reviewPage.style.display = 'none'
-//     // const reviewBody = document.getElementById('reviewBody')
-//     // reviewBody.innerHTML = ''
-// }
+function reviewBoxesHandler(event) {
+    let reviewPage = document.getElementById("reviewPage")
+    let selectionPage = document.getElementById('selection')
+    selectionPage.style.display = 'block'
+    reviewPage.style.display = 'none'
+    const reviewBody = document.getElementById('reviewBody')
+    reviewBody.innerHTML = ''
+}
 
 function backBtnHandler() {
     const reviewPage = document.getElementById("reviewPage")
