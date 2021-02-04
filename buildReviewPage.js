@@ -152,7 +152,6 @@ function reviewBoxesHandler(event) {
     const selectionPage = document.getElementById('selection')
     const reviewBody = document.getElementById('reviewBody')
     selectionPage.style.display = 'block'
-    console.log(document.getElementById(event.target.id.replace('review_', '')))
     document.getElementById(event.target.id.replace('review_', '')).focus({preventScroll:false})
     // console.log(document.dispatchEvent(new KeyboardEvent('keypress', {'keyCode':32,'which':32})))
 
@@ -160,7 +159,7 @@ function reviewBoxesHandler(event) {
 
     // reviewPage.style.display = 'none'
     
-    reviewBody.innerHTML = ''
+    // reviewBody.innerHTML = ''
 
 }
 
