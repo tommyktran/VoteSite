@@ -29,15 +29,14 @@ const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
 // `
 
 const reviewContestHtml = `
-<div class="reviewContest">
-    
+<div class="reviewContest">   
     <div class="reviewContestHeader">
         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
     </div>
     <div class="reviewCandidates">
         {CANDIDATES}
     </div>
-    <a href="#contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</a>
+    <button id="review_contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</button>
 </div>
 `
 
@@ -149,12 +148,17 @@ function buildReviewRankedVotes(race, raceIndex) {
 }
 
 function reviewBoxesHandler(event) {
-    let reviewPage = document.getElementById("reviewPage")
-    let selectionPage = document.getElementById('selection')
-    selectionPage.style.display = 'block'
-    reviewPage.style.display = 'none'
+    const reviewPage = document.getElementById("reviewPage")
+    const selectionPage = document.getElementById('selection')
     const reviewBody = document.getElementById('reviewBody')
-    reviewBody.innerHTML = ''
+    selectionPage.style.display = 'block'
+    console.log(document.getElementById(event.target.id.replace('review_', '')))
+    document.getElementById(event.target.id.replace('review_', '')).focus({preventScroll:false})
+
+    // reviewPage.style.display = 'none'
+    
+    // reviewBody.innerHTML = ''
+
 }
 
 function backBtnHandler() {
