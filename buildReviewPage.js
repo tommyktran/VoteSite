@@ -154,10 +154,13 @@ function reviewBoxesHandler(event) {
     selectionPage.style.display = 'block'
     console.log(document.getElementById(event.target.id.replace('review_', '')))
     document.getElementById(event.target.id.replace('review_', '')).focus({preventScroll:false})
+    // console.log(document.dispatchEvent(new KeyboardEvent('keypress', {'keyCode':32,'which':32})))
+
+
 
     // reviewPage.style.display = 'none'
     
-    // reviewBody.innerHTML = ''
+    reviewBody.innerHTML = ''
 
 }
 
