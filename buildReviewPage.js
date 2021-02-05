@@ -29,16 +29,18 @@ const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
 // `
 
 const reviewContestHtml = `
-<div class="reviewContest">   
-    <div class="reviewContestHeader">
+<div id="review_contest_{REVIEW_ID} class="reviewContest" role="button" tabIndex="0">
+    <label>
+        <div class="reviewContestHeader">
         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-    </div>
-    <div class="reviewCandidates">
-        {CANDIDATES}
-    </div>
-    <button id="review_contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</button>
+        </div>
+        <p class="reviewCandidates">
+            {CANDIDATES}
+        </p>
+    </label>   
 </div>
 `
+//    <button id="review_contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</button>
 
 function syncSelectedVotesToBallotData() {
     ballot.contests.forEach((contest, contestIndex) => {
@@ -75,7 +77,7 @@ function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData();
     console.log(ballot);
     const reviewPage = document.getElementById("reviewPage")
-    const selectionPage = document.getElementById('selection')
+    // const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
     // selectionPage.style.display = 'none'
     // reviewPage.style.display = 'block'
@@ -83,11 +85,11 @@ function reviewBtnHandler(event) {
     ballot.contests.forEach((race, index, contests) => {
         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
     })
-    const focusEle = document.getElementById('reviewPage')
-    focusEle.scrollIntoView()
+    // const focusEle = document.getElementById('reviewPage')
+    // focusEle.scrollIntoView()
     
-    const linkables = document.querySelectorAll('.reviewContestLink')
-    linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
+    // const linkables = document.querySelectorAll('.reviewContestLink')
+    // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
 }
 
 function doneAndCreatePdf() {
@@ -149,9 +151,9 @@ function buildReviewRankedVotes(race, raceIndex) {
 
 function reviewBoxesHandler(event) {
     const reviewPage = document.getElementById("reviewPage")
-    const selectionPage = document.getElementById('selection')
+    //const selectionPage = document.getElementById('selection')
     const reviewBody = document.getElementById('reviewBody')
-    selectionPage.style.display = 'block'
+    //selectionPage.style.display = 'block'
     document.getElementById(event.target.id.replace('review_', '')).focus({preventScroll:false})
     // console.log(document.dispatchEvent(new KeyboardEvent('keypress', {'keyCode':32,'which':32})))
 

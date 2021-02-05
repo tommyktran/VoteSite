@@ -65,6 +65,8 @@ function initPage() {
 
     document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
 
+    reviewBtnHandler();
+
 
     
 

@@ -3,6 +3,7 @@ function questionHandler(event) {
     const contestIndex = ovalId.split('_')[0]
     const candidateIndex = ovalId.split('_')[1]
     uncheckOtherCandidates(contestIndex, candidateIndex);
+    reviewBtnHandler();
 }
 
 function uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex) {
@@ -50,6 +51,9 @@ function regularHandler(event) {
     const voteMax = ballot.contests[contestIndex].voteFor
     const isWritein = isWriteinCandidate(contestIndex, candidateIndex)
     let howManySelected = 0
+
+    //console.log(ballot.contests[contestIndex])
+
     for (let x = 0; x < ballot.contests[contestIndex].candidates.length; x++) {
         if (document.getElementById(contestIndex + "_" + x).checked == true && x != candidateIndex) {
             howManySelected++
@@ -65,9 +69,14 @@ function regularHandler(event) {
     }
     if (isWritein) {
         const writeinBox = document.getElementById(ovalId + '_w');
+        //console.log(ballot.contests[contestIndex])
+
         if (writeinBox.textContent === '') {
             const input = prompt('Please type the name of the write-in candidate you want to vote for:')
             if (input === null || input.trim() === '') {
+
+                // Recheck the ones that were previously checked
+                //console.log(ballot.contests[contestIndex])
                 event.preventDefault()
                 return
             } else {
@@ -81,6 +90,7 @@ function regularHandler(event) {
             return
         }
     }
+    reviewBtnHandler();
 }
 
 function isWriteinCandidate(contestIndex, candidateIndex) {
@@ -166,6 +176,7 @@ function rankChoiceHandler(event) {
         document.getElementById("yesButton").focus()
         event.preventDefault()
     }
+    reviewBtnHandler();
 }
 
 function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedWriteinName) {
@@ -191,6 +202,7 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
     document.getElementById(ovalId).focus()
 
     // live update for review section
+    reviewBtnHandler();
 }
 
 function showModal() {
