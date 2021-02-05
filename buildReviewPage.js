@@ -77,8 +77,8 @@ function reviewBtnHandler(event) {
     const reviewPage = document.getElementById("reviewPage")
     const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
-    selectionPage.style.display = 'none'
-    reviewPage.style.display = 'block'
+    // selectionPage.style.display = 'none'
+    // reviewPage.style.display = 'block'
     reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
