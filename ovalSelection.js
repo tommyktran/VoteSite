@@ -158,8 +158,8 @@ function rankChoiceHandler(event) {
         }
         document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like to change your ${ordinal} choice to: \n${selectedCandidateName}?`
         
-        document.getElementById("yesButton").onclick = function() {modalAnswer(ovalId, candidateSelections, rankSelections, "Yes", savedWriteinName)}
-        document.getElementById("noButton").onclick = function() {modalAnswer(ovalId, candidateSelections, rankSelections, "No", savedWriteinName)}
+        document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, candidateSelections, rankSelections, "Yes", savedWriteinName)})
+        document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, candidateSelections, rankSelections, "No", savedWriteinName)})
         document.getElementById(rankSelections[0]).checked = true
         document.getElementById(candidateSelections[0]).checked = true
         showModal()
@@ -236,6 +236,8 @@ function showModal() {
     firstFocusableElement.focus();
 }
 function hideModal() {
+    document.getElementById("yesButton").removeEventListener('click', modalAnswer)
+    document.getElementById("noButton").removeEventListener('click', modalAnswer)
     document.getElementById("modal").style = 'display:none;'
     document.getElementById("overlay").style = 'display:none;'
 }
