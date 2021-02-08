@@ -138,9 +138,6 @@ function rankChoiceHandler(event) {
             break
         }         
     }
-    if (rankSelections.length > 0) { 
-        document.getElementById(rankSelections[0]).checked = false
-    }
     // check the oval's column (check if another candidate was selected for the chosen rank)
     for (let c in ballot.contests[contestIndex].candidates) {
         if (c != candidateIndex && document.getElementById(contestIndex + '_' + c + '_' + rankIndex).checked) {
@@ -150,9 +147,6 @@ function rankChoiceHandler(event) {
             candidateSelections.push(contestIndex + '_' + c + '_' + rankIndex)
             break
         }
-    }
-    if (candidateSelections.length > 0) {
-        uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex)
     }
     // if there was previously a selection in the same row and column, then ask the user to confirm their choice
     if (rankSelections.length > 0 && candidateSelections.length > 0) {
@@ -171,6 +165,13 @@ function rankChoiceHandler(event) {
         showModal()
         document.getElementById("yesButton").focus()
         event.preventDefault()
+        return
+    }
+    if (rankSelections.length > 0) { 
+        document.getElementById(rankSelections[0]).checked = false
+    }
+    if (candidateSelections.length > 0) {
+        uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex)
     }
     reviewBtnHandler();
 }
@@ -196,7 +197,6 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
     }   
     hideModal()
     document.getElementById(ovalId).focus()
-
     // live update for review section
     reviewBtnHandler();
 }
