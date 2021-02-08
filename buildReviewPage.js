@@ -29,16 +29,16 @@ const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
 // `
 
 const reviewContestHtml = `
-<div id="review_contest_{REVIEW_ID} class="reviewContest" role="button" tabIndex="0">
-    <label>
+
+    <label id="review_contest_{REVIEW_ID}" class="reviewContest" role="button" tabIndex="0">
         <div class="reviewContestHeader">
-        <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
+            <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
         </div>
         <p class="reviewCandidates">
             {CANDIDATES}
         </p>
     </label>   
-</div>
+
 `
 //    <button id="review_contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</button>
 
@@ -63,6 +63,7 @@ function syncSelectedVotesToBallotData() {
             }
         })
     })
+    
     return ballot
 }
 
@@ -88,8 +89,15 @@ function reviewBtnHandler(event) {
     // const focusEle = document.getElementById('reviewPage')
     // focusEle.scrollIntoView()
     
-    // const linkables = document.querySelectorAll('.reviewContestLink')
-    // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
+    const reviewContestClickables = document.querySelectorAll('.reviewContest')
+    reviewContestClickables.forEach(contest => contest.addEventListener('click', reviewBoxesHandler))
+    // for (x in ballot.contests) {
+    //     document.getElementById("review_contest_"+x).onclick = function() {
+    //         const contestId = (this.id.replace('review_', ''))
+    //         document.getElementById(contestId).focus()
+    //         document.getElementById(contestId).scrollIntoView()
+    //     }
+    // }
 }
 
 function doneAndCreatePdf() {
@@ -150,11 +158,16 @@ function buildReviewRankedVotes(race, raceIndex) {
 }
 
 function reviewBoxesHandler(event) {
-    const reviewPage = document.getElementById("reviewPage")
+    const contestId = this.id.replace('review_', '')
+    document.getElementById(contestId).focus()
+    document.getElementById(contestId).scrollIntoView()
+    
+
+    // const reviewPage = document.getElementById("reviewPage")
     //const selectionPage = document.getElementById('selection')
-    const reviewBody = document.getElementById('reviewBody')
+    // const reviewBody = document.getElementById('reviewBody')
     //selectionPage.style.display = 'block'
-    document.getElementById(event.target.id.replace('review_', '')).focus({preventScroll:false})
+    // document.getElementById(event.target.id.replace('review_', '')).focus({preventScroll:false})
     // console.log(document.dispatchEvent(new KeyboardEvent('keypress', {'keyCode':32,'which':32})))
 
 
