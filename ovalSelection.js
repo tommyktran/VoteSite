@@ -214,6 +214,7 @@ function showModal() {
     const lastFocusableElement = focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
 
     document.addEventListener('keydown', function(e) {
+        
         let isTabPressed = e.key === 'Tab';
         if (!isTabPressed) return;
         if (e.shiftKey) { // if shift key pressed for shift + tab combination
