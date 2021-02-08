@@ -63,7 +63,7 @@ function initPage() {
     // let allOvals = document.querySelectorAll('input[type="checkbox"]')
     // allOvals.forEach(oval => oval.addEventListener('keydown', keypressHandler))
 
-    document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
+    // document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
 
     reviewBtnHandler();
 
