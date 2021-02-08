@@ -35,5 +35,5 @@ self.addEventListener('activate', evt => {
 
 // fetch event
 self.addEventListener('fetch', evt => {
-    //console.log('service worker fetched', evt);
+    //console.log('service worker activated');
 });

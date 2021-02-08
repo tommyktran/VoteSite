@@ -51,26 +51,13 @@ function regularHandler(event) {
     const voteMax = ballot.contests[contestIndex].voteFor
     const isWritein = isWriteinCandidate(contestIndex, candidateIndex)
     let howManySelected = 0
-
-    //console.log(ballot.contests[contestIndex])
-
     for (let x = 0; x < ballot.contests[contestIndex].candidates.length; x++) {
         if (document.getElementById(contestIndex + "_" + x).checked == true && x != candidateIndex) {
             howManySelected++
         }
     }
-    if (howManySelected >= voteMax) {
-        if (voteMax === 1) {
-            uncheckOtherCandidates(contestIndex, candidateIndex)
-        } else {
-            event.preventDefault()
-            return
-        }
-    }
     if (isWritein) {
         const writeinBox = document.getElementById(ovalId + '_w');
-        //console.log(ballot.contests[contestIndex])
-
         if (writeinBox.textContent === '') {
             const input = prompt('Please type the name of the write-in candidate you want to vote for:')
             if (input === null || input.trim() === '') {
@@ -87,6 +74,15 @@ function regularHandler(event) {
             writeinBox.textContent = ''
             document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${writeinBox.textContent}`) 
             // live update for review section
+            reviewBtnHandler();
+            return
+        }
+    }
+    if (howManySelected >= voteMax) {
+        if (voteMax === 1) {
+            uncheckOtherCandidates(contestIndex, candidateIndex)
+        } else {
+            event.preventDefault()
             return
         }
     }
