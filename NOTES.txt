@@ -1,6 +1,6 @@
 TODO:
--Add click events to reviewBoxes
 -Add affirmation page to index.html
+-only one H1 tag per page, so convert h1 -> h2, etc.
 -Style onepage site with 3 step instructions
 -Move codebase to kevin's github
 
