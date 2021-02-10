@@ -29,7 +29,6 @@ const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
 // `
 
 const reviewContestHtml = `
-
     <label id="review_contest_{REVIEW_ID}" class="reviewContest" role="button" tabIndex="0">
         <div class="reviewContestHeader">
             <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
@@ -38,9 +37,18 @@ const reviewContestHtml = `
             {CANDIDATES}
         </p>
     </label>   
-
 `
 //    <button id="review_contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</button>
+// const reviewContestHtml = `
+//     <label id="review_contest_{REVIEW_ID}" class="reviewContest" role="button" tabIndex="0">
+//         <div class="reviewContestHeader">
+//             <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
+//         </div>
+//         <p class="reviewCandidates">
+//             {CANDIDATES}
+//         </p>
+//     </label>   
+// `
 
 function syncSelectedVotesToBallotData() {
     ballot.contests.forEach((contest, contestIndex) => {
@@ -90,13 +98,15 @@ function reviewBtnHandler(event) {
     
     const reviewContestClickables = document.querySelectorAll('.reviewContest')
     reviewContestClickables.forEach(contest => contest.addEventListener('click', reviewBoxesHandler))
-    // for (x in ballot.contests) {
-    //     document.getElementById("review_contest_"+x).onclick = function() {
-    //         const contestId = (this.id.replace('review_', ''))
-    //         document.getElementById(contestId).focus()
-    //         document.getElementById(contestId).scrollIntoView()
-    //     }
-    // }
+    
+    // adds keydown functionality when SPACEBAR or ENTER is pressed without screen-reader
+    reviewContestClickables.forEach(contest => contest.addEventListener('keydown', e => {
+        if (e.key === ' ' || e.key === 'Enter') {
+            const contestId = e.target.id.replace('review_', '')
+            document.getElementById(contestId).focus()
+            document.getElementById(contestId).scrollIntoView()
+        }
+    }))
 }
 
 function doneAndCreatePdf() {
