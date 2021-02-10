@@ -76,7 +76,6 @@ function removeAllChildNodes(parent) {
 
 function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData();
-    
     const reviewPage = document.getElementById("reviewPage")
     // const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
