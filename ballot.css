@@ -282,7 +282,7 @@ td > .container {
 .reviewContest {
     width: 800px;
     text-align: center;
-    background-color: #e6e9ed;
+    background-color:whitesmoke;
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid black;
@@ -321,7 +321,9 @@ td > .container {
 
 .reviewPageNoSelection {
     /* font-style: italic; */
-    color: rgb(220 46 46);
+    color: red;
+    font-size: 20px;
+    font-weight: 700;
 }
 
 #reviewFooter {

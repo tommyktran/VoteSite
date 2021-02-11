@@ -1,5 +1,6 @@
 TODO:
 -Add affirmation page to index.html
+-Use axe chrome extension 
 -only one H1 tag per page, so convert h1 -> h2, etc.
 -Style onepage site with 3 step instructions
 -Move codebase to kevin's github

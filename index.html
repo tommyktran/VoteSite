@@ -61,11 +61,61 @@
         
         <div id="reviewBody"></div>
         <div id="reviewFooter" class="buttonDiv">
-            <button onclick="backToSelection()">Back to Selection Page</button>
+            <!-- <button onclick="backToSelection()">Back to Selection Page</button> -->
             <!-- <button onclick="goToAffirmation()">Go to Affirmation Page</button> -->
             <!-- <button onclick="createBallotPdf(ballot)">Create PDF</button>  -->
         </div>
     </div>
+
+    <div id="affidavitPage">
+        <h1 id="title_AffidavitPAge">Maine Accessible Absentee Ballot Affirmation</h1>
+        <p>Warning: Knowingly providing falsified information on this affidavit is illegal under State and federal
+     law and could result in criminal sanctions.</p>
+    
+        <div class="affidavitTopBox">
+          <p>I am a U.S. citizen residing inside the United States who is blind or otherwise disabled.</p>
+        </div>
+    
+        <div class="affidavitTopBox">
+          <p>My name and Maine voting residence (city or town):</p>
+          <p>Voter’s name: Mary Smith</p>
+          <p>City or Town: Lewiston</p>
+        </div>
+    
+        <p>Affirmation – I swear or affirm, under penalty of perjury, that:</p>
+        <ol>
+          <li><p>I am blind or otherwise disabled, and my disability prevents or substantially limits me from being able to privately and independently complete a paper absentee ballot. I require use of an accessible electronic absentee ballot in order to vote privately and independently without visiting a clerk’s office or voting place and using a ballot marking device; and</p></li>
+          <li><p> I am a U.S. citizen, at least 18 years of age (or will be by the day of the election), eligible to vote in the requested jurisdiction; and</p></li>
+          <li><p> I am not registering, requesting a ballot, or voting in any other jurisdiction in the U.S.; and</p></li>
+          <li><p> I am completing and returning only one authorized absentee ballot; and</p></li>
+          <li><p>I have not made additional copies of the absentee ballot or provided them to other voters; and</p></li>
+          <li><p>My signature and date below indicate when I completed this document; and</p></li>
+          <li><p>The information on this form is true and complete to the best of my knowledge. I understand that a material misstatement of fact in completion of this document may constitute grounds for conviction of perjury; and</p></li>
+          <li><p> I understand that, with any absentee ballot, my name and signature will be permanently separated from my voted ballot to maintain its secrecy at the outset of the tabulation process and thereafter.</p></li>
+        </ol>
+    
+        <div class="affidavitBottomBox">
+          <p> If you are marking the ballot on your computer with Adobe Reader, please enter your password in the 'Signed by' field below, click the 'Done' button, save the document to your computer, then email it as an attachment to <strong>UOCAVA.CEC@maine.gov</strong>.                                 
+          </p>
+          <p>Note: password for testing is "<strong>vote123</strong>"</p>
+        </div>
+    
+          <div id="inputsWrap_AffidavitPage">
+            <label>Signed by:
+              <input type="password" id="signedby">
+            </label>
+            <label for="date">Date:
+              <input type="text" id="date" name="date">
+            </label>
+          </div>
+          
+          
+          <div id="buttonWrap_AffidavitPage">
+            <a href="index.html" id="backButton_AffidavitPage" class="btn">Back</a>
+            <a href="thankyou.html" id="doneButton_AffidavitPage" class="btn">Done</a>
+            <!-- <button onclick="submit()">Done</button>   -->
+          </div>                
+      </div>
     
 
 
