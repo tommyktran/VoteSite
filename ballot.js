@@ -67,6 +67,8 @@ function initPage() {
 
     reviewBtnHandler();
 
+    document.querySelector('input').focus();
+
 
     
 
