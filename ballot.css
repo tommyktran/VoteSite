@@ -12,7 +12,7 @@ body {
 } */
 
 .selectionContest {
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
     margin: 10px;
 }
 
@@ -336,6 +336,12 @@ td > .container {
     display: block;
 }
 
+.ballotTitle {
+    width: 800;
+    margin: 0 auto;
+    background-color: red;
+}
+
 a {
     text-decoration: none;
 }
@@ -495,6 +501,17 @@ button:hover {
     padding-top: 20%;
     font-size: 3em;
 }
+
+.stepBanner {
+    width: auto;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #e6e9ed;
+}
+
+
 
 
 /* start media queries */
