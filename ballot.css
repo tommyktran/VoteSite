@@ -537,3 +537,12 @@ button:hover {
     }
 }
 /* end media queries */
+body {
+    background-color: #888;
+}
+.step {
+    width: 1200px;
+    border: 2px solid black;
+    margin: 20px auto;
+    background-color: white;
+}
