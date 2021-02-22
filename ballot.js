@@ -64,6 +64,19 @@ function initPage() {
 
     // document.getElementById('reviewButton').addEventListener('click', reviewBtnHandler)
 
+    document.getElementById('doneButton_AffidavitPage').addEventListener('click', (event) => {
+      const passwordEle = document.getElementById('signedby');
+      const password = 'vote123';
+      if (passwordEle.value === password) {
+        document.body.innerHTML = `
+          <div id="center">
+            <h1 id="thankyouForVoting" style="text-align:center;font-family:arial;">Thank you for voting!</h1>
+          </div> 
+        `;
+      }
+      else alert('Invalid Password!')
+    });
+
     reviewBtnHandler();
 
     document.getElementById('step1').focus();

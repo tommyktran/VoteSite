@@ -472,15 +472,14 @@ button:hover {
     font-size: initial;
 }
 
-.btn {
+/* .btn {
     font-size: 20px;
     padding: 5px 10px;
     background-color:#e6e9ed;
     border: 2px solid #999;
     border-radius: 13px;
     text-decoration: none;
-    
-}
+} */
 
 #buttonWrap_ReviewPage, #buttonWrap_AffidavitPage {
     display: flex;
