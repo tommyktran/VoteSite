@@ -31,7 +31,7 @@ td {
 
 .header-row {
     /* background-color: #adb5bd; */
-    background-color: #e6e9ed;
+    background-color: whitesmoke;
     text-align: center;
 
 }
@@ -120,7 +120,7 @@ table, .regCandidates {
 /* styling for text-area housing the question to be voted on*/
 .question {
     border: 2px solid black;
-    background-color: #e6e9ed;
+    background-color: whitesmoke;
     padding: 10px;
     font-size: 18px;
     margin-top: 10px;
@@ -475,7 +475,7 @@ button:hover {
 .btn {
     font-size: 20px;
     padding: 5px 10px;
-    background-color:#BBB;
+    background-color:#e6e9ed;
     border: 2px solid #999;
     border-radius: 13px;
     text-decoration: none;
