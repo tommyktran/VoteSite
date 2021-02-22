@@ -384,7 +384,7 @@ button:focus {
 /* end styles for ReviewPage */
 
 #modal {
-    background-color: rgba(236,240,241 ,1);
+    background-color: white;
     border-radius: 10px;
     position: fixed;
     left: 50%;
@@ -482,12 +482,12 @@ button:hover {
     
 }
 
-#buttonWrap_ReviewPage {
+#buttonWrap_ReviewPage, #buttonWrap_AffidavitPage {
     display: flex;
     justify-content: center;
 }
 
-#inputsWrap_AffidavitPage, #buttonWrap_AffidavitPage {
+#inputsWrap_AffidavitPage {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;   

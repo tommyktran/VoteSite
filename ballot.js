@@ -1,43 +1,42 @@
 let activeWriteinOvalId = ''
-
 let loadTimer = setInterval(initPage, 100)
 const idHtmlTemplate = '{contestIndex}_{candidateIndex}_{rankIndex}'
 
 // service worker for PWA
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js')
-    .then(reg => console.log('service worker registered'))
-    .catch(err => console.log('service worker not registered'))
-}
-function navigationType(){
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker.register('/sw.js')
+//     .then(reg => console.log('service worker registered'))
+//     .catch(err => console.log('service worker not registered'))
+// }
 
-  var result;
-  var p;
+// function navigationType(){
+//   var result;
+//   var p;
+//   if (window.performance.navigation) {
+//       result=window.performance.navigation;
+//       if (result==255){result=4} // 4 is my invention!
+//   }
 
-  if (window.performance.navigation) {
-      result=window.performance.navigation;
-      if (result==255){result=4} // 4 is my invention!
-  }
+//   if (window.performance.getEntriesByType("navigation")){
+//     p=window.performance.getEntriesByType("navigation")[0].type;
 
-  if (window.performance.getEntriesByType("navigation")){
-    p=window.performance.getEntriesByType("navigation")[0].type;
+//     if (p=='navigate'){result=0}
+//     if (p=='reload'){result=1}
+//     if (p=='back_forward'){result=2}
+//     if (p=='prerender'){result=3} //3 is my invention!
+//   }
+//   return result;
+// }
 
-    if (p=='navigate'){result=0}
-    if (p=='reload'){result=1}
-    if (p=='back_forward'){result=2}
-    if (p=='prerender'){result=3} //3 is my invention!
-  }
-  return result;
-}
 function initPage() {
   if (document.readyState == 'complete') {
 
     clearInterval(loadTimer)
 
     // clears out all selections if page is refreshed
-    if (navigationType() == 1) {
-      sessionStorage.clear()      
-    }
+    // if (navigationType() == 1) {
+    //   sessionStorage.clear()      
+    // }
     // add the additional writeins into the ballot data:
     // addWriteinsToData();
 
@@ -67,7 +66,8 @@ function initPage() {
 
     reviewBtnHandler();
 
-    document.querySelector('input').focus();
+    document.getElementById('step1').focus();
+    // document.querySelector("input").focus();
 
 
     
