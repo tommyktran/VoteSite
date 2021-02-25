@@ -1,55 +1,14 @@
 const selectedVote = `<div>{CANDIDATE_NAME}</div>`
 const rankedVote = `<div>{RANK} choice: {CANDIDATE_NAME}</div>`
 const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
-
-// tommy's version of template without anchors
-// const reviewContestHtml = `
-// <div class="reviewDiv">  
-//     <div class="reviewContestHeader">
-//         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-//     </div>
-//     <div class="reviewCandidates">
-//         <center>{CANDIDATES}</center>
-//     </div> 
-// </div>
-// `
-
-//older template using anchors:
-// const reviewContestHtml = `
-// <div class="reviewContest">
-//     <a href="#contest_{REVIEW_ID}">
-//     <div class="reviewContestHeader">
-//         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-//         <div class="reviewCandidates">
-//         {CANDIDATES}
-//         </div>
-//     </div>
-//     </a>
-// </div>
-// `
-
 const reviewContestHtml = `
-    <label id="review_contest_{REVIEW_ID}" class="reviewContest" role="button" tabIndex="0">
-        <div class="reviewContestHeader">
-            <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-        </div>
-        <p class="reviewCandidates">
+    <div id="review_contest_{REVIEW_ID}" class="reviewContest" role="button" tabIndex="0" aria-labelledby="review_header_{REVIEW_ID},review_candidates_{REVIEW_ID}">
+        <p id="review_header_{REVIEW_ID}" class="reviewContestHeader">{CONTESTNAME}  (Vote for {VOTEFOR})</p>
+        <p id="review_candidates_{REVIEW_ID}" class="reviewCandidates">
             {CANDIDATES}
         </p>
-    </label>   
+    </div>   
 `
-//    <button id="review_contest_{REVIEW_ID}" class="reviewContestLink">Go to contest</button>
-// const reviewContestHtml = `
-//     <label id="review_contest_{REVIEW_ID}" class="reviewContest" role="button" tabIndex="0">
-//         <div class="reviewContestHeader">
-//             <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-//         </div>
-//         <p class="reviewCandidates">
-//             {CANDIDATES}
-//         </p>
-//     </label>   
-// `
-
 function syncSelectedVotesToBallotData() {
     ballot.contests.forEach((contest, contestIndex) => {
         contest.candidates.forEach((candidate, candidateIndex) => {
@@ -171,15 +130,12 @@ function reviewBoxesHandler(event) {
     document.getElementById(contestId).focus()
     document.getElementById(contestId).scrollIntoView()
     
-
     // const reviewPage = document.getElementById("reviewPage")
     //const selectionPage = document.getElementById('selection')
     // const reviewBody = document.getElementById('reviewBody')
     //selectionPage.style.display = 'block'
     // document.getElementById(event.target.id.replace('review_', '')).focus({preventScroll:false})
     // console.log(document.dispatchEvent(new KeyboardEvent('keypress', {'keyCode':32,'which':32})))
-
-
 
     // reviewPage.style.display = 'none'
     

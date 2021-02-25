@@ -67,6 +67,10 @@ table, .regCandidates {
     margin-bottom: 20px;
 }
 
+.regCandidates {
+    border-radius: 16px;
+}
+
 
 /* CUSTOM CHECKBOX */
 /* The container */
