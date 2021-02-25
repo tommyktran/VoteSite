@@ -293,6 +293,16 @@ td > .container {
     border-radius: 16px;
 }
 
+.reviewContest:hover {
+    cursor: pointer;
+    background-color: #CCC;
+}
+
+.reviewContest:focus {
+    background-color: #CCC;
+}
+
+
 .reviewContestButton {
     width: 800px;
     margin: 3px 0;
