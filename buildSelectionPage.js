@@ -18,13 +18,13 @@ const candidateRowHtml = `<tr>{CANDIDATE} {OVALS}</tr>`
 const candidateHtml = `
   <td>
     <h3 class="candidateName" aria-label="{CANDIDATE_ARIA_LABEL}">{CANDIDATE_NAME}</h3>
-    <h3 class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</h3>
+    <div class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</div>
   </td>`
 
 const writeinHtml = `
   <td>
     <h3 class="candidateName">Write-in:</h3>
-    <h3 id="{INPUT_ID}" class="writeinName"></h3>
+    <div id="{INPUT_ID}" class="writeinName"></div>
   </td>`
 
 const ovalHtml = `
@@ -59,7 +59,7 @@ const candidateRegWriteIn = `
   <div class="indivCandidate">
     <label class="container candidateLabel" for="{OVAL_ID}">
       <h3 class="candidateName" aria-hidden="true">Write-in:</h3>
-      <h3 id="{OVAL_ID}_w" class="writeinName"></h3>
+      <div id="{OVAL_ID}_w" class="writeinName"></div>
       <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{WRITEIN_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox" aria-hidden="true" ></span>
     </label>
