@@ -64,7 +64,7 @@ table, .regCandidates {
 .regCandidates, .questionDiv, table {
     width: 800px;
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .regCandidates {
@@ -351,10 +351,9 @@ td > .container {
     display: block;
 }
 
-.ballotTitle {
-    width: 800;
-    margin: 0 auto;
-    background-color: red;
+#ballotTitle {
+    margin: 30px;
+    font-size: larger;   
 }
 
 a {

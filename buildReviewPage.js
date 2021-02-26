@@ -2,7 +2,7 @@ const selectedVote = `<p>{CANDIDATE_NAME}</div>`
 const rankedVote = `<div>{RANK} choice: {CANDIDATE_NAME}</div>`
 const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
 const reviewContestHtml = `
-    <div id="review_contest_{REVIEW_ID}" class="reviewContest" role="button" tabIndex="0" aria-labelledby="review_header_{REVIEW_ID},review_candidates_{REVIEW_ID}">
+    <div id="review_contest_{REVIEW_ID}" class="reviewContest" role="button" tabIndex="0" aria-labelledby="review_candidates_{REVIEW_ID}">
         <p id="review_header_{REVIEW_ID}" class="reviewContestHeader">{CONTESTNAME}  (Vote for {VOTEFOR})</p>
         <div id="review_candidates_{REVIEW_ID}" class="reviewCandidates">
             {CANDIDATES}
