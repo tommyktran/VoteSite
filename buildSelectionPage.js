@@ -88,7 +88,7 @@ const questionOption = `
 
 function buildRace(race, raceIndex) {
   if (race.contestType === 'RC') {
-    return buildRankChoiceRace(race, raceIndex)
+    return buildRankChoiceRaceV2(race, raceIndex)
   } else if (race.contestType === 'Q') {
     return buildQuestionRace(race, raceIndex)
   } else {
@@ -159,6 +159,70 @@ function buildQuestionRace(race, raceIndex) {
     .replace('{QUESTION_OPTIONS}', buildQuestionOptions(race, raceIndex))
   return txt
 }
+
+/// *****************************************************************
+///            RANK CHOICE VERSION 2
+/// *****************************************************************
+
+
+function buildRankChoiceRaceV2(race, raceIndex) {
+  // build a option setting for each candidate
+  let html = `
+  <h2 id="contest_{CONTEST_INDEX}" class="contestName" tabindex="0">{CONTEST_NAME}<br>{CONTEST_SUBTITLE}</h2>
+  <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
+  <div class="rcContestContainer">{CANDIDATES}</div>`;
+  html = html.replace(/{CONTEST_INDEX}/g, raceIndex)
+             .replace(/{CONTEST_NAME}/g, race.contestName)
+             .replace(/{CONTEST_SUBTITLE}/g, race.contestSubtitle)
+             .replace(/{VOTING_INSTRUCTIONS}/g, race.votingInstructions)
+             .replace(/{CANDIDATES}/g, buildRankCandidates(race, raceIndex));
+  return html;
+}
+
+function buildRankCandidates(race, raceIndex) {
+  const numOfChoices = race.candidates.length;
+
+  let html = `
+  <div class="rcCandidateContainer">
+    <div class="candidateNameWrap">
+      <div class="candidateName">{CANDIDATE_NAME}</div>
+      <div class="candidateSubtitle">{CANDIDATE_SUBTITLE}</div>
+    </div>
+    <select name="rank" class="rank">{CHOICES}</select>  
+  </div>`
+  let htmlCandidates = '';
+  race.candidates.forEach(candidate => {
+    if (candidate.candidateName == '') {
+      htmlCandidates += html.replace(/{CANDIDATE_NAME}/g, "Write-in:")
+                            .replace(/{CANDIDATE_SUBTITLE}/g, "")
+                            .replace(/{CHOICES}/g, buildRankOptions(race.candidates.length));
+    }
+    else {
+      htmlCandidates += html.replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
+                            .replace(/{CANDIDATE_SUBTITLE}/g, candidate.candidateSubtitle)
+                            .replace(/{CHOICES}/g, buildRankOptions(race.candidates.length));
+    }
+  });
+  return htmlCandidates;
+}
+
+function buildRankOptions(numOfRanks) {
+  let htmlNoSelection = `<option value="0">No Selection</option>`;
+  let htmlOption = `<option value="{RANK}">{RANK_TEXT}</option>`;
+
+  let html = htmlOption.replace(/{RANK}/g, 1).replace(/{RANK_TEXT}/g, "No Selection");
+  for (let i = 1; i <= numOfRanks; i++) {
+    html += htmlOption.replace(/{RANK}/g, 1).replace(/{RANK_TEXT}/g, choiceLabel(i) + " Choice");
+  }
+  return html;
+}
+
+
+/// *****************************************************************
+///            RANK CHOICE VERSION 2
+/// *****************************************************************
+
+
 
 function buildRankChoiceRace(race, raceIndex) {
   let choices = race.candidates.length

@@ -566,3 +566,32 @@ body {
 #buttonWrap_AffidavitPage {
     margin-bottom: 10px;
 }
+
+/*  Rank Choice Drop-Down Styles */
+.rcContestContainer {
+    display: flex;
+    flex-direction: column; 
+  }
+  .rcCandidateContainer {
+    display: flex;
+    width: 400px;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid black;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  .rcCandidateContainer:last-child {
+    border-bottom: 1px solid black;
+  }
+  select {
+    height: 20px;
+  }
+  .candidateName {
+    font-weight: bold;
+  }
+  .candidateSubtitle {
+    margin: 0 0 0 10px;
+  }
