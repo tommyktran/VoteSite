@@ -93,6 +93,28 @@ function isWriteinCandidate(contestIndex, candidateIndex) {
     return ballot.contests[contestIndex].candidates[candidateIndex].candidateCode.includes('writein');
 }
 
+/// *******************************************************************************************************************************************
+///                       v RANK CHOICE HANDLER VERSION 2 v
+/// *******************************************************************************************************************************************
+
+function rankChoiceHandlerV2 (event) {
+    const id = event.target.id;
+    const contestIndex = id.split('_')[0];
+    const candidateIndex = id.split('_')[1];
+    ballot.contests[contestIndex].candidates[candidateIndex].selected = event.target.value;
+    console.log(ballot.contests[contestIndex].candidates[candidateIndex]);
+    reviewBtnHandler();
+}
+
+
+
+
+
+
+/// *******************************************************************************************************************************************
+///                        ^ RANK CHOICE HANDLER VERSION 2 ^
+/// *******************************************************************************************************************************************
+
 function rankChoiceHandler(event) {
     const ovalId = event.target.id
     const split = ovalId.split('_')

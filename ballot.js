@@ -53,8 +53,14 @@ function initPage() {
     let test_all = document.querySelectorAll('.regularRaceOval')
     test_all.forEach(checkbox => checkbox.addEventListener('click', regularHandler))
 
-    let rc = document.querySelectorAll('.rankChoiceRaceOval')
-    rc.forEach(checkbox => checkbox.addEventListener('click', rankChoiceHandler))
+    // let rc = document.querySelectorAll('.rankChoiceRaceOval')
+    // rc.forEach(checkbox => checkbox.addEventListener('click', rankChoiceHandler))
+
+    let rc = document.querySelectorAll('.rankChoiceRaceSelect')
+    rc.forEach(checkbox => checkbox.addEventListener('change', rankChoiceHandlerV2))
+
+
+    
 
     // let writeboxes = document.querySelectorAll('input[type="text"]')
     // writeboxes.forEach(writebox => writebox.addEventListener('focusout', textHandler))

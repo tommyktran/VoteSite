@@ -9,6 +9,33 @@ const reviewContestHtml = `
         </div>
     </div>   
 `
+
+/// **********************************************************************************
+///              SYNC FOR DROPDOWN RANK-CHOICE
+/// **********************************************************************************
+function syncSelectedVotesToBallotDataV2() {
+    ballot.contests.forEach((contest, contestIndex) => {
+        contest.candidates.forEach((candidate, candidateIndex) => {
+            candidate.selected = 0
+            let elemId = contestIndex + '_' + candidateIndex
+            if (candidate.candidateCode.includes('writein') && document.getElementById(elemId).checked) {
+                candidate.candidateName = document.getElementById(elemId + '_w').textContent.toUpperCase()
+            }
+            if (contest.contestType === 'RC') {
+                candidate.selected = document.getElementById(elemId).value;
+            } else {
+                if (document.getElementById(elemId).checked) {
+                    candidate.selected = 1
+                }
+            }
+        })
+    })
+    return ballot
+}
+
+/// **********************************************************************************
+///              SYNC FOR DROPDOWN RANK-CHOICE
+/// **********************************************************************************
 function syncSelectedVotesToBallotData() {
     ballot.contests.forEach((contest, contestIndex) => {
         contest.candidates.forEach((candidate, candidateIndex) => {
@@ -30,7 +57,6 @@ function syncSelectedVotesToBallotData() {
             }
         })
     })
-    
     return ballot
 }
 
@@ -42,7 +68,7 @@ function removeAllChildNodes(parent) {
 
 
 function reviewBtnHandler(event) {
-    syncSelectedVotesToBallotData();
+    syncSelectedVotesToBallotDataV2();
     const reviewPage = document.getElementById("reviewPage")
     // const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
@@ -109,15 +135,22 @@ function buildReviewSelectedVotes(race, raceIndex) {
 
 function buildReviewRankedVotes(race, raceIndex) {
     let text = ''
+    // for (let i = 1; i < race.candidates.length + 1; i++) {
+    //     for (let j = 0; j < race.candidates.length; j++) {
+    //         if (race.candidates[j].selected == i) {
+    //             text += rankedVote
+    //             text = text
+    //                 .replace('{RANK}', choiceLabel(i))
+    //                 .replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + j))
+    //         }
+    //     }
+    // }
     for (let i = 1; i < race.candidates.length + 1; i++) {
-        for (let j = 0; j < race.candidates.length; j++) {
-            if (race.candidates[j].selected === i) {
-                text += rankedVote
-                text = text
-                    .replace('{RANK}', choiceLabel(i))
-                    .replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + j))
+        race.candidates.forEach((candidate, candidateIndex) => {
+            if (candidate.selected == i) {
+                text += rankedVote.replace('{RANK}', choiceLabel(i)).replace('{CANDIDATE_NAME}', getCandidateName(`${raceIndex}_${candidateIndex}`));
             }
-        }
+        });
     }
     if (text.trim() === '') {
         text += noSelection
