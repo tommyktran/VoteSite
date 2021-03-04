@@ -168,9 +168,11 @@ function buildQuestionRace(race, raceIndex) {
 function buildRankChoiceRaceV2(race, raceIndex) {
   // build a option setting for each candidate
   let html = `
+  <div class="selectionContest">
   <h2 id="contest_{CONTEST_INDEX}" class="contestName" tabindex="0">{CONTEST_NAME}<br>{CONTEST_SUBTITLE}</h2>
   <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
-  <div class="rcContestContainer">{CANDIDATES}</div>`;
+  <div class="rcContestContainer">{CANDIDATES}</div>
+  </div>`;
   html = html.replace(/{CONTEST_INDEX}/g, raceIndex)
              .replace(/{CONTEST_NAME}/g, race.contestName)
              .replace(/{CONTEST_SUBTITLE}/g, race.contestSubtitle)
