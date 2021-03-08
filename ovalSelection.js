@@ -110,9 +110,11 @@ function rankChoiceHandler(event) {
             if (input === null || input.trim() === '') { // if invalid input
                 event.preventDefault()
                 return
-            } else {
+            } else { // valid input
                 writeinBox.textContent = input.toUpperCase()
-                document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${writeinBox.textContent}`)
+                for (let rankIndex in ballot.contests[contestIndex].candidates) {
+                    document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).setAttribute('aria-label', `Write-in: ${writeinBox.textContent}`)
+                }
             }
         } else { // there is already a writein name
             let isWriteinDeselection = true 
@@ -127,7 +129,9 @@ function rankChoiceHandler(event) {
             }
             if (isWriteinDeselection) {
                 writeinBox.textContent = ''
-                document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${writeinBox.textContent}`)
+                for (let rankIndex in ballot.contests[contestIndex].candidates) {
+                    document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).setAttribute('aria-label', `Write-in:`)
+                }
             }
         }
     }  
