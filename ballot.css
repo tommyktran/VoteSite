@@ -618,11 +618,11 @@ body {
     display: table;
 }
 
-.row.header {
+/* .row.header { */
     /* font-weight: 900; */
     /* color: white; */
     /* background-color: #ea6153; */
-}
+/* } */
 
 /* .row.green {
     background: #27ae60;
