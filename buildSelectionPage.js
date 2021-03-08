@@ -1,13 +1,16 @@
 const rcRaceHtml = `
-  <div class="selectionContest">
-    <h2 id="contest_{CONTEST_INDEX}" class="contestName" tabindex="0">{CONTEST_NAME}<br>{CONTEST_SUBTITLE}</h2>
-    <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
-    <table aria-label="{CONTEST_NAME}" class="{CLASS_NAME}">
-        {HEADER_ROW}
-        {CANDIDATE_ROWS}
-    </table>  
+<div class="selectionContest">
+  <h2 id="contest_{CONTEST_INDEX}" class="contestName" tabindex="0">{CONTEST_NAME}<br>{CONTEST_SUBTITLE}</h2>
+  <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
+  <div class="table">
+    <div class="row header">
+        <div class="cell" aria-hidden="true">Candidate</div>
+        {RANKS}
+    </div>
+    {CANDIDATES}
   </div>
-  `
+</div>
+`
 
 const headerRowHtml = `<tr class="header-row"><td>Candidate</td>{CHOICES}</tr>`
 
@@ -167,12 +170,73 @@ function buildRankChoiceRace(race, raceIndex) {
     .replace('{CONTEST_INDEX}', raceIndex)
     .replace(/{CONTEST_NAME}/g, race.contestName)
     .replace(/{CONTEST_SUBTITLE}/g, race.contestSubtitle)
-    .replace(/{CLASS_NAME}/g, cls)
     .replace('{VOTING_INSTRUCTIONS}', race.votingInstructions)
-    .replace('{HEADER_ROW}', buildHeaderRow(choices, cls))
-    .replace('{CANDIDATE_ROWS}', buildCandidateRows(race, choices, raceIndex))
+    .replace(/{RANKS}/g, buildRankHeaders(race))
+    .replace('{CANDIDATES}', buildRcCandidates(race, raceIndex))
   return txt
 }
+
+function buildRankHeaders(race) {
+  const headerHtml = `<div class="cell" aria-hidden="true">{RANK}<br>Choice</div>`;
+  let html = '';
+  let rank = 1;
+  race.candidates.forEach(candidate => {
+    html += headerHtml.replace('{RANK}', choiceLabel(rank));
+    rank++;
+  })
+  return html;
+}
+
+function buildRcCandidates(race, raceIndex) {
+  const candidateHtml = `
+  <div class="row">
+    <div class="cell candidateName" data-title="Candidate" aria-hidden="true">{CANDIDATE_NAME}<span class="candidateSubtitle">{CANDIDATE_SUBTITLE}</span></div>
+    {OVALS}
+  </div>`;
+  const writeinHtml = `
+  <div class="row">
+    <div class="cell candidateName" data-title="Candidate" aria-hidden="true">Write-in:<div id="{WRITEIN_ID}" class="writeinName" aria-hidden="true"></div>
+    </div>
+    {OVALS}
+  </div>`;
+  let html = '';
+  race.candidates.forEach((candidate, candidateIndex) => {
+    if (candidate.candidateCode.includes('writein')) {
+      html += writeinHtml.replace('{WRITEIN_ID}', `${raceIndex}_${candidateIndex}_w`)
+                         .replace('{OVALS}', buildRcCandidateOvals(race, raceIndex, candidateIndex));
+                   
+    }
+    else {
+      html += candidateHtml.replace('{CANDIDATE_NAME}', candidate.candidateName)
+                   .replace('{CANDIDATE_SUBTITLE}', candidate.candidateSubtitle)
+                   .replace('{OVALS}', buildRcCandidateOvals(race, raceIndex, candidateIndex));
+    }
+  })
+  return html;
+}
+
+function buildRcCandidateOvals(race, raceIndex, candidateIndex) {
+  const ovalHtml = `
+  <div class="cell">
+    <label>
+        <input id="{OVAL_ID}" type="checkbox" class="rcOval" aria-label="{OVAL_ARIA_LABEL}">
+        <span class="checkmark" aria-hidden="true"></span>
+    </label>
+  </div>
+  `;
+  let html = '';
+  let rankIndex = 0;
+  race.candidates.forEach(candidate => {
+    html += ovalHtml.replace('{OVAL_ID}', `${raceIndex}_${candidateIndex}_${rankIndex}`)
+                    .replace('{OVAL_ARIA_LABEL}', `${buildCandidateAriaLabel(raceIndex, candidateIndex)} ${choiceLabel(rankIndex+1)} choice`)
+    rankIndex++;
+  })
+  return html;
+}
+
+
+
+
 
 function choiceClassName(choices) {
   let cls
@@ -255,17 +319,17 @@ function buildOvalCells(race, choices, candidate, raceIndex, candidateIndex) {
 
 function candidateInfoString(raceIndex, candidateIndex) {
     let txt = ''
-    let numOfTotalCandidates = ballot.contests[raceIndex].candidates.length
-    let numOfWriteins = ballot.contests[raceIndex].candidates.filter((x) => x.candidateCode.includes('writein')).length
     const candidate = ballot.contests[raceIndex].candidates[candidateIndex]
-    // const candidateName = candidate.candidateName.replace(/<br>/g, ' and ')
-    const candidateName = getCandidateLastName(raceIndex, candidateIndex)
-    const candidateSubtitle = candidate.candidateSubtitle.replace(/<br>/g, ' ')
-    if (numOfWriteins > 0) {
-        numOfTotalCandidates -= numOfWriteins   // reduce total candidates by the number of write-ins 
+    let candidateName = '';
+    if (candidate.candidateCode.includes('writein')) {
+      // const writeinId = raceIndex + "_" + candidateIndex + "_w";
+      // console.log(document.getElementById(writeinId));
+      candidateName = "Write-in:";
     }
-    // txt += 'Candidate ' + (candidateIndex + 1) + ' of ' + numOfTotalCandidates + ': '
-    txt += candidateName + ', ' + candidateSubtitle
+    else {
+      candidateName = candidate.candidateName.replace(/<br>/g, ' and ') + " " + candidate.candidateSubtitle.replace(/<br>/g, ' ')
+    }
+    txt += candidateName;
     return txt
 }
 

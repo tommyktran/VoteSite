@@ -13,20 +13,16 @@ function syncSelectedVotesToBallotData() {
     ballot.contests.forEach((contest, contestIndex) => {
         contest.candidates.forEach((candidate, candidateIndex) => {
             candidate.selected = 0
-            let elemId = contestIndex + '_' + candidateIndex
-            if (candidate.candidateCode.includes('writein')) {
-                candidate.candidateName = document.getElementById(elemId + '_w').textContent.toUpperCase()
+            let eleId = `${contestIndex}_${candidateIndex}`;
+            if (contest.contestType == 'RC') {
+                for (let rankIndex = 0; rankIndex < contest.candidates.length; rankIndex++) {
+                    eleId = `${contestIndex}_${candidateIndex}_${rankIndex}`;
+                    // console.log(eleId)
+                    if (document.getElementById(eleId).checked) candidate.selected = rankIndex + 1;
+                }
             }
-            if (contest.contestType === 'RC') {
-                for (let rankIndex in contest.candidates) {
-                    if (document.getElementById(elemId + '_' + rankIndex).checked) {
-                        candidate.selected = parseInt(rankIndex) + 1
-                    }
-                }
-            } else {
-                if (document.getElementById(elemId).checked) {
-                    candidate.selected = 1
-                }
+            else {
+                if (document.getElementById(eleId).checked) candidate.selected = 1;
             }
         })
     })

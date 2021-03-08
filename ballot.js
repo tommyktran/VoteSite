@@ -53,7 +53,7 @@ function initPage() {
     let test_all = document.querySelectorAll('.regularRaceOval')
     test_all.forEach(checkbox => checkbox.addEventListener('click', regularHandler))
 
-    let rc = document.querySelectorAll('.rankChoiceRaceOval')
+    let rc = document.querySelectorAll('.rcOval')
     rc.forEach(checkbox => checkbox.addEventListener('click', rankChoiceHandler))
 
     // let writeboxes = document.querySelectorAll('input[type="text"]')
