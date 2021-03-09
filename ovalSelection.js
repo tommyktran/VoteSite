@@ -46,6 +46,7 @@ function uncheckOtherCandidates(contestIndex, selectedCandidateIndex) {
 
 function clearRegWriteinAria(id) {
     document.getElementById(`${id}_w`).textContent = '';
+    document.getElementById(`${id}_wh`).ariaLabel = 'Write-in';
     document.getElementById(id).ariaLabel = 'Write-in';
 }
 
@@ -71,8 +72,7 @@ function regularHandler(event) {
                 event.preventDefault()
                 return
             } else {
-                writeinBox.textContent = input.toUpperCase()
-                document.getElementById(ovalId).ariaLabel = `Write-in: ${writeinBox.textContent}`
+                addRegWriteinAria(writeinBox, input, ovalId);
             }
         } else { // click is to deselect a writein oval so need to clear the writeinBox
             clearRegWriteinAria(ovalId)
@@ -90,6 +90,12 @@ function regularHandler(event) {
         }
     }
     reviewBtnHandler();
+}
+
+function addRegWriteinAria(writeinBox, input, ovalId) {
+    writeinBox.textContent = input.toUpperCase();
+    document.getElementById(`${ovalId}_wh`).ariaLabel = `Write-in: ${writeinBox.textContent}`;
+    document.getElementById(ovalId).ariaLabel = `Write-in: ${writeinBox.textContent}`;
 }
 
 function isWriteinCandidate(contestIndex, candidateIndex) {
@@ -285,7 +291,6 @@ function getCandidateName(ovalId) {
     } else {
         name = candidate.candidateName.replace(/<br>/g, ' and ')
         if (ballot.contests[contestIndex].contestType === 'R') {
-            const candidateSubtitle = 
             name += ', ' + candidate.candidateSubtitle.replace(/<br>/g, ' ')
         }       
     }

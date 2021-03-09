@@ -17,12 +17,21 @@ function syncSelectedVotesToBallotData() {
             if (contest.contestType == 'RC') {
                 for (let rankIndex = 0; rankIndex < contest.candidates.length; rankIndex++) {
                     eleId = `${contestIndex}_${candidateIndex}_${rankIndex}`;
-                    // console.log(eleId)
-                    if (document.getElementById(eleId).checked) candidate.selected = rankIndex + 1;
+                    if (document.getElementById(eleId).checked) {
+                        candidate.selected = rankIndex + 1;
+                        if (candidate.candidateCode.includes('writein')) {
+                            candidate.candidateName = document.getElementById(`${contestIndex}_${candidateIndex}_w`).textContent
+                        }                        
+                    }
                 }
             }
             else {
-                if (document.getElementById(eleId).checked) candidate.selected = 1;
+                if (document.getElementById(eleId).checked) {
+                    candidate.selected = 1;
+                    if (candidate.candidateCode.includes('writein')) {
+                        candidate.candidateName = document.getElementById(`${contestIndex}_${candidateIndex}_w`).textContent
+                    }       
+                }
             }
         })
     })
@@ -40,17 +49,11 @@ function removeAllChildNodes(parent) {
 function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData();
     const reviewPage = document.getElementById("reviewPage")
-    // const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
-    // selectionPage.style.display = 'none'
-    // reviewPage.style.display = 'block'
     reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
     })
-    // const focusEle = document.getElementById('reviewPage')
-    // focusEle.scrollIntoView()
-    
     const reviewContestClickables = document.querySelectorAll('.reviewContest')
     reviewContestClickables.forEach(contest => contest.addEventListener('click', reviewBoxesHandler))
     
@@ -91,7 +94,7 @@ function buildReviewSelectedVotes(race, raceIndex) {
     race.candidates.forEach((candidate, candidateIndex) => {
         if (candidate.selected === 1) {
             if (candidate.candidateCode.includes("writein")) {
-                text += selectedVote.replace('{CANDIDATE_NAME}', candidate.candidateName + ' (Write-in)')
+                text += selectedVote.replace('{CANDIDATE_NAME}', `Write-in: ${candidate.candidateName}`)
             } else {
                 text += selectedVote.replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + candidateIndex))
             }            
