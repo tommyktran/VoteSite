@@ -687,7 +687,7 @@ body {
 }
 
 /* Create a custom checkbox */
-.checkmark {
+.rcCheckmark {
     display: inline-block;
     height: 18px;
     width: 28px;
@@ -699,13 +699,17 @@ body {
 
 
 /* On mouse-over, add a light grey background color */
-.checkmark:hover {
+.rcCheckmark:hover {
     background-color: #ddd;
 }
 
 /* When the checkbox is checked, add a black background */
-.rcOval:checked~.checkmark {
+.rcOval:checked~.rcCheckmark {
     background-color: black;
+}
+
+.rcOval:focus~.rcCheckmark {
+    box-shadow: 0 0 2px 1px dodgerblue;
 }
 
 .candidateName {
@@ -718,4 +722,10 @@ body {
     display: block;
     padding-left: 10px;
     font-weight: normal;
+}
+
+.rcCandidateName {
+    text-align: left;
+    padding-left: 2%;
+    margin: 1% 0 1% 0;
 }
