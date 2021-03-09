@@ -50,8 +50,8 @@ const candidateRegLine = `
   <div class="indivCandidate">
     <label class="container candidateLabel" id="label_{OVAL_ID}">
       <div class="candidateNameDiv">
-        <h3 class="candidateName" aria-hidden="true"">{CANDIDATE_NAME}</h3>
-        <h3 class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</h3>           
+        <h3 class="candidateName" aria-label="{CANDIDATE_HEADER_ARIA}">{CANDIDATE_NAME}</h3>
+        <span class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</span>           
       </div>
       <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox" aria-hidden="true"></span>           
@@ -61,8 +61,8 @@ const candidateRegLine = `
 const candidateRegWriteIn = `
   <div class="indivCandidate">
     <label class="container candidateLabel" for="{OVAL_ID}">
-      <h3 class="candidateName" aria-hidden="true">Write-in:</h3>
-      <div id="{OVAL_ID}_w" class="writeinName"></div>
+      <h3 id="{OVAL_ID}_wh" class="candidateName" aria-label="Write-in">Write-in:</h3>
+      <div id="{OVAL_ID}_w" class="writeinName" aria-hidden="true"></div>
       <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{WRITEIN_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox" aria-hidden="true" ></span>
     </label>
@@ -121,6 +121,7 @@ function buildRegCandidates(race, raceIndex) {
         .replace('{WRITEIN_ARIA_LABEL}', buildWriteinAriaLabel(raceIndex, candidateIndex))
     } else {
       txt += candidateRegLine
+        .replace(/{CANDIDATE_HEADER_ARIA}/g, buildCandidateAriaLabel(raceIndex, candidateIndex))
         .replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
         .replace(/{OVAL_ID}/g, raceIndex + '_' + candidateIndex)
         .replace(/{CANDIDATE_ARIA_LABEL}/g, buildCandidateAriaLabel(raceIndex, candidateIndex))

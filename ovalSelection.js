@@ -24,10 +24,10 @@ function uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex) {
 function clearOutRcWriteinAria(contestIndex, candidateIndex) {
     // resets all the writein oval aria-labels for Rank Choice Contest
     for (let rankIndex in ballot.contests[contestIndex].candidates) {
-        document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).setAttribute('aria-label', `${choiceLabel(parseInt(rankIndex) + 1)} Write-in`);
-        console.log(document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`))
+        document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).ariaLabel = `${choiceLabel(parseInt(rankIndex) + 1)} Write-in`;
     }
     document.getElementById(`${contestIndex}_${candidateIndex}_w`).textContent = '';
+    document.getElementById(`${contestIndex}_${candidateIndex}_wh`).ariaLabel = 'Write-in'    
 }
 
 function uncheckOtherCandidates(contestIndex, selectedCandidateIndex) {
@@ -46,7 +46,7 @@ function uncheckOtherCandidates(contestIndex, selectedCandidateIndex) {
 
 function clearRegWriteinAria(id) {
     document.getElementById(`${id}_w`).textContent = '';
-    document.getElementById(id).setAttribute('aria-label', `Write-in`);
+    document.getElementById(id).ariaLabel = 'Write-in';
 }
 
 function regularHandler(event) {
@@ -72,7 +72,7 @@ function regularHandler(event) {
                 return
             } else {
                 writeinBox.textContent = input.toUpperCase()
-                document.getElementById(ovalId).setAttribute('aria-label', `Write-in: ${writeinBox.textContent}`)
+                document.getElementById(ovalId).ariaLabel = `Write-in: ${writeinBox.textContent}`
             }
         } else { // click is to deselect a writein oval so need to clear the writeinBox
             clearRegWriteinAria(ovalId)
@@ -137,7 +137,7 @@ function rankChoiceHandler(event) {
             if (isWriteinDeselection) {
                 writeinBox.textContent = ''
                 for (let rankIndex in ballot.contests[contestIndex].candidates) {
-                    document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).setAttribute('aria-label', `Write-in:`)
+                    document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).ariaLabel = `Write-in:`
                 }
             }
         }
@@ -188,10 +188,12 @@ function rankChoiceHandler(event) {
 }
 
 function addRcWriteInAria(writeinBox, input, contestIndex, candidateIndex) {
-    writeinBox.textContent = input.toUpperCase();
     for (let rankIndex in ballot.contests[contestIndex].candidates) {
-        document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).setAttribute('aria-label', `Write-in: ${writeinBox.textContent}`);
+        document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).ariaLabel = `Write-in: ${writeinBox.textContent}`;
     }
+    writeinBox.textContent = input.toUpperCase();
+    document.getElementById(`${contestIndex}_${candidateIndex}_wh`).ariaLabel = `Write-in: ${input.toUpperCase()}`; 
+
 }
 
 function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedWriteinName) {
