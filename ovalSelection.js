@@ -203,34 +203,52 @@ function rankChoiceHandler(event) {
     const otherRowSelections = otherSelectionsinRow(contestIndex, candidateIndex, rankIndex)
     const otherColSelections = otherSelectionsinCol(contestIndex, candidateIndex, rankIndex)
 
-    // *** Start logic for modal ***
+    // *** Start logic for oval confirmation ***
     // If there was previously a selection in the same row and column, then ask the user to confirm their choice by showing a modal. This will exit out of the current rankChoiceHandler
     if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
-        console.log('need to show modal')
         let savedWriteinName = '';
+
         otherColSelections.forEach(oval => {
             if (isIdRcWriteinCandidate(oval)) {
                 savedWriteinName = getCandidateName(oval)
-                console.log(savedWriteinName)
             }
+        })
         const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
         const selectedCandidateName = getCandidateName(ovalId)
         let otherCandidateName = getCandidateName(otherColSelections[0])
         if (savedWriteinName != '') {
             otherCandidateName = savedWriteinName
         }
-        document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
-        console.log(`You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like to change your ${ordinal} choice to: \n${selectedCandidateName}?`)            
-        document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "Yes", savedWriteinName)})
-        document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "No", savedWriteinName)})        
-        event.preventDefault()
-        showModal()
-        document.getElementById("yesButton").focus()
-        return;
-        })
+        const message = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
+        
+        const userAnswer = confirm(message)
+        if (userAnswer) {
+            for (let id of otherColSelections) {
+                document.getElementById(id).checked = false
+                if (isIdRcWriteinCandidate(id)) {
+                    const split = id.split('_');
+                    clearOutRcWriteinAria(split[0], split[1])
+                }
+            }
+            for (let id of otherRowSelections) {
+                document.getElementById(id).checked = false
+            }
+            document.getElementById(ovalId).checked = true; 
+        }
+        else {
+            console.log('else statement')
+            document.getElementById(ovalId).checked = false
+            document.getElementById(otherRowSelections[0]).checked = true
+            document.getElementById(otherColSelections[0]).checked = true
+            event.preventDefault();       
+        }
+        hideModal()
+        document.getElementById(ovalId).focus()
+        // live update for review section
+        // reviewBtnHandler();                     
         return;    
     }
-    // *** End logic for modal ***
+    // *** End logic for oval confirmation ***
 
     if (isWritein) {
         const writeinBox = document.getElementById(contestIndex + '_' + candidateIndex + '_w')
@@ -272,6 +290,61 @@ function rankChoiceHandler(event) {
 }
 
 
+function addClickEventOnNoButton(ovalId, otherColSelections, otherRowSelections, savedWriteinName) {
+    console.log('add no')
+    console.trace();
+    document.getElementById("noButton").addEventListener('click', function() {
+        document.getElementById(ovalId).checked = false
+        document.getElementById(otherRowSelections[0]).checked = true
+        document.getElementById(otherColSelections[0]).checked = true
+        hideModal()
+        document.getElementById(ovalId).focus()
+        // live update for review section
+        reviewBtnHandler();        
+    });
+}
+
+function addClickEventOnYesButton(ovalId, otherColSelections, otherRowSelections, savedWriteinName) {
+    console.log('add yes')
+    console.trace();
+    document.getElementById("yesButton").addEventListener('click', function() {
+        for (let id of otherColSelections) {
+            document.getElementById(id).checked = false
+            if (isIdRcWriteinCandidate(id)) {
+                const split = id.split('_');
+                console.log(split)
+                clearOutRcWriteinAria(split[0], split[1])
+            }
+        }
+        for (let id of otherRowSelections) {
+            document.getElementById(id).checked = false
+        }
+        document.getElementById(ovalId).checked = true;
+        hideModal()
+        document.getElementById(ovalId).focus()
+        // live update for review section
+        reviewBtnHandler();        
+    })
+    // document.getElementById("yesButton").addEventListener('click', function() {
+    //     for (let id of otherColSelections) {
+    //         document.getElementById(id).checked = false
+    //         if (isIdRcWriteinCandidate(id)) {
+    //             const split = id.split('_');
+    //             console.log(split)
+    //             clearOutRcWriteinAria(split[0], split[1])
+    //         }
+    //     }
+    //     for (let id of otherRowSelections) {
+    //         document.getElementById(id).checked = false
+    //     }
+    //     document.getElementById(ovalId).checked = true;
+    //     hideModal()
+    //     document.getElementById(ovalId).focus()
+    //     // live update for review section
+    //     reviewBtnHandler();        
+    // });
+}
+
 function otherSelectionsinRow(contestIndex, candidateIndex, rankIndex) {
     const rowSelections = [];
     const numOfRanks = ballot.contests[contestIndex].candidates.length;
@@ -282,7 +355,6 @@ function otherSelectionsinRow(contestIndex, candidateIndex, rankIndex) {
         }
         else continue;
     }
-    console.log('rowSelections', rowSelections);
     return rowSelections;
 }
 
@@ -296,7 +368,6 @@ function otherSelectionsinCol(contestIndex, candidateIndex, rankIndex) {
         }
         else continue;
     }
-    console.log('colSelections', colSelections);
     return colSelections;
 }
 
@@ -323,23 +394,23 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
             document.getElementById(id).checked = false
         }
         document.getElementById(ovalId).checked = true;
-    } else {
-        console.dir([rankSelections, candidateSelections])
+        hideModal()
+        document.getElementById(ovalId).focus()
+        // live update for review section
+        reviewBtnHandler();
 
+    }
+    if (answer == "No") {
+        console.trace()
+        console.dir([rankSelections, candidateSelections])
         document.getElementById(ovalId).checked = false
         document.getElementById(rankSelections[0]).checked = true
         document.getElementById(candidateSelections[0]).checked = true
-        // if (savedWriteinName != '') {
-        //     console.log({savedWriteinName, candidateSelections, rankSelections});
-        //     // const writeinBoxId = candidateSelections[0].split('_')[0] + candidateSelections[0].split('_')[1] + '_w'
-        //     // document.getElementById(writeinBoxId).textContent = savedWriteinName
-        //     // document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${savedWriteinName}`)
-        // }
-    }   
-    hideModal()
-    document.getElementById(ovalId).focus()
-    // live update for review section
-    reviewBtnHandler();
+        hideModal()
+        document.getElementById(ovalId).focus()
+        // live update for review section
+        reviewBtnHandler();        
+    }           
 }
 
 function showModal() {
@@ -408,3 +479,5 @@ function getCandidateName(ovalId) {
     }
     return name
 }
+
+
