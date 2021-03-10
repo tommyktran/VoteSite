@@ -10,13 +10,19 @@ body {
 /* body, html {
     height: 100%;
 } */
+
+.selectionContest {
+    /* border-bottom: 1px solid black; */
+    margin: 10px;
+}
+
+
 table,
 td {
     border: 2px solid black;
     border-collapse: collapse;
     margin-bottom: 40px;
     font-size: 20px;
-    text-align: center;
     padding: 5px;
     width: 100%;
     margin-left: auto;
@@ -25,7 +31,8 @@ td {
 
 .header-row {
     /* background-color: #adb5bd; */
-    background-color: #e6e9ed;
+    background-color: whitesmoke;
+    text-align: center;
 
 }
 
@@ -57,7 +64,11 @@ table, .regCandidates {
 .regCandidates, .questionDiv, table {
     width: 800px;
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
+}
+
+.regCandidates {
+    border-radius: 16px;
 }
 
 
@@ -113,7 +124,7 @@ table, .regCandidates {
 /* styling for text-area housing the question to be voted on*/
 .question {
     border: 2px solid black;
-    background-color: #e6e9ed;
+    background-color: whitesmoke;
     padding: 10px;
     font-size: 18px;
     margin-top: 10px;
@@ -188,6 +199,7 @@ table, .regCandidates {
 .candidateName {
     text-align: left;
     font-size: 20px;
+    display: inline;
 }
 
 .candidateSubtitle {
@@ -298,7 +310,11 @@ ol {
 
 #affidavitPage {
     margin: 0 auto;
-    width: 600px;
+    width: 800px;
+}
+
+#title_AffidavitPAge {
+    margin: 10px 0px;
 }
 
 #affidavitPage li {
@@ -308,6 +324,7 @@ ol {
 .affidavitTopBox {
     border: 3px solid black;   
     padding: 20px 30px;
+    margin: 25px 0px;
 }
 
 .affidavitBottomBox {
@@ -323,32 +340,82 @@ td > .container {
 }
 
 /* start styles for ReviewPage */
-.reviewContestHeader {
-    padding-bottom: 20px;
-    margin-bottom: 20px;
-    background-color: #e6e9ed;
-    /* width: 715px;
-    margin: auto; */
+
+/* #reviewPage {
+    display: none;
+} */
+
+.reviewContest {
+    width: 800px;
+    text-align: center;
+    background-color:whitesmoke;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid black;
+    border-radius: 16px;
 }
+
+.reviewContest:hover {
+    cursor: pointer;
+    background-color: #CCC;
+}
+
+.reviewContest:focus {
+    background-color: #CCC;
+}
+
+
+.reviewContestButton {
+    width: 800px;
+    margin: 3px 0;
+}
+#reviewPageInstructions {
+    width: 800px;
+    margin: 0 auto;
+    /* border: 2px solid darkgray; */
+    padding: 10px;
+}
+
 #reviewBody {
     margin-top: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.reviewCandidates {
-    font-size: 20px;
+
+.reviewContestHeader {
+    margin: 5px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid black;
+    color: rgb(43, 43, 192);
+    font-weight: bold;
 }
 
-#reviewPage {
-    display: none;
+.reviewCandidates {
+    font-size: 20px;
+    padding-top: 12px;
 }
+
+.reviewPageNoSelection {
+    /* font-style: italic; */
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+}
+
 #reviewFooter {
     margin-top: 5px;
 }
 
+/* End styles for ReviewPage */
+
 #selection {
     display: block;
+}
+
+#ballotTitle {
+    margin: 30px;
+    font-size: larger;   
 }
 
 a {
@@ -393,7 +460,7 @@ button:focus {
 /* end styles for ReviewPage */
 
 #modal {
-    background-color: rgba(236,240,241 ,1);
+    background-color: white;
     border-radius: 10px;
     position: fixed;
     left: 50%;
@@ -432,18 +499,18 @@ button:focus {
 }
 #overlay {
     display: none;
-    position:fixed;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
-    background-color:#fff;
-    opacity:0.8;
-    z-index:1001;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: darkgray;
+    opacity: 0.9;
+    z-index: 1001;
 }
-#affidavitPage {
+/* #affidavitPage {
     display: none;
-}
+} */
 button {
     background-color:initial;
     border: none;
@@ -466,22 +533,261 @@ button:hover {
     margin: 0 auto;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    width:600px;
+    /* justify-content: space-between; */
+    justify-content: center;
+    width:800px;
 }
-.reviewContest {
-    width: 600px;
+
+
+.writeinName {
+    border-bottom: 1px solid gray;
+    margin-left: 10px;
+    display: inline-block;
+    text-align: left;
+    color: blue;
+    font-size: initial;
+}
+
+/* .btn {
+    font-size: 20px;
+    padding: 5px 10px;
+    background-color:#e6e9ed;
+    border: 2px solid #999;
+    border-radius: 13px;
+    text-decoration: none;
+} */
+
+#buttonWrap_ReviewPage, #buttonWrap_AffidavitPage {
+    display: flex;
+    justify-content: center;
+}
+
+#inputsWrap_AffidavitPage {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;   
+}
+
+#inputsWrap_AffidavitPage {
+    font-size: 20px;
+}
+
+#thankyouForVoting { 
+    padding-top: 20%;
+    font-size: 3em;
+}
+
+.stepBanner {
+    width: auto;
+    /* border-top: 1px solid black; */
+    border-bottom: 2px solid black;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #e6e9ed;
+}
+
+#ballotEnd, #reviewEnd {
+    margin: 20px;
+}
+
+
+
+/* start media queries */
+@media (max-width: 1024px) {
+    .candidateSubtitle {
+        font-weight: 400;
+    }
+}
+@media (max-width: 830px) {
+    .regCandidates, .questionDiv, table, #reviewPageInstructions, .reviewContest, #affidavitPage {
+        width: 100%;
+    }
+    body {
+        margin: 0;
+    }
+    html {
+        zoom: 56%;
+    }
+    #reviewPage {
+        padding: 0 3px;
+    }
+    .selectionContest {
+        margin: 0;
+    }
+}
+/* end media queries */
+
+body {
+    background-color: #888;
+}
+.step {
+    width: 1200px;
+    border: 2px solid black;
+    margin: 20px auto;
+    background-color: white;
+}
+#buttonWrap_AffidavitPage {
+    margin-bottom: 10px;
+}
+
+/* Styles for display tables */
+
+/* body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    font-weight: 400;
+    color: #3b3b3b;
+    background-color: #2b2b2b;
+    box-sizing: border-box;
+} */
+
+/* @media screen and (max-width: 580px) {
+    body {
+        font-size: 16px;
+        line-height: 22px;
+    }
+} */
+
+.wrapper {
+    margin: 0 auto;
+    padding: 40px;
+    max-width: 800px;
+}
+
+
+/* @media screen and (max-width: 580px) {
+    .table {
+        display: block;
+    }
+} */
+
+.row {
+    display: table-row;
+    /* background: #f6f6f6; */
+}
+
+/* .row:nth-of-type(odd) {
+    background: #e9e9e9;
+} */
+
+.table {
+    /* margin: 0 0 40px 0;
+    width: 100%; */
+    margin: 0 auto 30px;
+    width: 800px;
+    /* box-shadow: 0 1px 3px rgb(0, 0, 0, 0.2); */
+    display: table;
+    border: 1px solid black;
+}
+
+.row.header { 
+    /* font-weight: bold; */
+    /* color: white; */
+    background-color: whitesmoke;
+}
+
+/* .row.green {
+    background: #27ae60;
+}
+
+.row.blue {
+    background: #2980b9;
+} */
+
+
+/* @media screen and (max-width: 580px) {
+    .row {
+        padding: 14px 0 7px;
+    }
+
+    .row.header {
+        padding: 0;
+        height: 6px; 
+    }
+
+    .row .cell {
+        margin-bottom: 10px;
+    }
+
+    .row .cell::before {
+        margin-bottom: 3px;
+        content: attr(data-title);
+        min-width: 98px;
+        line-height: 10px;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #969696;
+        display: block;
+    }
+} */
+
+.cell {
+    /* padding: 6px; */
+    display: table-cell;
+    border: 1px solid black;
+    vertical-align: middle;
     text-align: center;
 }
 
-.reviewContestButton {
-    width: 600px;
-    margin: 3px 0;
+/* @media screen and (max-width: 500px) {
+    .cell {
+        padding: 2px 16px;
+        display: block;
+        
+    }
+} */
+
+/* Start my custom ballot styles */
+
+.rcOval {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0px;
+    width: 0px;
 }
 
-#reviewPageInstructions {
-    width: 600px;
-    margin: 0 auto;
-    border: 2px solid darkgray;
-    padding: 10px;
+/* Create a custom checkbox */
+.rcCheckmark {
+    display: inline-block;
+    height: 18px;
+    width: 28px;
+    border: 2px solid black;
+    border-radius: 50%;
+    background-color: white;
+    margin-top: 6px;
+}
+
+
+/* On mouse-over, add a light grey background color */
+.rcCheckmark:hover {
+    background-color: #ddd;
+}
+
+/* When the checkbox is checked, add a black background */
+.rcOval:checked~.rcCheckmark {
+    background-color: black;
+}
+
+.rcOval:focus~.rcCheckmark {
+    box-shadow: 0 0 2px 1px dodgerblue;
+}
+
+.candidateName {
+    text-align: left;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+.candidateSubtitle {
+    display: block;
+    padding-left: 10px;
+    font-weight: normal;
+}
+
+.rcCandidateName {
+    text-align: left;
+    padding-left: 2%;
+    margin: 1% 0 1% 0;
 }

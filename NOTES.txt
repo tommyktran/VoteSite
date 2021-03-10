@@ -1,12 +1,16 @@
-consider adding an alert box to voteMax
-consider refactoring a method used by questionhandler and regularhandler to clearallvotesexcept
-consider alertbox for when the writeins are cleared and deselected b/c of a voteFor 1 and rank choices
-if using images, use an image -> html css art converter 
+TODO:
+- fix incorrect password to make it accesible to screen readers (NVDA)
 
-To-Do:
--check NVDA and JAWS for readonly textbox w/ writeins
--js only modifies double quotes (") and line breaks <br> for candidate names
+-Use axe chrome extension 
+-only one H1 tag per page, so convert h1 -> h2, etc.
+-Style onepage site with 3 step instructions
+-Move codebase to kevin's github
 
--check oval in rank choice when cell is clicked
 
--
+CONSIDERATIONS:
+-adding an alert box when voteMax has been reached 
+-adding a notification for a voteFor 1 and the previous candidate becomes deselected
+-if using images, use an image -> html css art converter 
+
+
+LOG: 

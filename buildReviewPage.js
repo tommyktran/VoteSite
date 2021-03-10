@@ -1,66 +1,41 @@
-const selectedVote = `<div>{CANDIDATE_NAME}</div>`
+const selectedVote = `<p>{CANDIDATE_NAME}</div>`
 const rankedVote = `<div>{RANK} choice: {CANDIDATE_NAME}</div>`
-
-// tommy's version of template without anchors
-// const reviewContestHtml = `
-// <div class="reviewDiv">  
-//     <div class="reviewContestHeader">
-//         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-//     </div>
-//     <div class="reviewCandidates">
-//         <center>{CANDIDATES}</center>
-//     </div> 
-// </div>
-// `
-
-//older template using anchors:
-// const reviewContestHtml = `
-// <div class="reviewContest">
-//     <a href="#contest_{REVIEW_ID}">
-//     <div class="reviewContestHeader">
-//         <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-//         <div class="reviewCandidates">
-//         {CANDIDATES}
-//         </div>
-//     </div>
-//     </a>
-// </div>
-// `
-
+const noSelection = `<div class="reviewPageNoSelection">No Selection</div>`
 const reviewContestHtml = `
-<div class="reviewContest">
-    <a href="#contest_{REVIEW_ID}" class="reviewContestLink">
-    <div class="reviewContestHeader">
-        <h3>{CONTESTNAME}  (Vote for {VOTEFOR})</h3>
-        <div class="reviewCandidates">
-        {CANDIDATES}
+    <div id="review_contest_{REVIEW_ID}" class="reviewContest" role="button" tabIndex="0">
+        <p id="review_header_{REVIEW_ID}" class="reviewContestHeader">{CONTESTNAME}  (Vote for {VOTEFOR})</p>
+        <div id="review_candidates_{REVIEW_ID}" class="reviewCandidates">
+            {CANDIDATES}
         </div>
-    </div>
-    </a>
-</div>
+    </div>   
 `
-
 function syncSelectedVotesToBallotData() {
     ballot.contests.forEach((contest, contestIndex) => {
         contest.candidates.forEach((candidate, candidateIndex) => {
             candidate.selected = 0
-            let elemId = contestIndex + '_' + candidateIndex
-            if (candidate.candidateCode.includes('writein')) {
-                candidate.candidateName = document.getElementById(elemId + '_w').value.toUpperCase()
-            }
-            if (contest.contestType === 'RC') {
-                for (let rankIndex in contest.candidates) {
-                    if (document.getElementById(elemId + '_' + rankIndex).checked) {
-                        candidate.selected = parseInt(rankIndex) + 1
+            let eleId = `${contestIndex}_${candidateIndex}`;
+            if (contest.contestType == 'RC') {
+                for (let rankIndex = 0; rankIndex < contest.candidates.length; rankIndex++) {
+                    eleId = `${contestIndex}_${candidateIndex}_${rankIndex}`;
+                    if (document.getElementById(eleId).checked) {
+                        candidate.selected = rankIndex + 1;
+                        if (candidate.candidateCode.includes('writein')) {
+                            candidate.candidateName = document.getElementById(`${contestIndex}_${candidateIndex}_w`).textContent
+                        }                        
                     }
                 }
-            } else {
-                if (document.getElementById(elemId).checked) {
-                    candidate.selected = 1
+            }
+            else {
+                if (document.getElementById(eleId).checked) {
+                    candidate.selected = 1;
+                    if (candidate.candidateCode.includes('writein')) {
+                        candidate.candidateName = document.getElementById(`${contestIndex}_${candidateIndex}_w`).textContent
+                    }       
                 }
             }
         })
     })
+    
     return ballot
 }
 
@@ -74,23 +49,23 @@ function removeAllChildNodes(parent) {
 function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData();
     const reviewPage = document.getElementById("reviewPage")
-    
-    const selectionPage = document.getElementById('selection')
     const reviewBody = document.querySelector('#reviewBody')
-    selectionPage.style.display = 'none'  
-    reviewPage.style.display = 'block'
-    reviewPage.style.visibility = 'visible'
+
     reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
     })
-    const focusEle = document.getElementById('reviewPageInstructions')
-    focusEle.focus()
-    focusEle.scrollIntoView()
-    // const linkables = document.querySelectorAll('a')
-    // linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
-    const linkables = document.querySelectorAll('.reviewContestLink')
-    linkables.forEach(link => link.addEventListener('click', reviewBoxesHandler))
+    const reviewContestClickables = document.querySelectorAll('.reviewContest')
+    reviewContestClickables.forEach(contest => contest.addEventListener('click', reviewBoxesHandler))
+    
+    // adds keydown functionality when SPACEBAR or ENTER is pressed without screen-reader
+    reviewContestClickables.forEach(contest => contest.addEventListener('keydown', e => {
+        if (e.key === ' ' || e.key === 'Enter') {
+            const contestId = e.target.id.replace('review_', '')
+            document.getElementById(contestId).focus()
+            document.getElementById(contestId).scrollIntoView()
+        }
+    }))
 }
 
 function doneAndCreatePdf() {
@@ -119,12 +94,15 @@ function buildReviewSelectedVotes(race, raceIndex) {
     let text = ''
     race.candidates.forEach((candidate, candidateIndex) => {
         if (candidate.selected === 1) {
-            text += selectedVote.replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + candidateIndex))
+            if (candidate.candidateCode.includes("writein")) {
+                text += selectedVote.replace('{CANDIDATE_NAME}', `Write-in: ${candidate.candidateName}`)
+            } else {
+                text += selectedVote.replace('{CANDIDATE_NAME}', getCandidateName(raceIndex + '_' + candidateIndex))
+            }            
         }
     })
     if (text.trim() === '') {
-        text += selectedVote;
-        text = text.replace('{CANDIDATE_NAME}', '-------- No Selection --------')
+        text += noSelection
     }
     return text
 }
@@ -142,19 +120,26 @@ function buildReviewRankedVotes(race, raceIndex) {
         }
     }
     if (text.trim() === '') {
-        text += selectedVote
-        text = text.replace('{CANDIDATE_NAME}', '-------- No Selection --------')
+        text += noSelection
     }
     return text
 }
 
 function reviewBoxesHandler(event) {
-    let reviewPage = document.getElementById("reviewPage")
-    let selectionPage = document.getElementById('selection')
-    selectionPage.style.display = 'block'
-    reviewPage.style.visibility = 'hidden'
-    const reviewBody = document.getElementById('reviewBody')
-    reviewBody.innerHTML = ''
+    const contestId = this.id.replace('review_', '')
+    document.getElementById(contestId).focus()
+    document.getElementById(contestId).scrollIntoView()
+    
+    // const reviewPage = document.getElementById("reviewPage")
+    //const selectionPage = document.getElementById('selection')
+    // const reviewBody = document.getElementById('reviewBody')
+    //selectionPage.style.display = 'block'
+    // document.getElementById(event.target.id.replace('review_', '')).focus({preventScroll:false})
+    // console.log(document.dispatchEvent(new KeyboardEvent('keypress', {'keyCode':32,'which':32})))
+
+    // reviewPage.style.display = 'none'
+    
+    // reviewBody.innerHTML = ''
 }
 
 function backBtnHandler() {
@@ -168,3 +153,4 @@ function backBtnHandler() {
     reviewBody.innerHTML = '';
     header.scrollIntoView();
 }
+
