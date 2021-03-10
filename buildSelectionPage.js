@@ -83,7 +83,7 @@ const qRaceHtml = `
 const questionOption = `
   <div class="questionOption">
     <label class="container candidateLabel">      
-      <h3 class="candidateName" aria-hidden="true">{CANDIDATE_NAME}</h3>
+      <h3 class="candidateName">{CANDIDATE_NAME}</h3>
       <input id="{OVAL_ID}" type="checkbox" class="questionRaceOval" aria-label="{OPTION_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
     </label>
