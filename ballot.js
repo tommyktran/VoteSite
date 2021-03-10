@@ -90,3 +90,20 @@ function initPage() {
 
   }
 }
+
+function addWriteinsToData() {
+  ballot.contests.forEach((contest, contestIndex) => {
+    if (contest.contestType === 'R') {
+      const voteForValue = contest.voteFor
+      for (let i = 0; i < voteForValue; i++) {
+        let newWriteinCandidate = {
+          candidateName: '',
+          candidateCode: 'writein' + '-' + i,
+          selected: 0
+        }
+        contest.candidates.push(newWriteinCandidate)
+      }
+    }
+  })
+}
+

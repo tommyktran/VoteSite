@@ -50,6 +50,7 @@ function reviewBtnHandler(event) {
     syncSelectedVotesToBallotData();
     const reviewPage = document.getElementById("reviewPage")
     const reviewBody = document.querySelector('#reviewBody')
+
     reviewBody.innerHTML = ''
     ballot.contests.forEach((race, index, contests) => {
         reviewBody.insertAdjacentHTML("beforeend", buildReview(race, index))
@@ -139,7 +140,6 @@ function reviewBoxesHandler(event) {
     // reviewPage.style.display = 'none'
     
     // reviewBody.innerHTML = ''
-
 }
 
 function backBtnHandler() {
