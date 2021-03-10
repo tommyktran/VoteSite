@@ -12,30 +12,6 @@ const rcRaceHtml = `
 </div>
 `
 
-const headerRowHtml = `<tr class="header-row"><td>Candidate</td>{CHOICES}</tr>`
-
-const choiceHtml = `<td><span>{ORDINAL} <span class="{CLASS_NAME}">Choice</span></span></td>`
-
-const candidateRowHtml = `<tr>{CANDIDATE} {OVALS}</tr>`
-
-const candidateHtml = `
-  <td>
-    <h3 class="candidateName" aria-label="{CANDIDATE_ARIA_LABEL}">{CANDIDATE_NAME}</h3>
-    <div class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</div>
-  </td>`
-
-const writeinHtml = `
-  <td>
-    <h3 class="candidateName">Write-in:</h3>
-    <div id="{INPUT_ID}" class="writeinName"></div>
-  </td>`
-
-const ovalHtml = `
-          <td><label class="container">
-              <input type="checkbox" id="{OVAL_ID}" class="rankChoiceRaceOval" aria-label="{OVAL_ARIA_LABEL}">
-              <span class="checkmark" aria-hidden="true"></span>
-          </label></td>`
-
 const rRaceHtml = `
 <div class="selectionContest">
   <h2 id="contest_{CONTEST_INDEX}" class="contestName" tabindex="0">{CONTEST_NAME}<br>{CONTEST_SUBTITLE}</h2>
@@ -50,7 +26,7 @@ const candidateRegLine = `
   <div class="indivCandidate">
     <label class="container candidateLabel" id="label_{OVAL_ID}">
       <div class="candidateNameDiv">
-        <h3 class="candidateName" aria-label="{CANDIDATE_HEADER_ARIA}">{CANDIDATE_NAME}</h3>
+        <h3 class="candidateName" aria-hidden="true">{CANDIDATE_NAME}</h3>
         <span class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</span>           
       </div>
       <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{CANDIDATE_ARIA_LABEL}">
@@ -61,7 +37,7 @@ const candidateRegLine = `
 const candidateRegWriteIn = `
   <div class="indivCandidate">
     <label class="container candidateLabel" for="{OVAL_ID}">
-      <h3 id="{OVAL_ID}_wh" class="candidateName" aria-label="Write-in">Write-in:</h3>
+      <h3 id="{OVAL_ID}_wh" class="candidateName" aria-hidden="true">Write-in:</h3>
       <div id="{OVAL_ID}_w" class="writeinName" aria-hidden="true"></div>
       <input type="checkbox" id="{OVAL_ID}" class="regularRaceOval" aria-label="{WRITEIN_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox" aria-hidden="true" ></span>
@@ -83,7 +59,7 @@ const qRaceHtml = `
 const questionOption = `
   <div class="questionOption">
     <label class="container candidateLabel">      
-      <h3 class="candidateName">{CANDIDATE_NAME}</h3>
+      <h3 class="candidateName" aria-hidden="true">{CANDIDATE_NAME}</h3>
       <input id="{OVAL_ID}" type="checkbox" class="questionRaceOval" aria-label="{OPTION_ARIA_LABEL}">
       <span class="checkmark ballotCheckbox" aria-hidden="true"></span>
     </label>
@@ -191,8 +167,8 @@ function buildRankHeaders(race) {
 function buildRcCandidates(race, contestIndex) {
   const candidateHtml = `
   <div class="row">
-    <div class="cell" data-title="Candidate">
-      <h3 class="rcCandidateName" aria-label="{CANDIDATE_NAME_ARIA}">{CANDIDATE_NAME}
+    <div class="cell" data-title="Candidate" aria-hidden="true">
+      <h3 class="rcCandidateName" aria-hidden="true">{CANDIDATE_NAME}
       <span class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</span>
       </h3>
     </div>
@@ -200,8 +176,8 @@ function buildRcCandidates(race, contestIndex) {
   </div>`;
   const writeinHtml = `
   <div class="row">
-    <div class="cell" data-title="Candidate" aria-label="{CANDIDATE_NAME_ARIA}">
-    <h3 id="{WRITEIN_HEADER_ID}" class="rcCandidateName" aria-label="Write-in:">Write-in:
+    <div class="cell" data-title="Candidate" aria-hidden="true"">
+    <h3 id="{WRITEIN_HEADER_ID}" class="rcCandidateName" aria-hidden="true">Write-in:
       <div id="{WRITEIN_ID}" class="writeinName" aria-hidden="true"></div>
     </div>
     {OVALS}
