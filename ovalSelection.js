@@ -109,16 +109,129 @@ function isIdRcWriteinCandidate(id) {
     return ballot.contests[contestIndex].candidates[candidateIndex].candidateCode.includes('writein');
 }
 
+// function rankChoiceHandler(event) {
+//     const ovalId = event.target.id
+//     const split = ovalId.split('_')
+//     const contestIndex = split[0] 
+//     const candidateIndex = split[1]
+//     const rankIndex = split[2]
+//     const rankSelections = new Array()
+//     const candidateSelections = new Array()
+//     const isWritein = isWriteinCandidate(contestIndex, candidateIndex)
+//     let savedWriteinName = ''
+//     if (isWritein) {
+//         const writeinBox = document.getElementById(contestIndex + '_' + candidateIndex + '_w')
+//         if (writeinBox.textContent === '') {
+//             const input = prompt('Please type the name of the write-in candidate you want to vote for:')
+//             if (input === null || input.trim() === '') { // if invalid input
+//                 event.preventDefault()
+//                 return
+//             } else { // valid input
+//                 addRcWriteInAria(writeinBox, input, contestIndex, candidateIndex);
+//             }
+//         } else { // there is already a writein name
+//             let isWriteinDeselection = true 
+//             for (let r in ballot.contests[contestIndex].candidates) {
+//                 if (r != rankIndex) {
+//                     const id = contestIndex + '_' + candidateIndex + '_' + r
+//                     if (document.getElementById(id).checked) {
+//                         isWriteinDeselection = false
+//                         break
+//                     }                    
+//                 }
+//             }
+//             if (isWriteinDeselection) {
+//                 writeinBox.textContent = ''
+//                 for (let rankIndex in ballot.contests[contestIndex].candidates) {
+//                     document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).ariaLabel = `Write-in:`
+//                 }
+//             }
+//         }
+//     }  
+//     // check the oval's row (check if another rank was selected for the chosen candidate)
+//     for (let r in ballot.contests[contestIndex].candidates) {
+//         if (r != rankIndex && document.getElementById(contestIndex + '_' + candidateIndex + '_' + r).checked) {  
+//             rankSelections.push(contestIndex + '_' + candidateIndex + '_' + r)
+//             break
+//         }         
+//     }
+//     // check the oval's column (check if another candidate was selected for the chosen rank)
+//     for (let c in ballot.contests[contestIndex].candidates) {
+//         if (c != candidateIndex && document.getElementById(contestIndex + '_' + c + '_' + rankIndex).checked) {
+//             if (isWriteinCandidate(contestIndex, c)) {
+//                 savedWriteinName = getCandidateName(contestIndex + '_' + c + '_w')
+//             }
+//             candidateSelections.push(contestIndex + '_' + c + '_' + rankIndex)
+//             break
+//         }
+//     }
+//     // if there was previously a selection in the same row and column, then ask the user to confirm their choice
+//     if (rankSelections.length > 0 && candidateSelections.length > 0) {
+//         const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
+//         const selectedCandidateName = getCandidateName(ovalId)
+//         let otherCandidateName = getCandidateName(candidateSelections[0])
+//         if (savedWriteinName != '') {
+//             otherCandidateName = savedWriteinName
+//         }
+//         document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like to change your ${ordinal} choice to: \n${selectedCandidateName}?`
+        
+//         document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, candidateSelections, rankSelections, "Yes", savedWriteinName)})
+//         document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, candidateSelections, rankSelections, "No", savedWriteinName)})
+//         document.getElementById(rankSelections[0]).checked = true
+//         document.getElementById(candidateSelections[0]).checked = true
+//         showModal()
+//         document.getElementById("yesButton").focus()
+//         event.preventDefault()
+//     }
+//     if (rankSelections.length > 0) { 
+//         document.getElementById(rankSelections[0]).checked = false
+//     }
+//     if (candidateSelections.length > 0) {
+//         uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex)
+//     }
+//     reviewBtnHandler();
+// }
+
+
 function rankChoiceHandler(event) {
     const ovalId = event.target.id
     const split = ovalId.split('_')
-    const contestIndex = split[0] 
-    const candidateIndex = split[1]
-    const rankIndex = split[2]
-    const rankSelections = new Array()
-    const candidateSelections = new Array()
+    const contestIndex = split[0];
+    const candidateIndex = split[1];
+    const rankIndex = split[2];
     const isWritein = isWriteinCandidate(contestIndex, candidateIndex)
-    let savedWriteinName = ''
+    const otherRowSelections = otherSelectionsinRow(contestIndex, candidateIndex, rankIndex)
+    const otherColSelections = otherSelectionsinCol(contestIndex, candidateIndex, rankIndex)
+
+    // *** Start logic for modal ***
+    // If there was previously a selection in the same row and column, then ask the user to confirm their choice by showing a modal. This will exit out of the current rankChoiceHandler
+    if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
+        console.log('need to show modal')
+        let savedWriteinName = '';
+        otherColSelections.forEach(oval => {
+            if (isIdRcWriteinCandidate(oval)) {
+                savedWriteinName = getCandidateName(oval)
+                console.log(savedWriteinName)
+            }
+        const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
+        const selectedCandidateName = getCandidateName(ovalId)
+        let otherCandidateName = getCandidateName(otherColSelections[0])
+        if (savedWriteinName != '') {
+            otherCandidateName = savedWriteinName
+        }
+        document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
+        console.log(`You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like to change your ${ordinal} choice to: \n${selectedCandidateName}?`)            
+        document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "Yes", savedWriteinName)})
+        document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "No", savedWriteinName)})        
+        event.preventDefault()
+        showModal()
+        document.getElementById("yesButton").focus()
+        return;
+        })
+        return;    
+    }
+    // *** End logic for modal ***
+
     if (isWritein) {
         const writeinBox = document.getElementById(contestIndex + '_' + candidateIndex + '_w')
         if (writeinBox.textContent === '') {
@@ -147,50 +260,44 @@ function rankChoiceHandler(event) {
                 }
             }
         }
-    }  
-    // check the oval's row (check if another rank was selected for the chosen candidate)
-    for (let r in ballot.contests[contestIndex].candidates) {
-        if (r != rankIndex && document.getElementById(contestIndex + '_' + candidateIndex + '_' + r).checked) {  
-            rankSelections.push(contestIndex + '_' + candidateIndex + '_' + r)
-            break
-        }         
     }
-    // check the oval's column (check if another candidate was selected for the chosen rank)
-    for (let c in ballot.contests[contestIndex].candidates) {
-        if (c != candidateIndex && document.getElementById(contestIndex + '_' + c + '_' + rankIndex).checked) {
-            if (isWriteinCandidate(contestIndex, c)) {
-                savedWriteinName = getCandidateName(contestIndex + '_' + c + '_w')
-            }
-            candidateSelections.push(contestIndex + '_' + c + '_' + rankIndex)
-            break
-        }
+    if (otherRowSelections.length > 0) { 
+        document.getElementById(otherRowSelections[0]).checked = false
     }
-    // if there was previously a selection in the same row and column, then ask the user to confirm their choice
-    if (rankSelections.length > 0 && candidateSelections.length > 0) {
-        const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
-        const selectedCandidateName = getCandidateName(ovalId)
-        let otherCandidateName = getCandidateName(candidateSelections[0])
-        if (savedWriteinName != '') {
-            otherCandidateName = savedWriteinName
-        }
-        document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like to change your ${ordinal} choice to: \n${selectedCandidateName}?`
-        
-        document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, candidateSelections, rankSelections, "Yes", savedWriteinName)})
-        document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, candidateSelections, rankSelections, "No", savedWriteinName)})
-        document.getElementById(rankSelections[0]).checked = true
-        document.getElementById(candidateSelections[0]).checked = true
-        showModal()
-        document.getElementById("yesButton").focus()
-        event.preventDefault()
-        return
-    }
-    if (rankSelections.length > 0) { 
-        document.getElementById(rankSelections[0]).checked = false
-    }
-    if (candidateSelections.length > 0) {
+    if (otherColSelections.length > 0) {
+        // will clear out write-in candidates and update all aria-labels
         uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex)
-    }
+    }    
     reviewBtnHandler();
+}
+
+
+function otherSelectionsinRow(contestIndex, candidateIndex, rankIndex) {
+    const rowSelections = [];
+    const numOfRanks = ballot.contests[contestIndex].candidates.length;
+    for (let rank = 0; rank < numOfRanks; rank++) {
+        if (rank != rankIndex) {
+            const id = `${contestIndex}_${candidateIndex}_${rank}`
+            if (document.getElementById(id).checked) rowSelections.push(id);
+        }
+        else continue;
+    }
+    console.log('rowSelections', rowSelections);
+    return rowSelections;
+}
+
+function otherSelectionsinCol(contestIndex, candidateIndex, rankIndex) {    
+    const colSelections = [];
+    const numOfCandidates = ballot.contests[contestIndex].candidates.length;
+    for (let cand = 0; cand < numOfCandidates; cand++) {
+        if (cand != candidateIndex) {
+            const id = `${contestIndex}_${cand}_${rankIndex}`
+            if (document.getElementById(id).checked) colSelections.push(id);
+        }
+        else continue;
+    }
+    console.log('colSelections', colSelections);
+    return colSelections;
 }
 
 function addRcWriteInAria(writeinBox, input, contestIndex, candidateIndex) {
@@ -217,6 +324,8 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
         }
         document.getElementById(ovalId).checked = true;
     } else {
+        console.dir([rankSelections, candidateSelections])
+
         document.getElementById(ovalId).checked = false
         document.getElementById(rankSelections[0]).checked = true
         document.getElementById(candidateSelections[0]).checked = true
@@ -299,5 +408,3 @@ function getCandidateName(ovalId) {
     }
     return name
 }
-
-

@@ -74,7 +74,7 @@ function initPage() {
           </div> 
         `;
         document.getElementById('thankyouForVoting').focus();
-        document.getElementById('thankyouForVoting').scrollIntoView();
+        document.getElementById('thankyouForVoting').scrollIntoView();      
       }
       else alert('Invalid Password!')
     });
