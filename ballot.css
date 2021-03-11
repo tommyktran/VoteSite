@@ -791,3 +791,12 @@ body {
     padding-left: 2%;
     margin: 1% 0 1% 0;
 }
+
+/* screen reader only aria alert div */
+.sr-only {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }

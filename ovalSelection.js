@@ -192,6 +192,10 @@ function isIdRcWriteinCandidate(id) {
 //     reviewBtnHandler();
 // }
 
+function ariaAlert(message) {
+    document.getElementById('ariaAlert').textContent = message;
+}
+
 
 function rankChoiceHandler(event) {
     const ovalId = event.target.id
@@ -202,52 +206,55 @@ function rankChoiceHandler(event) {
     const isWritein = isWriteinCandidate(contestIndex, candidateIndex)
     const otherRowSelections = otherSelectionsinRow(contestIndex, candidateIndex, rankIndex)
     const otherColSelections = otherSelectionsinCol(contestIndex, candidateIndex, rankIndex)
+    let aria = ''
+    const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
+    
+    
 
     // *** Start logic for oval confirmation ***
     // If there was previously a selection in the same row and column, then ask the user to confirm their choice by showing a modal. This will exit out of the current rankChoiceHandler
-    if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
-        let savedWriteinName = '';
+    // if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
+    //     let savedWriteinName = '';
 
-        otherColSelections.forEach(oval => {
-            if (isIdRcWriteinCandidate(oval)) {
-                savedWriteinName = getCandidateName(oval)
-            }
-        })
-        const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
-        const selectedCandidateName = getCandidateName(ovalId)
-        let otherCandidateName = getCandidateName(otherColSelections[0])
-        if (savedWriteinName != '') {
-            otherCandidateName = savedWriteinName
-        }
-        const message = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
+    //     otherColSelections.forEach(oval => {
+    //         if (isIdRcWriteinCandidate(oval)) {
+    //             savedWriteinName = getCandidateName(oval)
+    //         }
+    //     })
+    //     const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
+    //     const selectedCandidateName = getCandidateName(ovalId)
+    //     let otherCandidateName = getCandidateName(otherColSelections[0])
+    //     if (savedWriteinName != '') {
+    //         otherCandidateName = savedWriteinName
+    //     }
+    //     const message = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
         
-        const userAnswer = confirm(message)
-        if (userAnswer) {
-            for (let id of otherColSelections) {
-                document.getElementById(id).checked = false
-                if (isIdRcWriteinCandidate(id)) {
-                    const split = id.split('_');
-                    clearOutRcWriteinAria(split[0], split[1])
-                }
-            }
-            for (let id of otherRowSelections) {
-                document.getElementById(id).checked = false
-            }
-            document.getElementById(ovalId).checked = true; 
-        }
-        else {
-            console.log('else statement')
-            document.getElementById(ovalId).checked = false
-            document.getElementById(otherRowSelections[0]).checked = true
-            document.getElementById(otherColSelections[0]).checked = true
-            event.preventDefault();       
-        }
-        hideModal()
-        document.getElementById(ovalId).focus()
-        // live update for review section
-        // reviewBtnHandler();                     
-        return;    
-    }
+    //     const userAnswer = confirm(message)
+    //     if (userAnswer) {
+    //         for (let id of otherColSelections) {
+    //             document.getElementById(id).checked = false
+    //             if (isIdRcWriteinCandidate(id)) {
+    //                 const split = id.split('_');
+    //                 clearOutRcWriteinAria(split[0], split[1])
+    //             }
+    //         }
+    //         for (let id of otherRowSelections) {
+    //             document.getElementById(id).checked = false
+    //         }
+    //         document.getElementById(ovalId).checked = true; 
+    //     }
+    //     else {
+    //         document.getElementById(ovalId).checked = false
+    //         document.getElementById(otherRowSelections[0]).checked = true
+    //         document.getElementById(otherColSelections[0]).checked = true
+    //         event.preventDefault();       
+    //     }
+    //     hideModal()
+    //     document.getElementById(ovalId).focus()
+    //     // live update for review section
+    //     // reviewBtnHandler();                     
+    //     return;    
+    // }
     // *** End logic for oval confirmation ***
 
     if (isWritein) {
@@ -287,6 +294,13 @@ function rankChoiceHandler(event) {
         uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex)
     }    
     reviewBtnHandler();
+    if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
+        const otherRank = `${getCandidateName(otherRowSelections[0])} ${choiceLabel((parseInt(otherRowSelections[0].split('_')[2])+ 1))} choice`
+        const otherCandidate = `${getCandidateName(otherColSelections[0])} ${choiceLabel((parseInt(otherColSelections[0].split('_')[2])+ 1))} choice`
+        console.log({otherRank, otherCandidate})
+        aria += `Please note that ${otherRank} and ${otherCandidate} were automatically deselected.`;
+    }
+    ariaAlert(aria);
 }
 
 
