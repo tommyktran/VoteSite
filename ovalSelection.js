@@ -192,10 +192,6 @@ function isIdRcWriteinCandidate(id) {
 //     reviewBtnHandler();
 // }
 
-function ariaAlert(message) {
-    document.getElementById('ariaAlert').textContent = message;
-}
-
 
 function rankChoiceHandler(event) {
     const ovalId = event.target.id
@@ -206,56 +202,34 @@ function rankChoiceHandler(event) {
     const isWritein = isWriteinCandidate(contestIndex, candidateIndex)
     const otherRowSelections = otherSelectionsinRow(contestIndex, candidateIndex, rankIndex)
     const otherColSelections = otherSelectionsinCol(contestIndex, candidateIndex, rankIndex)
-    let aria = ''
-    const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
-    
-    
 
-    // *** Start logic for oval confirmation ***
+
+
+    // *** Start logic for modal ***
     // If there was previously a selection in the same row and column, then ask the user to confirm their choice by showing a modal. This will exit out of the current rankChoiceHandler
-    // if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
-    //     let savedWriteinName = '';
-
-    //     otherColSelections.forEach(oval => {
-    //         if (isIdRcWriteinCandidate(oval)) {
-    //             savedWriteinName = getCandidateName(oval)
-    //         }
-    //     })
-    //     const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
-    //     const selectedCandidateName = getCandidateName(ovalId)
-    //     let otherCandidateName = getCandidateName(otherColSelections[0])
-    //     if (savedWriteinName != '') {
-    //         otherCandidateName = savedWriteinName
-    //     }
-    //     const message = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
-        
-    //     const userAnswer = confirm(message)
-    //     if (userAnswer) {
-    //         for (let id of otherColSelections) {
-    //             document.getElementById(id).checked = false
-    //             if (isIdRcWriteinCandidate(id)) {
-    //                 const split = id.split('_');
-    //                 clearOutRcWriteinAria(split[0], split[1])
-    //             }
-    //         }
-    //         for (let id of otherRowSelections) {
-    //             document.getElementById(id).checked = false
-    //         }
-    //         document.getElementById(ovalId).checked = true; 
-    //     }
-    //     else {
-    //         document.getElementById(ovalId).checked = false
-    //         document.getElementById(otherRowSelections[0]).checked = true
-    //         document.getElementById(otherColSelections[0]).checked = true
-    //         event.preventDefault();       
-    //     }
-    //     hideModal()
-    //     document.getElementById(ovalId).focus()
-    //     // live update for review section
-    //     // reviewBtnHandler();                     
-    //     return;    
-    // }
-    // *** End logic for oval confirmation ***
+    if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
+        let savedWriteinName = '';
+        otherColSelections.forEach(oval => {
+            if (isIdRcWriteinCandidate(oval)) {
+                savedWriteinName = getCandidateName(oval)
+            }
+        const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
+        const selectedCandidateName = getCandidateName(ovalId)
+        let otherCandidateName = getCandidateName(otherColSelections[0])
+        if (savedWriteinName != '') {
+            otherCandidateName = savedWriteinName
+        }
+        document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
+        document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "Yes", savedWriteinName)})
+        document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "No", savedWriteinName)})        
+        event.preventDefault()
+        showModal()
+        document.getElementById("yesButton").focus()
+        return;
+        })
+        return;    
+    }
+    // *** End logic for modal ***
 
     if (isWritein) {
         const writeinBox = document.getElementById(contestIndex + '_' + candidateIndex + '_w')
@@ -294,70 +268,8 @@ function rankChoiceHandler(event) {
         uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex)
     }    
     reviewBtnHandler();
-    if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
-        const otherRank = `${getCandidateName(otherRowSelections[0])} ${choiceLabel((parseInt(otherRowSelections[0].split('_')[2])+ 1))} choice`
-        const otherCandidate = `${getCandidateName(otherColSelections[0])} ${choiceLabel((parseInt(otherColSelections[0].split('_')[2])+ 1))} choice`
-        console.log({otherRank, otherCandidate})
-        aria += `Please note that ${otherRank} and ${otherCandidate} were automatically deselected.`;
-    }
-    ariaAlert(aria);
 }
 
-
-function addClickEventOnNoButton(ovalId, otherColSelections, otherRowSelections, savedWriteinName) {
-    console.log('add no')
-    console.trace();
-    document.getElementById("noButton").addEventListener('click', function() {
-        document.getElementById(ovalId).checked = false
-        document.getElementById(otherRowSelections[0]).checked = true
-        document.getElementById(otherColSelections[0]).checked = true
-        hideModal()
-        document.getElementById(ovalId).focus()
-        // live update for review section
-        reviewBtnHandler();        
-    });
-}
-
-function addClickEventOnYesButton(ovalId, otherColSelections, otherRowSelections, savedWriteinName) {
-    console.log('add yes')
-    console.trace();
-    document.getElementById("yesButton").addEventListener('click', function() {
-        for (let id of otherColSelections) {
-            document.getElementById(id).checked = false
-            if (isIdRcWriteinCandidate(id)) {
-                const split = id.split('_');
-                console.log(split)
-                clearOutRcWriteinAria(split[0], split[1])
-            }
-        }
-        for (let id of otherRowSelections) {
-            document.getElementById(id).checked = false
-        }
-        document.getElementById(ovalId).checked = true;
-        hideModal()
-        document.getElementById(ovalId).focus()
-        // live update for review section
-        reviewBtnHandler();        
-    })
-    // document.getElementById("yesButton").addEventListener('click', function() {
-    //     for (let id of otherColSelections) {
-    //         document.getElementById(id).checked = false
-    //         if (isIdRcWriteinCandidate(id)) {
-    //             const split = id.split('_');
-    //             console.log(split)
-    //             clearOutRcWriteinAria(split[0], split[1])
-    //         }
-    //     }
-    //     for (let id of otherRowSelections) {
-    //         document.getElementById(id).checked = false
-    //     }
-    //     document.getElementById(ovalId).checked = true;
-    //     hideModal()
-    //     document.getElementById(ovalId).focus()
-    //     // live update for review section
-    //     reviewBtnHandler();        
-    // });
-}
 
 function otherSelectionsinRow(contestIndex, candidateIndex, rankIndex) {
     const rowSelections = [];
@@ -400,7 +312,6 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
             document.getElementById(id).checked = false
             if (isIdRcWriteinCandidate(id)) {
                 const split = id.split('_');
-                console.log(split)
                 clearOutRcWriteinAria(split[0], split[1])
             }
         }
@@ -408,23 +319,59 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
             document.getElementById(id).checked = false
         }
         document.getElementById(ovalId).checked = true;
-        hideModal()
-        document.getElementById(ovalId).focus()
-        // live update for review section
-        reviewBtnHandler();
-
-    }
-    if (answer == "No") {
-        console.trace()
-        console.dir([rankSelections, candidateSelections])
+    } else {
         document.getElementById(ovalId).checked = false
         document.getElementById(rankSelections[0]).checked = true
         document.getElementById(candidateSelections[0]).checked = true
-        hideModal()
-        document.getElementById(ovalId).focus()
-        // live update for review section
-        reviewBtnHandler();        
-    }           
+        // if (savedWriteinName != '') {
+        //     console.log({savedWriteinName, candidateSelections, rankSelections});
+        //     // const writeinBoxId = candidateSelections[0].split('_')[0] + candidateSelections[0].split('_')[1] + '_w'
+        //     // document.getElementById(writeinBoxId).textContent = savedWriteinName
+        //     // document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${savedWriteinName}`)
+        // }
+    }   
+    hideModal()
+    document.getElementById(ovalId).focus()
+    // live update for review section
+    reviewBtnHandler();
+}
+function showPwModal() {
+    document.getElementById("pwModal").style = 'display:block;'
+    document.getElementById("overlay").style = 'display:block;'
+
+    // add all the elements inside invalidPwModal   which you want to make focusable
+    const  focusableElements = ['button'];
+    const invalidPwModal = document.getElementById('pwModal'); // select the invalidPwModal  by it's id
+
+    const firstFocusableElement = invalidPwModal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside invalidPwModal  
+    const focusableContent = invalidPwModal.querySelectorAll(focusableElements);
+    const lastFocusableElement = focusableContent[focusableContent.length - 1]; // get last element to be focused inside invalidPwModal
+
+    document.addEventListener('keydown', function(e) {
+        let isTabPressed = e.key === 'Tab';
+        let isEscPressed = e.key === 'Escape';
+        if (!isTabPressed && !isEscPressed) return;
+        if (e.shiftKey && isTabPressed) { // if shift key pressed for shift + tab combination
+            if (document.activeElement === firstFocusableElement) {
+            lastFocusableElement.focus(); // add focus for the last focusable element
+            e.preventDefault();
+            }
+        }
+        else if (isTabPressed && !isEscPressed ) {
+            if (document.activeElement === lastFocusableElement) { // if focused has reached to last focusable element then focus first focusable element after pressing tab
+                firstFocusableElement.focus(); // add focus for the first focusable element
+                e.preventDefault();
+            }
+        } 
+        else if (isEscPressed && !isTabPressed) {
+            hidePwModal ();
+        }
+    });
+    firstFocusableElement.focus();    
+}
+function hidePwModal() {
+    document.getElementById("pwModal").style = 'display:none;'
+    document.getElementById("overlay").style = 'display:none;'
 }
 
 function showModal() {
@@ -462,10 +409,21 @@ function showModal() {
     firstFocusableElement.focus();
 }
 function hideModal() {
-    document.getElementById("yesButton").removeEventListener('click', modalAnswer)
-    document.getElementById("noButton").removeEventListener('click', modalAnswer)
+    recreateNode(document.getElementById("yesButton"));
+    recreateNode(document.getElementById("noButton"));
     document.getElementById("modal").style = 'display:none;'
     document.getElementById("overlay").style = 'display:none;'
+}
+
+function recreateNode(el, withChildren) {
+    if (withChildren) {
+      el.parentNode.replaceChild(el.cloneNode(true), el);
+    }
+    else {
+      var newEl = el.cloneNode(false);
+      while (el.hasChildNodes()) newEl.appendChild(el.firstChild);
+      el.parentNode.replaceChild(newEl, el);
+    }
 }
 
 function getCandidate(ovalId) {
@@ -493,5 +451,3 @@ function getCandidateName(ovalId) {
     }
     return name
 }
-
-

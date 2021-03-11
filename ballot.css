@@ -459,7 +459,7 @@ button:focus {
 }
 /* end styles for ReviewPage */
 
-#modal {
+#modal, #pwModal {
     background-color: white;
     border-radius: 10px;
     position: fixed;
