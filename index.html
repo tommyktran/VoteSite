@@ -48,22 +48,7 @@
                 ----------- End of Ballot -----------
             </h1>
 
-            <div id="overlay"></div>
-            <div id="modal" role="alertdialog" aria-labelledby="modalTitle" aria-describedby="modalText">
-                <h2 id="modalTitle">Confirm Selection</h2>
-                <p id="modalText">Modal text here</p>
-                <div class="modalButtonDiv">
-                    <button class="button" onclick="return false;" id="yesButton">Yes</a>
-                    <button class="button" onclick="return false;" id="noButton">No</a>
-                </div>
-            </div>
-            <div id="pwModal" role="alertdialog" aria-labelledby="pwModalTitle" aria-describedby="pwModalText">
-                <h2 id="pwModalTitle">Invalid Password</h2>
-                <p id="pwModalText">Please enter the correct password.</p>
-                <div class="modalButtonDiv">
-                    <button id="pwOkButton" class="button" onclick="hidePwModal()">OK</a>
-                </div>
-            </div>             
+                         
         </div>
         <!-- <div id='qrpage' style="display: none;">
             <div class='btn-wrapper'>
@@ -145,6 +130,23 @@
                     <button id="doneButton_AffidavitPage">Done</button>
                     <!-- <button onclick="submit()">Done</button>   -->
                 </div>                
+            </div>
+        </div>
+
+        <div id="overlay"></div>
+        <div id="rcModal" class="modal" role="alertdialog" aria-labelledby="rcModalTitle" aria-describedby="rcModalText">
+            <h2 id="rcModalTitle">Confirm Selection</h2>
+            <p id="rcModalText">Modal text here</p>
+            <div class="modalButtonDiv">
+                <button class="button" onclick="return false;" id="yesButton">Yes</a>
+                <button class="button" onclick="return false;" id="noButton">No</a>
+            </div>
+        </div>
+        <div id="pwModal" class="modal" role="alertdialog" aria-labelledby="pwModalTitle" aria-describedby="pwModalText">
+            <h2 id="pwModalTitle">Invalid Password</h2>
+            <p id="pwModalText">Please enter the correct password.</p>
+            <div class="modalButtonDiv">
+                <button id="pwOkButton" class="button" onclick="hideModal('pwModal')">OK</a>
             </div>
         </div>
     </main>
