@@ -55,7 +55,14 @@
                     <button class="button" id="yesButton">Yes</a>
                     <button class="button" id="noButton">No</a>
                 </div>
-            </div>            
+            </div>
+            <div id="pwModal" role="alertdialog" aria-labelledby="pwModalTitle" aria-describedby="pwModalText">
+                <h2 id="pwModalTitle">Invalid Password</h2>
+                <p id="pwModalText">Please enter the correct password.</p>
+                <div class="modalButtonDiv">
+                    <button id="pwOkButton" class="button" onclick="hidePwModal()">Ok</a>
+                </div>
+            </div>             
         </div>
         <!-- <div id='qrpage' style="display: none;">
             <div class='btn-wrapper'>

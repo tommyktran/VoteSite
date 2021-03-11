@@ -75,7 +75,9 @@ function initPage() {
         `;
         document.getElementById('thankyouForVoting').focus();
         document.getElementById('thankyouForVoting').scrollIntoView();      }
-      else alert('Invalid Password!')
+      else {
+        showPwModal()
+      }
     });
 
     reviewBtnHandler();
