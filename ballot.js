@@ -68,7 +68,7 @@ function initPage() {
       const passwordEle = document.getElementById('signedby');
       const password = 'vote123';
       if (passwordEle.value === password) {
-        document.body.innerHTML = `
+        document.querySelector('main').innerHTML = `
           <div id="center">
             <h1 id="thankyouForVoting" style="text-align:center;font-family:arial;" tabindex="0">Thank you for voting!</h1>
           </div> 
