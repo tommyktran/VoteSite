@@ -170,10 +170,7 @@ function rankChoiceHandler(event) {
                 }
             }
             if (isWriteinDeselection) {
-                writeinBox.textContent = ''
-                for (let rankIndex in ballot.contests[contestIndex].candidates) {
-                    document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).ariaLabel = `Write-in:`
-                }
+                clearOutRcWriteinAria(contestIndex, candidateIndex)
             }
         }
     }

@@ -22,7 +22,7 @@ const rRaceHtml = `
 `
 const rcCandidateHtml = `
   <div class="row">
-    <div class="cell" data-title="Candidate" aria-hidden="true">
+    <div class="cell" data-title="Candidate">
       <h3 class="rcCandidateName" aria-label="{CANDIDATE_NAME_ARIA}">{CANDIDATE_NAME}</h3>
       <span class="candidateSubtitle" aria-hidden="true">{CANDIDATE_SUBTITLE}</span>      
     </div>
