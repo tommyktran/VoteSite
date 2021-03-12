@@ -73,6 +73,7 @@ function initPage() {
             <h1 id="thankyouForVoting" style="text-align:center;font-family:arial;" tabindex="0">Thank you for voting!</h1>
           </div> 
         `;
+        document.body.style.backgroundColor = "white";
         document.getElementById('thankyouForVoting').focus();
         document.getElementById('thankyouForVoting').scrollIntoView();      }
       else {
