@@ -69,28 +69,28 @@ function rankChoiceHandler(event) {
     const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
     // *** Start logic for modal ***
     // If there was previously a selection in the same row and column, then ask the user to confirm their choice by showing a modal. This will exit out of the current rankChoiceHandler
-    // if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
-    //     let savedWriteinName = '';
-    //     otherColSelections.forEach(oval => {
-    //         if (isIdRcWriteinCandidate(oval)) {
-    //             savedWriteinName = getCandidateName(oval)
-    //         }
+    if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
+        let savedWriteinName = '';
+        otherColSelections.forEach(oval => {
+            if (isIdRcWriteinCandidate(oval)) {
+                savedWriteinName = getCandidateName(oval)
+            }
         
-    //     const selectedCandidateName = getCandidateName(ovalId)
-    //     let otherCandidateName = getCandidateName(otherColSelections[0])
-    //     if (savedWriteinName != '') {
-    //         otherCandidateName = savedWriteinName
-    //     }
-    //     document.getElementById("rcModalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
-    //     document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "Yes", savedWriteinName)})
-    //     document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "No", savedWriteinName)})        
-    //     event.preventDefault()
-    //     showModal('rcModal')
-    //     document.getElementById("yesButton").focus()
-    //     return;
-    //     })
-    //     return;    
-    // }
+        const selectedCandidateName = getCandidateName(ovalId)
+        let otherCandidateName = getCandidateName(otherColSelections[0])
+        if (savedWriteinName != '') {
+            otherCandidateName = savedWriteinName
+        }
+        document.getElementById("rcModalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
+        document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "Yes", savedWriteinName)})
+        document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "No", savedWriteinName)})        
+        event.preventDefault()
+        showModal('rcModal')
+        document.getElementById("yesButton").focus()
+        return;
+        })
+        return;    
+    }
     // *** End logic for modal ***
 
     if (isWritein) {
@@ -119,15 +119,23 @@ function rankChoiceHandler(event) {
             }
         }
     }
-    if (otherRowSelections.length > 0) { 
-        document.getElementById(otherRowSelections[0]).checked = false
-        ariaAlert(`${getCandidateName(ovalId)} is now updated to ${ordinal} choice`)       
+    if (otherRowSelections.length) {
+        if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
+
+        }   
+        if (otherRowSelections.length > 0) { 
+            document.getElementById(otherRowSelections[0]).checked = false
+            ariaAlert(`${getCandidateName(ovalId)} is now updated to ${ordinal} choice.`)       
+        }
+        if (otherColSelections.length > 0) {
+            // will clear out write-in candidates and update all aria-labels
+            uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex)
+            ariaAlert(`Your ${ordinal} choice is now replaced with ${getCandidateName(ovalId)}.`) 
+        }        
     }
-    if (otherColSelections.length > 0) {
-        // will clear out write-in candidates and update all aria-labels
-        uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex)
-        ariaAlert(`${getCandidateName(ovalId)} is now updated to ${ordinal} choice`) 
-    }    
+        
+    
+    
     reviewBtnHandler();
 }
 
