@@ -459,7 +459,7 @@ button:focus {
 }
 /* end styles for ReviewPage */
 
-#modal, #pwModal {
+.modal {
     background-color: white;
     border-radius: 10px;
     position: fixed;
@@ -472,7 +472,7 @@ button:focus {
     z-index:1002;
     color: #222;
 }
-#modal button {
+.modal button {
     text-decoration: none;
     background-color: initial;
     border: none;
@@ -481,11 +481,11 @@ button:focus {
     padding: 5px 12px;
     border-radius: 5px;
 }
-#modal #noButton, #modal #yesButton {
+.modal #noButton, .modal #yesButton, #pwOkButton  {
     color: rgba(1,1,1, .8);
     background-color: rgba(189,195,199 ,1);
 }
-#modal #noButton:hover, #modal #yesButton:hover {
+#noButton:hover, #yesButton:hover, #pwOkButton:hover {
     background-color: rgba(189,195,199 ,.4);
 }
 .modalButtonDiv {

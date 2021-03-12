@@ -24,7 +24,8 @@ function uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex) {
 function clearOutRcWriteinAria(contestIndex, candidateIndex) {
     // resets all the writein oval aria-labels for Rank Choice Contest
     for (let rankIndex in ballot.contests[contestIndex].candidates) {
-        document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).ariaLabel = `${choiceLabel(parseInt(rankIndex) + 1)} Write-in`;
+        const ordinal = choiceLabel(parseInt(rankIndex) + 1)
+        document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).ariaLabel = `${ordinal} Choice Write-in`;
     }
     document.getElementById(`${contestIndex}_${candidateIndex}_w`).textContent = '';
     document.getElementById(`${contestIndex}_${candidateIndex}_wh`).ariaLabel = 'Write-in'    
@@ -109,90 +110,6 @@ function isIdRcWriteinCandidate(id) {
     return ballot.contests[contestIndex].candidates[candidateIndex].candidateCode.includes('writein');
 }
 
-// function rankChoiceHandler(event) {
-//     const ovalId = event.target.id
-//     const split = ovalId.split('_')
-//     const contestIndex = split[0] 
-//     const candidateIndex = split[1]
-//     const rankIndex = split[2]
-//     const rankSelections = new Array()
-//     const candidateSelections = new Array()
-//     const isWritein = isWriteinCandidate(contestIndex, candidateIndex)
-//     let savedWriteinName = ''
-//     if (isWritein) {
-//         const writeinBox = document.getElementById(contestIndex + '_' + candidateIndex + '_w')
-//         if (writeinBox.textContent === '') {
-//             const input = prompt('Please type the name of the write-in candidate you want to vote for:')
-//             if (input === null || input.trim() === '') { // if invalid input
-//                 event.preventDefault()
-//                 return
-//             } else { // valid input
-//                 addRcWriteInAria(writeinBox, input, contestIndex, candidateIndex);
-//             }
-//         } else { // there is already a writein name
-//             let isWriteinDeselection = true 
-//             for (let r in ballot.contests[contestIndex].candidates) {
-//                 if (r != rankIndex) {
-//                     const id = contestIndex + '_' + candidateIndex + '_' + r
-//                     if (document.getElementById(id).checked) {
-//                         isWriteinDeselection = false
-//                         break
-//                     }                    
-//                 }
-//             }
-//             if (isWriteinDeselection) {
-//                 writeinBox.textContent = ''
-//                 for (let rankIndex in ballot.contests[contestIndex].candidates) {
-//                     document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).ariaLabel = `Write-in:`
-//                 }
-//             }
-//         }
-//     }  
-//     // check the oval's row (check if another rank was selected for the chosen candidate)
-//     for (let r in ballot.contests[contestIndex].candidates) {
-//         if (r != rankIndex && document.getElementById(contestIndex + '_' + candidateIndex + '_' + r).checked) {  
-//             rankSelections.push(contestIndex + '_' + candidateIndex + '_' + r)
-//             break
-//         }         
-//     }
-//     // check the oval's column (check if another candidate was selected for the chosen rank)
-//     for (let c in ballot.contests[contestIndex].candidates) {
-//         if (c != candidateIndex && document.getElementById(contestIndex + '_' + c + '_' + rankIndex).checked) {
-//             if (isWriteinCandidate(contestIndex, c)) {
-//                 savedWriteinName = getCandidateName(contestIndex + '_' + c + '_w')
-//             }
-//             candidateSelections.push(contestIndex + '_' + c + '_' + rankIndex)
-//             break
-//         }
-//     }
-//     // if there was previously a selection in the same row and column, then ask the user to confirm their choice
-//     if (rankSelections.length > 0 && candidateSelections.length > 0) {
-//         const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
-//         const selectedCandidateName = getCandidateName(ovalId)
-//         let otherCandidateName = getCandidateName(candidateSelections[0])
-//         if (savedWriteinName != '') {
-//             otherCandidateName = savedWriteinName
-//         }
-//         document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but \n${otherCandidateName}\n is already selected. Would you like to change your ${ordinal} choice to: \n${selectedCandidateName}?`
-        
-//         document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, candidateSelections, rankSelections, "Yes", savedWriteinName)})
-//         document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, candidateSelections, rankSelections, "No", savedWriteinName)})
-//         document.getElementById(rankSelections[0]).checked = true
-//         document.getElementById(candidateSelections[0]).checked = true
-//         showModal()
-//         document.getElementById("yesButton").focus()
-//         event.preventDefault()
-//     }
-//     if (rankSelections.length > 0) { 
-//         document.getElementById(rankSelections[0]).checked = false
-//     }
-//     if (candidateSelections.length > 0) {
-//         uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex)
-//     }
-//     reviewBtnHandler();
-// }
-
-
 function rankChoiceHandler(event) {
     const ovalId = event.target.id
     const split = ovalId.split('_')
@@ -219,11 +136,11 @@ function rankChoiceHandler(event) {
         if (savedWriteinName != '') {
             otherCandidateName = savedWriteinName
         }
-        document.getElementById("modalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
+        document.getElementById("rcModalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
         document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "Yes", savedWriteinName)})
         document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "No", savedWriteinName)})        
         event.preventDefault()
-        showModal()
+        showModal('rcModal')
         document.getElementById("yesButton").focus()
         return;
         })
@@ -297,11 +214,12 @@ function otherSelectionsinCol(contestIndex, candidateIndex, rankIndex) {
     return colSelections;
 }
 
-function addRcWriteInAria(writeinBox, input, contestIndex, candidateIndex) {
-    for (let rankIndex in ballot.contests[contestIndex].candidates) {
-        document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).ariaLabel = `Write-in: ${writeinBox.textContent}`;
-    }
+function addRcWriteInAria(writeinBox, input, contestIndex, candidateIndex) {    
     writeinBox.textContent = input.toUpperCase();
+    for (let rankIndex in ballot.contests[contestIndex].candidates) {
+        const ordinal = choiceLabel(parseInt(rankIndex) + 1)
+        document.getElementById(`${contestIndex}_${candidateIndex}_${rankIndex}`).ariaLabel = `${ordinal} Choice Write-in: ${writeinBox.textContent}`;
+    }
     document.getElementById(`${contestIndex}_${candidateIndex}_wh`).ariaLabel = `Write-in: ${input.toUpperCase()}`; 
 
 }
@@ -330,90 +248,68 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
         //     // document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${savedWriteinName}`)
         // }
     }   
-    hideModal()
+    hideModal('rcModal')
     document.getElementById(ovalId).focus()
     // live update for review section
     reviewBtnHandler();
 }
-function showPwModal() {
-    document.getElementById("pwModal").style = 'display:block;'
-    document.getElementById("overlay").style = 'display:block;'
-
-    // add all the elements inside invalidPwModal   which you want to make focusable
-    const  focusableElements = ['button'];
-    const invalidPwModal = document.getElementById('pwModal'); // select the invalidPwModal  by it's id
-
-    const firstFocusableElement = invalidPwModal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside invalidPwModal  
-    const focusableContent = invalidPwModal.querySelectorAll(focusableElements);
-    const lastFocusableElement = focusableContent[focusableContent.length - 1]; // get last element to be focused inside invalidPwModal
-
-    document.addEventListener('keydown', function(e) {
-        let isTabPressed = e.key === 'Tab';
-        let isEscPressed = e.key === 'Escape';
-        if (!isTabPressed && !isEscPressed) return;
-        if (e.shiftKey && isTabPressed) { // if shift key pressed for shift + tab combination
-            if (document.activeElement === firstFocusableElement) {
-            lastFocusableElement.focus(); // add focus for the last focusable element
-            e.preventDefault();
-            }
-        }
-        else if (isTabPressed && !isEscPressed ) {
-            if (document.activeElement === lastFocusableElement) { // if focused has reached to last focusable element then focus first focusable element after pressing tab
-                firstFocusableElement.focus(); // add focus for the first focusable element
-                e.preventDefault();
-            }
-        } 
-        else if (isEscPressed && !isTabPressed) {
-            hidePwModal ();
-        }
-    });
-    firstFocusableElement.focus();    
-}
-function hidePwModal() {
-    document.getElementById("pwModal").style = 'display:none;'
-    document.getElementById("overlay").style = 'display:none;'
-}
-
-function showModal() {
-    document.getElementById("modal").style = 'display:block;'
+function showModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal.style = 'display:block;'
     document.getElementById("overlay").style = 'display:block;'
 
     // add all the elements inside modal which you want to make focusable
     const  focusableElements = ['button'];
-    const modal = document.querySelector('#modal'); // select the modal by it's id
-
-    const firstFocusableElement = modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
+    const firstFocusableElement = modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal  
     const focusableContent = modal.querySelectorAll(focusableElements);
     const lastFocusableElement = focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
 
     document.addEventListener('keydown', function(e) {
         let isTabPressed = e.key === 'Tab';
-        let isEscPressed = e.key === 'Escape';
-        if (!isTabPressed && !isEscPressed) return;
+        if (!isTabPressed) return;
         if (e.shiftKey && isTabPressed) { // if shift key pressed for shift + tab combination
             if (document.activeElement === firstFocusableElement) {
             lastFocusableElement.focus(); // add focus for the last focusable element
             e.preventDefault();
             }
         }
-        else if (isTabPressed && !isEscPressed ) {
+        else if (isTabPressed) {
             if (document.activeElement === lastFocusableElement) { // if focused has reached to last focusable element then focus first focusable element after pressing tab
                 firstFocusableElement.focus(); // add focus for the first focusable element
                 e.preventDefault();
             }
         } 
-        else if (isEscPressed && !isTabPressed) {
-            hideModal();
-        }
     });
-    firstFocusableElement.focus();
+    firstFocusableElement.focus();    
 }
-function hideModal() {
-    recreateNode(document.getElementById("yesButton"));
-    recreateNode(document.getElementById("noButton"));
-    document.getElementById("modal").style = 'display:none;'
+
+function hideModal(modalId) {
     document.getElementById("overlay").style = 'display:none;'
+    if (modalId == 'rcModal') {
+        recreateNode(document.getElementById("yesButton"));
+        recreateNode(document.getElementById("noButton"));
+        document.getElementById("rcModal").style = 'display:none;'
+        document.getElementById("overlay").style = 'display:none;'
+    }
+    else if (modalId == 'pwModal') {
+        document.getElementById("pwModal").style = 'display:none;'
+        document.getElementById("overlay").style = 'display:none;'
+    }
+    return;
 }
+
+
+// function hidePwModal() {
+//     document.getElementById("pwModal").style = 'display:none;'
+//     document.getElementById("overlay").style = 'display:none;'
+// }
+
+// function hideRcModal() {
+//     recreateNode(document.getElementById("yesButton"));
+//     recreateNode(document.getElementById("noButton"));
+//     document.getElementById("rcModal").style = 'display:none;'
+//     document.getElementById("overlay").style = 'display:none;'
+// }
 
 function recreateNode(el, withChildren) {
     if (withChildren) {

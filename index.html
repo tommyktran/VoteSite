@@ -1,5 +1,3 @@
-<!-- TABLE -->
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -32,6 +30,7 @@
             <h1 id="step1" class="stepBanner" tabindex="0">
                 Step 1 of 3: Make Ballot Selections
             </h1>
+            <div id="ariaAlert" class="sr-only" role="alert" aria-live="polite"></div>
             <div id="selection">
                 <!-- style="background-color: #e6e9ed; padding: 10px;" -->
                 <div id="ballotTitle">
@@ -47,22 +46,7 @@
                 ----------- End of Ballot -----------
             </h1>
 
-            <div id="overlay"></div>
-            <div id="modal" role="alertdialog" aria-labelledby="modalTitle" aria-describedby="modalText">
-                <h2 id="modalTitle">Confirm Selection</h2>
-                <p id="modalText">Modal text here</p>
-                <div class="modalButtonDiv">
-                    <button class="button" id="yesButton">Yes</a>
-                    <button class="button" id="noButton">No</a>
-                </div>
-            </div>
-            <div id="pwModal" role="alertdialog" aria-labelledby="pwModalTitle" aria-describedby="pwModalText">
-                <h2 id="pwModalTitle">Invalid Password</h2>
-                <p id="pwModalText">Please enter the correct password.</p>
-                <div class="modalButtonDiv">
-                    <button id="pwOkButton" class="button" onclick="hidePwModal()">Ok</a>
-                </div>
-            </div>             
+                         
         </div>
         <!-- <div id='qrpage' style="display: none;">
             <div class='btn-wrapper'>
@@ -146,11 +130,24 @@
                 </div>                
             </div>
         </div>
+
+        <div id="overlay"></div>
+        <div id="rcModal" class="modal" role="alertdialog" aria-labelledby="rcModalTitle" aria-describedby="rcModalText">
+            <h2 id="rcModalTitle">Confirm Selection</h2>
+            <p id="rcModalText">Modal text here</p>
+            <div class="modalButtonDiv">
+                <button class="button" onclick="return false;" id="yesButton">Yes</a>
+                <button class="button" onclick="return false;" id="noButton">No</a>
+            </div>
+        </div>
+        <div id="pwModal" class="modal" role="alertdialog" aria-labelledby="pwModalTitle" aria-describedby="pwModalText">
+            <h2 id="pwModalTitle">Invalid Password</h2>
+            <p id="pwModalText">Please enter the correct password.</p>
+            <div class="modalButtonDiv">
+                <button id="pwOkButton" class="button" onclick="hideModal('pwModal')">OK</a>
+            </div>
+        </div>
     </main>
-
-    
-
-    
 
     <script type="text/javascript">
         // var qrcode = new QRCode(document.getElementById("qrcode"), {
@@ -201,4 +198,5 @@
             document.getElementById('affidavitPage').scrollIntoView();
         }
     </script>
+
 </body>

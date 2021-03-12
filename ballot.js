@@ -76,7 +76,7 @@ function initPage() {
         document.getElementById('thankyouForVoting').focus();
         document.getElementById('thankyouForVoting').scrollIntoView();      }
       else {
-        showPwModal()
+        showModal('pwModal')
       }
     });
 
