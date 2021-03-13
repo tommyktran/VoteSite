@@ -1,7 +1,7 @@
 const rcRaceHtml = `
   <div class="selectionContest">
-    <h2 id="contest_{CONTEST_INDEX}" class="contestName" tabindex="0">{CONTEST_NAME}<br>{CONTEST_SUBTITLE}</h2>
-    <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
+    <h2 id="contest_{CONTEST_INDEX}" class="contestName" tabindex="0" aria-label="{CONTEST_NAME} {CONTEST_SUBTITLE} {VOTING_INSTRUCTIONS}">{CONTEST_NAME}<br>{CONTEST_SUBTITLE}</h2>
+    <p class="votingInstructions" aria-hidden="true">{VOTING_INSTRUCTIONS}</p>
     <div class="table">
       <div class="row header">
           <div class="cell" aria-hidden="true">Candidate</div>
@@ -13,8 +13,8 @@ const rcRaceHtml = `
 `
 const rRaceHtml = `
   <div class="selectionContest">
-    <h2 id="contest_{CONTEST_INDEX}" class="contestName" tabindex="0">{CONTEST_NAME}<br>{CONTEST_SUBTITLE}</h2>
-    <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
+    <h2 id="contest_{CONTEST_INDEX}" class="contestName" tabindex="0" aria-label="{CONTEST_NAME} {CONTEST_SUBTITLE} {VOTING_INSTRUCTIONS}">{CONTEST_NAME}<br>{CONTEST_SUBTITLE}</h2>
+    <p class="votingInstructions" aria-hidden="true">{VOTING_INSTRUCTIONS}</p>
     <div class="regCandidates">
       {CANDIDATES}
     </div>
@@ -121,8 +121,8 @@ const candidateRegWriteIn = `
 const qRaceHtml = `
   <div class="selectionContest">
     <div class="questionDiv">
-      <h2 id="contest_{CONTEST_INDEX}" class="contestName" tabindex="0">{CONTEST_NAME}<br>{CONTEST_SUBTITLE}</h2>
-      <p class="votingInstructions">{VOTING_INSTRUCTIONS}</p>
+      <h2 id="contest_{CONTEST_INDEX}" class="contestName" tabindex="0" aria-label="{CONTEST_NAME} {CONTEST_SUBTITLE} {VOTING_INSTRUCTIONS}">{CONTEST_NAME}<br>{CONTEST_SUBTITLE}</h2>
+      <p class="votingInstructions" aria-label="true">{VOTING_INSTRUCTIONS}</p>
       <p class="question">{QUESTION_TEXT}</p>
       <div class="questionOptionsDiv">
         {QUESTION_OPTIONS}
@@ -163,11 +163,11 @@ function buildRace(race, raceIndex) {
 
 function buildRegRace(race, raceIndex) {
   let txt = rRaceHtml
-    .replace('{CONTEST_INDEX}', raceIndex)
+    .replace(/{CONTEST_INDEX}/g, raceIndex)
     .replace(/{CONTEST_NAME}/g, race.contestName)
     .replace(/{CONTEST_SUBTITLE}/g, race.contestSubtitle)
-    .replace('{VOTING_INSTRUCTIONS}', race.votingInstructions)
-    .replace('{VOTE_LIMIT}', race.voteFor)
+    .replace(/{VOTING_INSTRUCTIONS}/g, race.votingInstructions)
+    .replace(/{VOTE_LIMIT}/g, race.voteFor)
     .replace(/{CANDIDATES}/g, buildRegCandidates(race, raceIndex))
   // console.log(txt)
   return txt
@@ -180,7 +180,7 @@ function buildRegCandidates(race, raceIndex) {
     if (candidate.candidateCode.includes('writein')) {
       txt += candidateRegWriteIn
         .replace(/{OVAL_ID}/g, raceIndex + '_' + candidateIndex)
-        .replace('{WRITEIN_ARIA_LABEL}', buildWriteinAriaLabel(raceIndex, candidateIndex))
+        .replace(/{WRITEIN_ARIA_LABEL}/g, buildWriteinAriaLabel(raceIndex, candidateIndex))
     } else {
       txt += candidateRegLine
         .replace(/{CANDIDATE_HEADER_ARIA}/g, buildCandidateAriaLabel(raceIndex, candidateIndex))
@@ -199,7 +199,7 @@ function buildQuestionOptions(race, raceIndex) {
       txt += questionOption
         .replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
         .replace(/{OVAL_ID}/g, raceIndex + '_' + candidateIndex)
-        .replace('{OPTION_ARIA_LABEL}', buildOptionAriaLabel(raceIndex, candidateIndex))
+        .replace(/{OPTION_ARIA_LABEL}/g, buildOptionAriaLabel(raceIndex, candidateIndex))
   })
   return txt
 }
@@ -216,13 +216,13 @@ function buildOptionAriaLabel(raceIndex, candidateIndex) {
 
 function buildQuestionRace(race, raceIndex) {
   let txt = qRaceHtml
-    .replace('{CONTEST_INDEX}', raceIndex)
+    .replace(/{CONTEST_INDEX}/g, raceIndex)
     .replace(/{CONTEST_NAME}/g, race.contestName)
     .replace(/{CONTEST_SUBTITLE}/g, race.contestSubtitle)
-    .replace('{VOTING_INSTRUCTIONS}', race.votingInstructions)
-    .replace('{QUESTION_TEXT}', race.questionText.replace(/\\n/g, '<br>'))
+    .replace(/{VOTING_INSTRUCTIONS}/g, race.votingInstructions)
+    .replace(/{QUESTION_TEXT}/g, race.questionText.replace(/\\n/g, '<br>'))
     .replace(/{CONTEST_INDEX}/g, raceIndex)
-    .replace('{QUESTION_OPTIONS}', buildQuestionOptions(race, raceIndex))
+    .replace(/{QUESTION_OPTIONS}/g, buildQuestionOptions(race, raceIndex))
   return txt
 }
 
@@ -230,12 +230,12 @@ function buildRankChoiceRace(race, raceIndex) {
   let choices = race.candidates.length
   let cls = choiceClassName(choices)
   let txt = rcRaceHtml
-    .replace('{CONTEST_INDEX}', raceIndex)
+    .replace(/{CONTEST_INDEX}/g, raceIndex)
     .replace(/{CONTEST_NAME}/g, race.contestName)
     .replace(/{CONTEST_SUBTITLE}/g, race.contestSubtitle)
-    .replace('{VOTING_INSTRUCTIONS}', race.votingInstructions)
+    .replace(/{VOTING_INSTRUCTIONS}/g, race.votingInstructions)
     .replace(/{RANKS}/g, buildRankHeaders(race))
-    .replace('{CANDIDATES}', buildRcCandidates(race, raceIndex))
+    .replace(/{CANDIDATES}/g, buildRcCandidates(race, raceIndex))
   return txt
 }
 
@@ -254,16 +254,16 @@ function buildRcCandidates(race, contestIndex) {
   let html = '';
   race.candidates.forEach((candidate, candidateIndex) => {
     if (candidate.candidateCode.includes('writein')) {
-      html += rcWriteinHtml.replace('{WRITEIN_HEADER_ID}', `${contestIndex}_${candidateIndex}`)
-                         .replace('{WRITEIN_ID}', `${contestIndex}_${candidateIndex}`)
-                         .replace('{OVALS}', buildRcCandidateOvals(race, contestIndex, candidateIndex));
+      html += rcWriteinHtml.replace(/{WRITEIN_HEADER_ID}/g, `${contestIndex}_${candidateIndex}`)
+                         .replace(/{WRITEIN_ID}/g, `${contestIndex}_${candidateIndex}`)
+                         .replace(/{OVALS}/g, buildRcCandidateOvals(race, contestIndex, candidateIndex));
                    
     }
     else {
-      html += rcCandidateHtml.replace('{CANDIDATE_NAME}', candidate.candidateName)
-                   .replace('{CANDIDATE_NAME_ARIA}', candidateInfoString(contestIndex, candidateIndex))
-                   .replace('{CANDIDATE_SUBTITLE}', candidate.candidateSubtitle)
-                   .replace('{OVALS}', buildRcCandidateOvals(race, contestIndex, candidateIndex));
+      html += rcCandidateHtml.replace(/{CANDIDATE_NAME}/g, candidate.candidateName)
+                   .replace(/{CANDIDATE_NAME_ARIA}/g, candidateInfoString(contestIndex, candidateIndex))
+                   .replace(/{CANDIDATE_SUBTITLE}/g, candidate.candidateSubtitle)
+                   .replace(/{OVALS}/g, buildRcCandidateOvals(race, contestIndex, candidateIndex));
     }
   })
   return html;
@@ -273,15 +273,15 @@ function buildRcCandidateOvals(race, raceIndex, candidateIndex) {
   let html = '';
   if (race.candidates[candidateIndex].candidateCode.includes('writein')) {
     for (let rankIndex = 0; rankIndex < race.candidates.length; rankIndex++) {
-      html += ovalHtml.replace('{OVAL_ID}', `${raceIndex}_${candidateIndex}_${rankIndex}`)
-                      .replace('{OVAL_ARIA_LABEL}', `${choiceLabel(rankIndex+1)} choice Write-in`)
+      html += ovalHtml.replace(/{OVAL_ID}/g, `${raceIndex}_${candidateIndex}_${rankIndex}`)
+                      .replace(/{OVAL_ARIA_LABEL}/g, `${choiceLabel(rankIndex+1)} choice Write-in`)
     }
   }
   else {
     // no heading
     for (let rankIndex = 0; rankIndex < race.candidates.length; rankIndex++) {
-      html += ovalHtml.replace('{OVAL_ID}', `${raceIndex}_${candidateIndex}_${rankIndex}`)
-                      .replace('{OVAL_ARIA_LABEL}', `${choiceLabel(rankIndex+1)} choice ${candidateInfoString(raceIndex, candidateIndex)}`)
+      html += ovalHtml.replace(/{OVAL_ID}/g, `${raceIndex}_${candidateIndex}_${rankIndex}`)
+                      .replace(/{OVAL_ARIA_LABEL}/g, `${choiceLabel(rankIndex+1)} choice ${candidateInfoString(raceIndex, candidateIndex)}`)
     }
     // heading
     // for (let rankIndex = 0; rankIndex < race.candidates.length; rankIndex++) { 
