@@ -2,132 +2,7 @@ function questionHandler(event) {
     const ovalId = event.target.id
     const contestIndex = ovalId.split('_')[0]
     const candidateIndex = ovalId.split('_')[1]
-    const prevCheckedId = otherChecked(contestIndex, candidateIndex)
-    const voteMax = ballot.contests[contestIndex].voteFor; 
     uncheckOtherCandidates(contestIndex, candidateIndex);
-    if (prevCheckedId != '' && voteMax == 1) {
-        setTimeout(ariaAlert(`Since this is a Vote For 1 contest, your selection is now updated to ${getCandidateName(ovalId)}`), 10000)
-    }
-    reviewBtnHandler();
-}
-
-function regularHandler(event) {
-    const ovalId = event.target.id
-    const split = ovalId.split('_')
-    const contestIndex = split[0] 
-    const candidateIndex = split[1]
-    const voteMax = ballot.contests[contestIndex].voteFor
-    const isWritein = isWriteinCandidate(contestIndex, candidateIndex)
-    let howManySelected = 0
-    for (let x = 0; x < ballot.contests[contestIndex].candidates.length; x++) {
-        if (document.getElementById(contestIndex + "_" + x).checked == true && x != candidateIndex) {
-            howManySelected++
-        }
-    }
-    if (howManySelected >= voteMax) {
-        const prevCheckedId = otherChecked(contestIndex, candidateIndex)
-        if (voteMax === 1 && prevCheckedId != '') {
-            uncheckOtherCandidates(contestIndex, candidateIndex)
-            setTimeout(ariaAlert(`Since this is a Vote For 1 contest, your selection is now updated to ${getCandidateName(ovalId)}`), 10000)
-        } else {
-            // ariaAlert(`There is already a maximum of ${voteMax} selections for this contest. Please uncheck an existing selection if you want to select this candidate.`)
-            event.preventDefault()            
-            return
-        }
-    }
-    if (isWritein) {
-        const writeinBox = document.getElementById(ovalId + '_w');
-        if (writeinBox.textContent === '') {
-            const input = prompt('Please type the name of the write-in candidate you want to vote for:')
-            if (input === null || input.trim() === '') {
-                // Recheck the ones that were previously checked
-                event.preventDefault()
-                return
-            } else {
-                addRegWriteinAria(writeinBox, input, ovalId);
-            }
-        } else { // click is to deselect a writein oval so need to clear the writeinBox
-            clearRegWriteinAria(ovalId)
-            // live update for review section
-            reviewBtnHandler();
-            return
-        }
-    }
-    reviewBtnHandler();
-}
-
-
-function rankChoiceHandler(event) {
-    const ovalId = event.target.id
-    const split = ovalId.split('_')
-    const contestIndex = split[0];
-    const candidateIndex = split[1];
-    const rankIndex = split[2];
-    const isWritein = isWriteinCandidate(contestIndex, candidateIndex)
-    const otherRowSelections = otherSelectionsinRow(contestIndex, candidateIndex, rankIndex)
-    const otherColSelections = otherSelectionsinCol(contestIndex, candidateIndex, rankIndex)
-    const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
-    // *** Start logic for modal ***
-    // If there was previously a selection in the same row and column, then ask the user to confirm their choice by showing a modal. This will exit out of the current rankChoiceHandler
-    // if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
-    //     let savedWriteinName = '';
-    //     otherColSelections.forEach(oval => {
-    //         if (isIdRcWriteinCandidate(oval)) {
-    //             savedWriteinName = getCandidateName(oval)
-    //         }
-        
-    //     const selectedCandidateName = getCandidateName(ovalId)
-    //     let otherCandidateName = getCandidateName(otherColSelections[0])
-    //     if (savedWriteinName != '') {
-    //         otherCandidateName = savedWriteinName
-    //     }
-    //     document.getElementById("rcModalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
-    //     document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "Yes", savedWriteinName)})
-    //     document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "No", savedWriteinName)})        
-    //     event.preventDefault()
-    //     showModal('rcModal')
-    //     document.getElementById("yesButton").focus()
-    //     return;
-    //     })
-    //     return;    
-    // }
-    // *** End logic for modal ***
-
-    if (isWritein) {
-        const writeinBox = document.getElementById(contestIndex + '_' + candidateIndex + '_w')
-        if (writeinBox.textContent === '') {
-            const input = prompt('Please type the name of the write-in candidate you want to vote for:')
-            if (input === null || input.trim() === '') { // if invalid input
-                event.preventDefault()
-                return
-            } else { // valid input
-                addRcWriteInAria(writeinBox, input, contestIndex, candidateIndex);
-            }
-        } else { // there is already a writein name
-            let isWriteinDeselection = true 
-            for (let r in ballot.contests[contestIndex].candidates) {
-                if (r != rankIndex) {
-                    const id = contestIndex + '_' + candidateIndex + '_' + r
-                    if (document.getElementById(id).checked) {
-                        isWriteinDeselection = false
-                        break
-                    }                    
-                }
-            }
-            if (isWriteinDeselection) {
-                clearOutRcWriteinAria(contestIndex, candidateIndex)
-            }
-        }
-    }
-    if (otherRowSelections.length > 0) { 
-        document.getElementById(otherRowSelections[0]).checked = false
-        ariaAlert(`${getCandidateName(ovalId)} is now updated to ${ordinal} choice`)       
-    }
-    if (otherColSelections.length > 0) {
-        // will clear out write-in candidates and update all aria-labels
-        uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex)
-        ariaAlert(`${getCandidateName(ovalId)} is now updated to ${ordinal} choice`) 
-    }    
     reviewBtnHandler();
 }
 
@@ -176,6 +51,48 @@ function clearRegWriteinAria(id) {
     document.getElementById(id).ariaLabel = 'Write-in';
 }
 
+function regularHandler(event) {
+    const ovalId = event.target.id
+    const split = ovalId.split('_')
+    const contestIndex = split[0] 
+    const candidateIndex = split[1]
+    const voteMax = ballot.contests[contestIndex].voteFor
+    const isWritein = isWriteinCandidate(contestIndex, candidateIndex)
+    let howManySelected = 0
+    for (let x = 0; x < ballot.contests[contestIndex].candidates.length; x++) {
+        if (document.getElementById(contestIndex + "_" + x).checked == true && x != candidateIndex) {
+            howManySelected++
+        }
+    }
+    if (isWritein) {
+        const writeinBox = document.getElementById(ovalId + '_w');
+        if (writeinBox.textContent === '') {
+            const input = prompt('Please type the name of the write-in candidate you want to vote for:')
+            if (input === null || input.trim() === '') {
+                // Recheck the ones that were previously checked
+                event.preventDefault()
+                return
+            } else {
+                addRegWriteinAria(writeinBox, input, ovalId);
+            }
+        } else { // click is to deselect a writein oval so need to clear the writeinBox
+            clearRegWriteinAria(ovalId)
+            // live update for review section
+            reviewBtnHandler();
+            return
+        }
+    }
+    if (howManySelected >= voteMax) {
+        if (voteMax === 1) {
+            uncheckOtherCandidates(contestIndex, candidateIndex)
+        } else {
+            event.preventDefault()
+            return
+        }
+    }
+    reviewBtnHandler();
+}
+
 function addRegWriteinAria(writeinBox, input, ovalId) {
     writeinBox.textContent = input.toUpperCase();
     document.getElementById(`${ovalId}_wh`).ariaLabel = `Write-in: ${writeinBox.textContent}`;
@@ -192,6 +109,81 @@ function isIdRcWriteinCandidate(id) {
     const candidateIndex = split[1];
     return ballot.contests[contestIndex].candidates[candidateIndex].candidateCode.includes('writein');
 }
+
+function rankChoiceHandler(event) {
+    const ovalId = event.target.id
+    const split = ovalId.split('_')
+    const contestIndex = split[0];
+    const candidateIndex = split[1];
+    const rankIndex = split[2];
+    const isWritein = isWriteinCandidate(contestIndex, candidateIndex)
+    const otherRowSelections = otherSelectionsinRow(contestIndex, candidateIndex, rankIndex)
+    const otherColSelections = otherSelectionsinCol(contestIndex, candidateIndex, rankIndex)
+
+
+
+    // *** Start logic for modal ***
+    // If there was previously a selection in the same row and column, then ask the user to confirm their choice by showing a modal. This will exit out of the current rankChoiceHandler
+    if (otherRowSelections.length > 0 && otherColSelections.length > 0) {
+        let savedWriteinName = '';
+        otherColSelections.forEach(oval => {
+            if (isIdRcWriteinCandidate(oval)) {
+                savedWriteinName = getCandidateName(oval)
+            }
+        const ordinal = choiceLabel((parseInt(rankIndex)+ 1))
+        const selectedCandidateName = getCandidateName(ovalId)
+        let otherCandidateName = getCandidateName(otherColSelections[0])
+        if (savedWriteinName != '') {
+            otherCandidateName = savedWriteinName
+        }
+        document.getElementById("rcModalText").innerHTML = `You are trying to make a selection for ${ordinal} choice but ${otherCandidateName} is already selected. Would you like to change your ${ordinal} choice to: ${selectedCandidateName}?`
+        document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "Yes", savedWriteinName)})
+        document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "No", savedWriteinName)})        
+        event.preventDefault()
+        showModal('rcModal')
+        document.getElementById("yesButton").focus()
+        return;
+        })
+        return;    
+    }
+    // *** End logic for modal ***
+
+    if (isWritein) {
+        const writeinBox = document.getElementById(contestIndex + '_' + candidateIndex + '_w')
+        if (writeinBox.textContent === '') {
+            const input = prompt('Please type the name of the write-in candidate you want to vote for:')
+            if (input === null || input.trim() === '') { // if invalid input
+                event.preventDefault()
+                return
+            } else { // valid input
+                addRcWriteInAria(writeinBox, input, contestIndex, candidateIndex);
+            }
+        } else { // there is already a writein name
+            let isWriteinDeselection = true 
+            for (let r in ballot.contests[contestIndex].candidates) {
+                if (r != rankIndex) {
+                    const id = contestIndex + '_' + candidateIndex + '_' + r
+                    if (document.getElementById(id).checked) {
+                        isWriteinDeselection = false
+                        break
+                    }                    
+                }
+            }
+            if (isWriteinDeselection) {
+                clearOutRcWriteinAria(contestIndex, candidateIndex)
+            }
+        }
+    }
+    if (otherRowSelections.length > 0) { 
+        document.getElementById(otherRowSelections[0]).checked = false
+    }
+    if (otherColSelections.length > 0) {
+        // will clear out write-in candidates and update all aria-labels
+        uncheckOtherCandidatesRC(contestIndex, candidateIndex, rankIndex)
+    }    
+    reviewBtnHandler();
+}
+
 
 function otherSelectionsinRow(contestIndex, candidateIndex, rankIndex) {
     const rowSelections = [];
@@ -351,19 +343,4 @@ function getCandidateName(ovalId) {
         name = name.replace(/&quot;/g, '"')
     }
     return name
-}
-
-function ariaAlert(message) {
-    document.getElementById('ariaAlert').textContent = message;
-}
-
-function otherChecked(contestIndex, candidateIndex) {
-    const selected = parseInt(candidateIndex);
-    for (let index = 0; index < ballot.contests[contestIndex].candidates.length; index++) {
-        if (index !== selected) {
-            let id = `${contestIndex}_${index}`;
-            if (document.getElementById(id).checked) return id;
-        }
-    }
-    return '';
 }
