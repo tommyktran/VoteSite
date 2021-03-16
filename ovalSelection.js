@@ -140,7 +140,7 @@ function rankChoiceHandler(event) {
         document.getElementById("yesButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "Yes", savedWriteinName)})
         document.getElementById("noButton").addEventListener('click', () => {modalAnswer(ovalId, otherColSelections, otherRowSelections, "No", savedWriteinName)})        
         event.preventDefault()
-        showModal('rcModal')
+        showModal('rcModal', ovalId)
         document.getElementById("yesButton").focus()
         return;
         })
@@ -250,7 +250,7 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
     // live update for review section
     reviewBtnHandler();
 }
-function showModal(modalId) {
+function showModal(modalId, returnFocusEleId) {
     const modal = document.getElementById(modalId);
     modal.style = 'display:block;'
     document.getElementById("overlay").style = 'display:block;'
@@ -261,26 +261,31 @@ function showModal(modalId) {
     const focusableContent = modal.querySelectorAll(focusableElements);
     const lastFocusableElement = focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
 
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function modalKeyHandler(e) {
         let isTabPressed = e.key === 'Tab';
-        if (!isTabPressed) return;
+        let isEscPressed = e.key === 'Escape';
+        if (!isTabPressed && !isEscPressed) return;
         if (e.shiftKey && isTabPressed) { // if shift key pressed for shift + tab combination
             if (document.activeElement === firstFocusableElement) {
             lastFocusableElement.focus(); // add focus for the last focusable element
             e.preventDefault();
             }
         }
-        else if (isTabPressed) {
+        else if (isTabPressed && !isEscPressed) {
             if (document.activeElement === lastFocusableElement) { // if focused has reached to last focusable element then focus first focusable element after pressing tab
                 firstFocusableElement.focus(); // add focus for the first focusable element
                 e.preventDefault();
             }
+        }
+        else if (isEscPressed && !isTabPressed) {
+            hideModal(modalId, returnFocusEleId);
+            document.removeEventListener('keydown', modalKeyHandler);
         } 
     });
     firstFocusableElement.focus();    
 }
 
-function hideModal(modalId) {
+function hideModal(modalId, returnFocusEleId) {
     document.getElementById("overlay").style = 'display:none;'
     if (modalId == 'rcModal') {
         recreateNode(document.getElementById("yesButton"));
@@ -292,6 +297,7 @@ function hideModal(modalId) {
         document.getElementById("pwModal").style = 'display:none;'
         document.getElementById("overlay").style = 'display:none;'
     }
+    document.getElementById(returnFocusEleId).focus();
     return;
 }
 
