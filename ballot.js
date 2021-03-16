@@ -77,7 +77,7 @@ function initPage() {
         document.getElementById('thankyouForVoting').focus();
         document.getElementById('thankyouForVoting').scrollIntoView();      }
       else {
-        showModal('pwModal')
+        showModal('pwModal', 'doneButton_AffidavitPage')
       }
     });
 
