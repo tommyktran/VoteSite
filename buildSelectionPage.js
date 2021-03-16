@@ -62,12 +62,10 @@ const rcWriteinHtml = `
 //   </div>
 // `
 const ovalHtml = `
-  <div class="cell">
-    <label>
-        <input id="{OVAL_ID}" type="checkbox" class="rcOval" aria-label="{OVAL_ARIA_LABEL}">
-        <span class="rcCheckmark" aria-hidden="true"></span>
-    </label>
-  </div>
+  <label class="cell">
+      <input id="{OVAL_ID}" type="checkbox" class="rcOval" aria-label="{OVAL_ARIA_LABEL}">
+      <span class="rcCheckmark" aria-hidden="true"></span>
+  </label>
 `
 // no heading
 const candidateRegLine = `
