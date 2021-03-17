@@ -245,7 +245,7 @@ function modalAnswer(ovalId, candidateSelections, rankSelections, answer, savedW
         //     // document.getElementById(ovalId).setAttribute('aria-label', `Write-in Candidate: ${savedWriteinName}`)
         // }
     }   
-    hideModal('rcModal')
+    hideModal('rcModal', ovalId)
     document.getElementById(ovalId).focus()
     // live update for review section
     reviewBtnHandler();
