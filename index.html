@@ -26,111 +26,69 @@
 
 <body>
     <main>
+        <!-- Ballot Section  -->
         <div class="step">
-            <h1 id="step1" class="stepBanner" tabindex="0">
-                Step 1 of 3: Make Ballot Selections
-            </h1>
-            <!-- <div id="ariaAlert" class="sr-only" role="alert" aria-live="polite"></div> -->
+            <h1 id="step1" class="stepBanner" tabindex="0">Step 1 of 3: Make Ballot Selections</h1>                            
             <div id="selection">
-                <!-- style="background-color: #e6e9ed; padding: 10px;" -->
                 <div id="ballotTitle">
                     <h2 aria-label="State of Maine Office Ballot Democratic Primary Election, July 14, 2020 for Bradley">State of Maine Office Ballot<br>Democratic Primary Election, July 14, 2020<br>for<br>Bradley</h2>
-                    <!-- <h2>State of Maine Office Ballot<div>Primary Election, July 14, 2020</div><div>for</div><div>Bradley</div></h2> -->
-                </div>
-    
-                <div id="contests">
-                </div>
-                <!-- <button id="reviewButton">Review</button> -->
+                </div>    
+                <div id="contests"></div>
             </div>
-            <h2 id="ballotEnd" tabindex="0">
-                ----------- End of Ballot -----------
-            </h1>
-
-                         
+            <h2 id="ballotEnd" tabindex="0">----------- End of Ballot -----------</h2>                                                     
         </div>
-        <!-- <div id='qrpage' style="display: none;">
-            <div class='btn-wrapper'>
-                <button class="btn-inline" onclick="backToSelection()">&larr;&ensp;Back</button>
-            </div>
-            <h3>Please bring this QR code to the polling site to print your ballot</h3>
-            <div id="qrcode" style="width:200px; height:200px; margin:40px auto;"></div>
-        </div> -->
-    
+        <!-- Review Section  -->
         <div class="step">
-            <h1 id="step2" class="stepBanner" tabindex="0">
-                Step 2 of 3: Review Ballot Selections
-            </h1>
+            <h1 id="step2" class="stepBanner" tabindex="0">Step 2 of 3: Review Ballot Selections</h1>
             <div id="reviewPage">
-                <!-- <h1>Review</h1> -->
-                <p id="reviewPageInstructions">Listed below is a summary of your selections for each contest. If you need to change your selection, each contest is a link that will scroll you back to that part of the ballot where you change your selections. When you are done reviewing all selections, please continue to Step 3 where you will read and sign the Affirmation Page.</p>
-                
+                <p id="reviewPageInstructions">Listed below is a summary of your selections for each contest. If you need to change your selection, each contest is a link that will scroll you back to that part of the ballot where you change your selections. When you are done reviewing all selections, please continue to Step 3 where you will read and sign the Affirmation Page.</p>                
                 <div id="reviewBody"></div>
-                <div id="reviewFooter" class="buttonDiv">
-                    <!-- <button onclick="backToSelection()">Back to Selection Page</button> -->
-                    <!-- <button onclick="goToAffirmation()">Go to Affirmation Page</button> -->
-                    <!-- <button onclick="createBallotPdf(ballot)">Create PDF</button>  -->
-                </div>
             </div>
-    
-            <h2 id="reviewEnd" tabindex="0">
-                ----------- End of Review -----------
-            </h1>
+            <h2 id="reviewEnd" tabindex="0">----------- End of Review -----------</h2>                
         </div>
-    
+        <!-- Affirmation Section  -->
         <div class="step">
-            <h1 id="step3" class="stepBanner" tabindex="0">
-                Step 3 of 3: Sign Maine Accessible Absentee Ballot Affirmation
-            </h1>
+            <h1 id="step3" class="stepBanner" tabindex="0">Step 3 of 3: Sign Maine Accessible Absentee Ballot Affirmation</h1>                            
             <div id="affidavitPage">
-                <!-- <h1 id="title_AffidavitPAge">Maine Accessible Absentee Ballot Affirmation</h1> -->
-                <p>Warning: Knowingly providing falsified information on this affidavit is illegal under State and federal
-            law and could result in criminal sanctions.</p>
-            
+                <p>Warning: Knowingly providing falsified information on this affidavit is illegal under State and federal law and could result in criminal sanctions.</p>            
                 <div class="affidavitTopBox">
-                <p>I am a U.S. citizen residing inside the United States who is blind or otherwise disabled.</p>
-                </div>
-            
+                    <p>I am a U.S. citizen residing inside the United States who is blind or otherwise disabled.</p>
+                </div>            
                 <div class="affidavitTopBox">
-                <p>My name and Maine voting residence (city or town):</p>
-                <p>Voter’s name: Mary Smith</p>
-                <p>City or Town: Lewiston</p>
-                </div>
-            
+                    <p>My name and Maine voting residence (city or town):</p>
+                    <p>Voter’s name: Mary Smith</p>
+                    <p>City or Town: Lewiston</p>
+                </div>            
                 <p>Affirmation – I swear or affirm, under penalty of perjury, that:</p>
                 <ol>
-                <li><p>I am blind or otherwise disabled, and my disability prevents or substantially limits me from being able to privately and independently complete a paper absentee ballot. I require use of an accessible electronic absentee ballot in order to vote privately and independently without visiting a clerk’s office or voting place and using a ballot marking device; and</p></li>
-                <li><p> I am a U.S. citizen, at least 18 years of age (or will be by the day of the election), eligible to vote in the requested jurisdiction; and</p></li>
-                <li><p> I am not registering, requesting a ballot, or voting in any other jurisdiction in the U.S.; and</p></li>
-                <li><p> I am completing and returning only one authorized absentee ballot; and</p></li>
-                <li><p>I have not made additional copies of the absentee ballot or provided them to other voters; and</p></li>
-                <li><p>My signature and date below indicate when I completed this document; and</p></li>
-                <li><p>The information on this form is true and complete to the best of my knowledge. I understand that a material misstatement of fact in completion of this document may constitute grounds for conviction of perjury; and</p></li>
-                <li><p> I understand that, with any absentee ballot, my name and signature will be permanently separated from my voted ballot to maintain its secrecy at the outset of the tabulation process and thereafter.</p></li>
-                </ol>
-            
+                    <li><p>I am blind or otherwise disabled, and my disability prevents or substantially limits me from being able to privately and independently complete a paper absentee ballot. I require use of an accessible electronic absentee ballot in order to vote privately and independently without visiting a clerk’s office or voting place and using a ballot marking device; and</p></li>
+                    <li><p> I am a U.S. citizen, at least 18 years of age (or will be by the day of the election), eligible to vote in the requested jurisdiction; and</p></li>
+                    <li><p> I am not registering, requesting a ballot, or voting in any other jurisdiction in the U.S.; and</p></li>
+                    <li><p> I am completing and returning only one authorized absentee ballot; and</p></li>
+                    <li><p>I have not made additional copies of the absentee ballot or provided them to other voters; and</p></li>
+                    <li><p>My signature and date below indicate when I completed this document; and</p></li>
+                    <li><p>The information on this form is true and complete to the best of my knowledge. I understand that a material misstatement of fact in completion of this document may constitute grounds for conviction of perjury; and</p></li>
+                    <li><p> I understand that, with any absentee ballot, my name and signature will be permanently separated from my voted ballot to maintain its secrecy at the outset of the tabulation process and thereafter.</p></li>
+                </ol>            
                 <div class="affidavitBottomBox">
-                <p> If you are marking the ballot on your computer with Adobe Reader, please enter your password in the 'Signed by' field below, click the 'Done' button, save the document to your computer, then email it as an attachment to <strong>UOCAVA.CEC@maine.gov</strong>.                                 
-                </p>
-                <p>Note: password for testing is "<strong>vote123</strong>"</p>
-                </div>
-            
+                    <p> If you are marking the ballot on your computer with Adobe Reader, please enter your password in the 'Signed by' field below, click the 'Done' button, save the document to your computer, then email it as an attachment to <strong>UOCAVA.CEC@maine.gov</strong>.</p>                    
+                    <p>Note: password for testing is "<strong>vote123</strong>"</p>
+                </div>            
                 <div id="inputsWrap_AffidavitPage">
                     <label>Signed by:
-                    <input type="password" id="signedby">
+                        <input type="password" id="signedby">
                     </label>
-                    <label for="date">Date:
-                    <input type="text" id="date" name="date">
+                    <label>Date:
+                        <input type="text" id="date" name="date">
                     </label>
-                </div>
-                
+                </div>                
                 <div id="buttonWrap_AffidavitPage">
-                    <!-- <a href="index.html" id="backButton_AffidavitPage" class="btn">Back</a> -->
                     <button id="doneButton_AffidavitPage">Done</button>
-                    <!-- <button onclick="submit()">Done</button>   -->
                 </div>                
             </div>
         </div>
 
+        <!-- Start Modals -->
         <div id="overlay"></div>
         <div id="rcModal" class="modal" role="alertdialog" aria-labelledby="rcModalTitle" aria-describedby="rcModalText">
             <h2 id="rcModalTitle">Confirm Selection</h2>
@@ -147,56 +105,6 @@
                 <button id="pwOkButton" class="button" onclick="hideModal('pwModal', 'doneButton_AffidavitPage')">OK</a>
                 </div>
         </div>
+        <!-- End Modals -->
     </main>
-
-    <script type="text/javascript">
-        // var qrcode = new QRCode(document.getElementById("qrcode"), {
-        //     width: 200,
-        //     height: 200
-        // });
-
-        function doneAndCreateQRCode() {
-            qrcode.makeCode(encodeVotes())
-            document.getElementById('selection').style.display = 'none';
-            document.getElementById('qrpage').style.display = 'block';
-        }
-
-        function encodeVotes() {
-            let votes = ''
-            let writeIns = ''
-            syncSelectedVotesToBallotData()
-            ballot.contests.forEach((contest, contestIndex) => {
-                contest.candidates.forEach((candidate, candidateIndex) => {
-                    votes += candidate.selected.toString()
-                    if (candidate.selected && candidate.candidateCode.includes('writein')) {
-                        writeIns += '|' + candidate.candidateName
-                    }
-                })
-            })
-            return votes + writeIns;
-        }
-
-        function backToSelection() {
-            document.getElementById('selection').style.display = 'block';
-            document.getElementById('reviewPage').style.display = 'none';
-            document.getElementById('affidavitPage').style.display = 'none';
-
-        }
-
-        function backToReview() {
-            document.getElementById('selection').style.display = 'none';
-            document.getElementById('reviewPage').style.display = 'block';
-            document.getElementById('affidavitPage').style.display = 'none';
-        }
-
-
-
-        function goToAffirmation() {
-            document.getElementById('selection').style.display = 'none';
-            document.getElementById('reviewPage').style.display = 'none';
-            document.getElementById('affidavitPage').style.display = 'block';
-            document.getElementById('affidavitPage').scrollIntoView();
-        }
-    </script>
-
 </body>
