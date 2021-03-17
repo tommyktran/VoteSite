@@ -199,7 +199,7 @@ table, .regCandidates {
 .candidateName {
     text-align: left;
     font-size: 20px;
-    display: inline;
+    /* display: inline; */
 }
 
 .candidateSubtitle {
