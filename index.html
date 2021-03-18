@@ -32,8 +32,20 @@
             <div id="selection">
                 <div id="ballotTitle">
                     <h2 aria-label="State of Maine Office Ballot Democratic Primary Election, July 14, 2020 for Bradley">State of Maine Office Ballot<br>Democratic Primary Election, July 14, 2020<br>for<br>Bradley</h2>
-                </div>    
+                </div>
+                <!-- Contest Selections -->
                 <div id="contests"></div>
+                <!-- Overlay for Modal  -->
+                <div id="overlay"></div>
+                <!-- Modal for Rank Choice Confirmation  -->
+                <div id="rcModal" class="modal" role="alertdialog" aria-labelledby="rcModalTitle" aria-describedby="rcModalText">
+                    <h2 id="rcModalTitle">Confirm Selection</h2>
+                    <p id="rcModalText">Modal text here</p>
+                    <div class="modalButtonDiv">
+                        <button class="button" onclick="return false;" id="yesButton">Yes</a>
+                        <button class="button" onclick="return false;" id="noButton">No</a>
+                    </div>
+                </div>
             </div>
             <h2 id="ballotEnd" tabindex="0">----------- End of Ballot -----------</h2>                                                     
         </div>
@@ -84,27 +96,16 @@
                 </div>                
                 <div id="buttonWrap_AffidavitPage">
                     <button id="doneButton_AffidavitPage">Done</button>
+                    <!-- Incorrect Password Modal -->
+                    <div id="pwModal" class="modal" role="alertdialog" aria-labelledby="pwModalTitle" aria-describedby="pwModalText">
+                        <h2 id="pwModalTitle">Invalid Password</h2>
+                        <p id="pwModalText">Please enter the correct password.</p>
+                        <div class="modalButtonDiv">
+                            <button id="pwOkButton" class="button" onclick="hideModal('pwModal', 'doneButton_AffidavitPage')">OK</a>
+                        </div>
+                    </div>
                 </div>                
             </div>
-        </div>
-
-        <!-- Start Modals -->
-        <div id="overlay"></div>
-        <div id="rcModal" class="modal" role="alertdialog" aria-labelledby="rcModalTitle" aria-describedby="rcModalText">
-            <h2 id="rcModalTitle">Confirm Selection</h2>
-            <p id="rcModalText">Modal text here</p>
-            <div class="modalButtonDiv">
-                <button class="button" onclick="return false;" id="yesButton">Yes</a>
-                <button class="button" onclick="return false;" id="noButton">No</a>
-            </div>
-        </div>
-        <div id="pwModal" class="modal" role="alertdialog" aria-labelledby="pwModalTitle" aria-describedby="pwModalText">
-            <h2 id="pwModalTitle">Invalid Password</h2>
-            <p id="pwModalText">Please enter the correct password.</p>
-            <div class="modalButtonDiv">
-                <button id="pwOkButton" class="button" onclick="hideModal('pwModal', 'doneButton_AffidavitPage')">OK</a>
-                </div>
-        </div>
-        <!-- End Modals -->
+        </div>    
     </main>
 </body>
