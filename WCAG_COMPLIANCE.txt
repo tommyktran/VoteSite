@@ -1,0 +1,186 @@
+Reference Source: https://www.w3.org/WAI/WCAG21/quickref/
+
+Principle 1 - Perceivable
+
+	Guideline 1.1 : Provide text alternatives for all non-text content
+		1.1.1 Non-text Content Level A
+			- DNA, page does not use non-text content 
+
+ 	Guideline 1.2 : Provide synchronized alternatives for multimedia
+		-DNA, page does not use multimedia
+			
+
+ 	Guideline 1.3 : Ensure that information and structure can be separated from presentation
+		1.3.1 Info and Relationships Level A
+			-Uses Technique G115: Using semantic elements to mark up structure AND H49: Using semantic markup to mark emphasized or special text
+			-H1 for Major Sections / Steps of the page
+			-H2 for each contest
+			-H3 for each candidate
+		1.3.2 Meaningful Sequence Level A
+			-Uses Technique G57: Ordering the content in a meaningful sequence
+			-Each Section of the page is organized into 1 of three steps: Selection, Review, and Affirmation
+			-Each contest has candidates
+			-Each candidate has 1 or more ovals
+		1.3.3 Sensory Characteristics Level A
+			-Uses Technique G96: Providing textual identification of items that otherwise rely only on sensory information to be understood
+			-When reviewing selections, contests that have no selections will be in indicated with both red font color and the words "No Selection"		
+
+ 	Guideline 1.4 : Make it easy to distinguish foreground information from its background
+		1.4.1 Use of Color Level A
+			-Uses Technique G14: Ensuring that information conveyed by color differences is also available in text
+			-When reviewing selections, contests that have no selections will be in indicated with both red font color and the words "No Selection"
+		1.4.2 Audio Control Level A
+			-DNA, page does not use audio
+		1.4.3 Contrast (Minimum) Level AA
+			-Uses Technique TG18: Ensuring that a contrast ratio of at least 4.5:1 exists between text (and images of text) and background behind the text
+			-Uses Technique G145: Ensuring that a contrast ratio of at least 3:1 exists between text (and images of text) and background behind the text
+		1.4.4 Resize text Level AA
+			-Uses Technique G179: Ensuring that there is no loss of content or functionality when the text resizes and text containers do not change their width
+		1.4.5 Images of Text Level AA
+			-DNA, page does not use images
+		
+			
+Principle 2 – Operable
+
+ 	Guideline 2.1 : Make all functionality operable via a keyboard interface
+		2.1.1 Keyboard Level A
+			-Uses Technique G202: Ensuring keyboard control for all functionality
+				-TAB, SHIFT+TAB, ENTER, SPACEBAR, and ARROW KEYS
+				-H1, H2, H3 Navigation
+			-Uses Technique G90: Providing keyboard-triggered event handlers
+				-allow ESC KEY to close a dialog box (for Rank Choice confirmation and Incorrect Password Alert)	
+		2.1.2 No Keyboard Trap Level A
+			-Uses Technique G21: Ensuring that users are not trapped in content
+				-allow ESC KEY to close a dialog box (for Rank Choice confirmation and Incorrect Password Alert)	
+
+ 	Guideline 2.2 : Allow users to control time limits on their reading or interaction
+		2.2.1 Timing Adjustable Level A
+			-DNA, page does not use time limits
+		2.2.2 Pause, Stop, Hide Level A
+			-DNA, page does not use time limits
+		2.2.3 No Timing Level AAA
+			-Uses Technique G5: Allowing users to complete an activity without any time limit
+	
+ 	Guideline 2.3 : Allow users to avoid content that could cause seizures due to photosensitivity
+		2.3.1 Three Flashes or Below Threshold Level A
+      -Uses Technique G19: Ensuring that no component of the content flashes more than three times in any 1-second period
+    2.3.2 Three Flashes Level AAA
+      -Uses Technique G19: Ensuring that no component of the content flashes more than three times in any 1-second period
+
+ 	Guideline 2.4 : Provide mechanisms to help users find content, orient themselves within it, and navigate through it
+    2.4.1 Bypass Blocks Level A
+      -Uses Technique H69: Providing heading elements at the beginning of each section of content
+        -H1 to navigate to each Major Sections / Steps of the page
+			  -H2 to navigate to each contests
+			  -H3 to navigate to each candidate
+    2.4.2 Page Titled Level A
+      -Uses Technique G88: Providing descriptive titles for Web pages
+        -Page's Title is located within the HTML Title element
+    2.4.3 Focus Order Level A
+      -Uses Technique G59: Placing the interactive elements in an order that follows sequences and relationships within the content
+        -Tab order of contest names, candidate ovals, review contests buttons, and Affirmation form elements follow logical order
+    2.4.4 Link Purpose (In Context) Level A
+      -DNA, page does not use link elements
+    2.4.5 Multiple Ways Level AA
+      -DNA, there is only one single webpage
+    2.4.6 Headings and Labels Level AA
+      -Uses Technique G130: Providing descriptive headings
+        -Headings are used to indicate Section, Contest, or Candidate
+      -Uses Technique G131: Providing descriptive labels
+        -Each candidate oval has an accompanying descriptive label
+    2.4.7 Focus Visible Level AA
+      -Uses Technique G149: Using user interface components that are highlighted by the user agent when they receive focus
+      -Uses Technique C15: Using CSS to change the presentation of a user interface component when it receives focus
+    2.4.10 Section Headings Level AAA
+      -Uses Technique G141: Organizing a page using headings
+      -Uses Technique H69: Providing heading elements at the beginning of each section of content
+
+Principle 3 – Understandable
+
+ 	Guideline 3.1 : Make text content readable and understandable.
+    3.1.1 Language of Page Level A
+      -Uses Technique H57: Using language attributes on the html element
+    3.1.2 Language of Parts Level AA
+      -DNA, page has no change of language
+
+ 	Guideline 3.2 : Make the placement and functionality of content predictable.
+    
+    3.2.1 On Focus Level A
+      -No change of context occurs when an element on the page receives focus
+    
+    ***3.2.2 On Input Level A
+      -Uses Technique G13: Describing what will happen before a change to a form control that causes a change of context to occur is made
+      ***Clicking Done button with correct password will take the user to a blank Thank You screen
+    
+    3.2.3 Consistent Navigation Level AA
+      -DNA. No navigation mechanisms are repeated on multiple webpages since there is only one webpage.
+
+    3.2.4 Consistent Identification Level AA
+      - G197: Using labels, names, and text alternatives consistently for content that has the same functionality
+        -Naming schema for labels are consistent throughout the webpage
+    
+  **Guideline 3.3 : Input Assistance
+    **3.3.1 Error Identification Level A
+		**Need to build acessible date-picker
+		**Password error
+		**Rank choice error
+		**G199: Providing success feedback when data is submitted successfully
+		https://www.w3.org/WAI/WCAG21/quickref/?showtechniques=131%2C134%2C223%2C231%2C232%2C242%2C246%2C311%2C321%2C331#input-assistance
+		
+	**3.3.2 Labels or Instructions Level A
+    -Uses Technique G184: Providing text instructions at the beginning of a form or set of fields that describes the necessary input
+      -Instructions for filling out the Affidavit inputs are provided on the page. 
+    -Uses Technique H44: Using label elements to associate text labels with form controls
+      -Labels are provided for checkbox, text-inputs, and buttons.
+    **Tell users what the acceptable characters are for the writein
+  
+  **3.3.3 Error Suggestion Level AA
+    **ARIA18: Using aria-alertdialog to Identify Errors
+    **insert alertdialog via script
+    https://www.w3.org/WAI/WCAG21/quickref/?showtechniques=131%2C134%2C223%2C231%2C232%2C242%2C246%2C311%2C321%2C333#input-assistance
+
+  3.3.4 Error Prevention (Legal, Financial, Data) Level AA
+    -Uses Technique G98: Providing the ability for the user to review and correct answers before submitting
+      -This webpage allows users to review their selections before finishing.
+
+  **3.3.5 Help Level AAA
+    -Uses Technique G184: Providing text instructions at the beginning of a form or set of fields that describes the necessary input
+      -Instructions for filling out the Affidavit inputs are provided on the page. 
+      **Tell users what the acceptable characters are for the writein
+
+  **3.3.6 Error Prevention (All) Level AAA
+    For Web pages that require the user to submit information, at least one of the following is true: 
+      Reversible: Submissions are reversible.
+      Checked: Data entered by the user is checked for input errors and the user is provided an opportunity to correct them.
+      Confirmed: A mechanism is available for reviewing, confirming, and correcting information before finalizing the submission.
+
+Principle 4 – Robust
+ 	Guideline 4.1 : Support compatibility with current and future user agents (including assistive technologies)
+    4.1.1 Parsing Level A
+      -Uses Technique H74: Ensuring that opening and closing tags are used according to specification 
+      -Uses Technique H93: Ensuring that id attributes are unique on a Web page 
+      -Uses Technique H94: Ensuring that elements do not contain duplicate attributes 
+
+    4.1.2 Name, Role, Value Level A
+      -Uses Technique ARIA14: Using aria-label to provide an invisible label where a visible label cannot be used
+        -Candidate ovals contain aria-labels to provide full information about the candidate
+      -Uses Technique ARIA4: Using a WAI-ARIA role to expose the role of a user interface component
+        -Modals have contain role attributes for user agents to access.
+      -Uses Technique ARIA16: Using aria-labelledby to provide a name for user interface controls
+        -Elements within modals uses labelledby attributes for user agents to access.
+
+ 	**??Guideline 4.2 : Ensure that content is accessible or provide an accessible alternative
+    4.2.1 At least one version of the content meets all level 1 success criteria, but alternate version(s) that do not meet all level 1 success criteria may be available from the same URI. [How to meet 4.2.1]
+
+    4.2.2 Content meets the following criteria even if the content uses a technology that is not in the chosen baseline: [How to meet 4.2.2]
+
+    If content can be entered using the keyboard, then the content can be exited using the keyboard.
+
+    Content conforms to success criterion 2.3.1 (general and red flash).
+
+    Level 2 Success Criteria for Guideline 4.2
+    4.2.3 At least one version of the content meets all level 2 success criteria, but alternate version(s) that do not meet all level 2 success criteria may be available from the same URI. [How to meet 4.2.3]
+
+    Level 3 Success Criteria for Guideline 4.2
+    4.2.4 Content implemented using technologies outside of the chosen baseline satisfies all Level 1 and Level 2 requirements supported by the technologies. [How to meet 4.2.4]
+
