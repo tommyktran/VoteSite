@@ -1,11 +1,18 @@
 TODO:
-- fix incorrect password to make it accesible to screen readers (NVDA)
+- Prompt the user of context change after successful Done button clicking
+- Build an accesible date-picker
+- Tell users what the acceptable writein characters are
+- Create and insert dialog via script rather than css
 
--Use axe chrome extension 
--only one H1 tag per page, so convert h1 -> h2, etc.
--Style onepage site with 3 step instructions
--Move codebase to kevin's github
 
+
+
+FAQ: 
+  Why not use <table> element? 
+    -Since the reading order makes sense, no formal table structure is needed. Header information is not needed to understand the data, the aria-labels provide the needed context information needed for each oval.
+    A table-like layout was used just for presentation purposes only. 
+      Note: If content can be understood in reading order (or when the content is linearized), this test DOES NOT APPLY (DNA).
+      https://training.section508testing.net/mod/book/view.php?id=1262&chapterid=3039
 
 CONSIDERATIONS:
 -adding an alert box when voteMax has been reached 
